@@ -1,12 +1,13 @@
 package com.mason.mapgen.components;
 
-import com.mason.libgui.utils.noise.MidpointDisplacementNoise;
-import com.mason.libgui.utils.noise.PerlinNoise;
+
+import com.mason.mapgen.procgen.noise.MidpointDisplacementNoise;
+import com.mason.mapgen.procgen.noise.PerlinNoise;
 
 public class WorldTexture{
 
 
-    private final double[][] stoneTextureMap;
+    /*private final double[][] stoneTextureMap;
     private final double[][] moistureTextureMap;
 
 
@@ -26,6 +27,6 @@ public class WorldTexture{
 
     public double[][] getStoneTextureMap(){
         return stoneTextureMap;
-    }
+    }*/
 
 }

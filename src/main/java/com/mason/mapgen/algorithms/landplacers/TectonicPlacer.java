@@ -1,20 +1,9 @@
 package com.mason.mapgen.algorithms.landplacers;
 
-import com.mason.mapgen.components.Graph.Edge;
-import com.mason.mapgen.components.Graph.Vertex;
-import com.mason.mapgen.components.Point;
-import com.mason.mapgen.components.WorldMap;
-import com.mason.mapgen.core.WorldManager;
-
-import java.util.HashMap;
-import java.util.LinkedList;
-
-import static com.mason.libgui.utils.Utils.R;
-
 public class TectonicPlacer extends AbstractLandPlacer{
 
 
-    private final HashMap<Vertex, Vertex> plateMap = new HashMap<>();
+    /*private final HashMap<Vertex, Vertex> plateMap = new HashMap<>();
     private final AbstractLandPlacer subPlacer;
     private final int numPlates;
 
@@ -89,6 +78,6 @@ public class TectonicPlacer extends AbstractLandPlacer{
 
     private Vertex getPlate(Vertex v){
         return plateMap.get(v);
-    }
+    }*/
 
 }

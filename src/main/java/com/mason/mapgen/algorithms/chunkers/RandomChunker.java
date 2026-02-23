@@ -1,14 +1,10 @@
 package com.mason.mapgen.algorithms.chunkers;
 
-import com.mason.mapgen.components.Point;
-import com.mason.mapgen.components.WorldMap;
 
-import static com.mason.libgui.utils.Utils.R;
-
-public class RandomChunker extends AbstractChunker{
+public class RandomChunker /*extends AbstractChunker*/{
 
 
-    public RandomChunker(int numCentroids, int lloydRelaxCount, WorldMap map){
+    /*public RandomChunker(int numCentroids, int lloydRelaxCount, WorldMap map){
         super(numCentroids, lloydRelaxCount, map);
     }
 
@@ -25,6 +21,6 @@ public class RandomChunker extends AbstractChunker{
             if(p.hasCentroid() && p.getCentroid().equals(centroid)) adjacents++;
         }
         return adjacents>=3;
-    }
+    }*/
 
 }

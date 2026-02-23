@@ -8,10 +8,10 @@ import java.awt.*;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
-public class HeightNoiseColorer implements AbstractColorer{
+public class HeightNoiseColorer /*implements AbstractColorer*/{
 
 
-    private final double[][] heights;
+    /*private final double[][] heights;
 
 
     public HeightNoiseColorer(double[][] map){
@@ -32,6 +32,6 @@ public class HeightNoiseColorer implements AbstractColorer{
     private Color getColor(double h){
         int v = max(min((int)(150D*(0.5D+h)), 255), 0);
         return new Color(v, v, v);
-    }
+    }*/
 
 }

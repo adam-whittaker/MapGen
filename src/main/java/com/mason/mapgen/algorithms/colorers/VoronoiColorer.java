@@ -7,10 +7,10 @@ import java.awt.*;
 import java.util.List;
 
 
-public class VoronoiColorer implements AbstractColorer{
+public class VoronoiColorer /*implements AbstractColorer*/{
 
 
-    @Override
+    /*@Override
     public void color(World world){
         List<Point> centroids = world.getCentroids();
         int numCentroids = centroids.size();
@@ -26,6 +26,6 @@ public class VoronoiColorer implements AbstractColorer{
         for(Point centroid : centroids){
             centroid.setColor(Color.RED);
         }
-    }
+    }*/
 
 }

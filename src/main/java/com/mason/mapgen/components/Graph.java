@@ -1,17 +1,10 @@
 package com.mason.mapgen.components;
 
-import com.mason.libgui.core.UIComponent;
 
-import java.awt.*;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-
-public class Graph extends UIComponent{
+public class Graph /*extends UIComponent*/{
 
 
-    private final LinkedList<Vertex> vertices = new LinkedList<>();
+    /*private final LinkedList<Vertex> vertices = new LinkedList<>();
     private final HashMap<Point, Vertex> vertexMap = new HashMap<>();
 
 
@@ -143,6 +136,6 @@ public class Graph extends UIComponent{
     @Override
     public void tick(int mx, int my){
         //empty
-    }
+    }*/
 
 }

@@ -1,19 +1,10 @@
 package com.mason.mapgen.algorithms.colorers;
 
-import com.mason.libgui.utils.Distribution;
-import com.mason.mapgen.components.Graph;
-import com.mason.mapgen.components.Point;
-import com.mason.mapgen.components.World;
 
-import java.awt.*;
-
-import static com.mason.libgui.utils.ImageUtils.getColorAverage;
-import static java.lang.Math.*;
-
-public class BiomeColorer implements AbstractColorer{
+public class BiomeColorer /*implements AbstractColorer*/{
 
 
-    private final int blurNum;
+    /*private final int blurNum;
     private final double sharpness;
 
 
@@ -52,6 +43,7 @@ public class BiomeColorer implements AbstractColorer{
     private Point getAdjacentSeed(Graph graph, Point point){
         /*Point adjCentroid = graph.toVertex(point.getSeed()).edges().stream().map(e -> e.b().point)
                 .min((p1, p2) -> compareBiomeDist(point, p1, p2)).orElseThrow();*/
+    /*
         return new Distribution<>(graph.toVertex(point.getCentroid()).edges(),
                 edge -> exp(-edge.b().point.squareDist(point)/100D)+0.0005).get().b().point;
     }
@@ -86,7 +78,9 @@ public class BiomeColorer implements AbstractColorer{
         double r=0, g=0, b=0;
         double calc;
         for(int x=-2;x<=2;x++){
-            for(int y=-2;y<=2;y++) if(world.pointWithinBounds(xp+x, yp+y) /*&& map[yp+y][xp+x].isLand()*/){
+            for(int y=-2;y<=2;y++) if(world.pointWithinBounds(xp+x, yp+y) /*&& map[yp+y][xp+x].isLand()*/
+    /*){
+
                 calc = getGaussianWeight(abs(x), abs(y), sharpness);
                 r += map[yp+y][xp+x].getColor().getRed()*calc;
                 g += map[yp+y][xp+x].getColor().getGreen()*calc;
@@ -98,6 +92,6 @@ public class BiomeColorer implements AbstractColorer{
 
     private double getGaussianWeight(int x, int y, double coef){
         return (2D-coef*max(x, y))/(50D-40D*coef);
-    }
+    }*/
 
 }

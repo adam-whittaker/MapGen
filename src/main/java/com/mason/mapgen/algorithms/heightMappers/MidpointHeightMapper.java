@@ -1,16 +1,10 @@
 package com.mason.mapgen.algorithms.heightMappers;
 
-import com.mason.mapgen.components.Point;
-import com.mason.mapgen.components.World;
 
-import java.util.LinkedList;
-
-import static com.mason.libgui.utils.Utils.R;
-
-public class MidpointHeightMapper implements AbstractHeightMapper{
+public class MidpointHeightMapper /*implements AbstractHeightMapper*/{
 
 
-    @Override
+    /*@Override
     public double[][] mapHeight(World world){
         Point[][] map = world.getMap();
         double[][] heights = new double[map.length][map[0].length];
@@ -76,5 +70,5 @@ public class MidpointHeightMapper implements AbstractHeightMapper{
     private boolean canTakeOver(int x, int y, Direction d, double[][] heights, Point[][] map){
         return !map[y+d.y][x+d.x].isTraversed();
     }
-
+*/
 }

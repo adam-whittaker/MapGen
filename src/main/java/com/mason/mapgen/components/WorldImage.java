@@ -7,7 +7,7 @@ import java.awt.image.WritableRaster;
 public class WorldImage{
 
 
-    private final BufferedImage image;
+    /*private final BufferedImage image;
 
 
     public WorldImage(int width, int height){
@@ -33,6 +33,6 @@ public class WorldImage{
 
     public void drawImage(Graphics2D g, int x, int y){
         g.drawImage(image, null, x, y);
-    }
+    }*/
 
 }

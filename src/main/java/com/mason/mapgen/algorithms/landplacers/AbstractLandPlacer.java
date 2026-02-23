@@ -1,16 +1,9 @@
 package com.mason.mapgen.algorithms.landplacers;
 
-import com.mason.mapgen.components.*;
-import com.mason.mapgen.core.WorldManager;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public abstract class AbstractLandPlacer{
 
 
-    protected final WorldMap map;
+    /*protected final WorldMap map;
     private final double moistureDecay;
     private final double lakeMoistureCutoff;
 
@@ -105,6 +98,6 @@ public abstract class AbstractLandPlacer{
         return frontier;
     }
 
-    protected abstract double[][] getPreliminaryHeightMap();
+    protected abstract double[][] getPreliminaryHeightMap();*/
 
 }

@@ -1,21 +1,16 @@
-package com.mason.mapgen.core;
+package com.mason.mapgen.core.old;
 
-import com.mason.libgui.components.misc.LoadingMessage;
-import com.mason.libgui.components.panes.PannablePane;
-import com.mason.libgui.core.GUIManager;
-import com.mason.libgui.utils.SpeedLogger;
-import com.mason.libgui.utils.StyleInfo;
-import com.mason.libgui.utils.UIAligner;
+
 import com.mason.mapgen.components.Graph;
 import com.mason.mapgen.components.Point;
 import com.mason.mapgen.components.World;
 
 import java.awt.*;
 
-public class WorldManager extends GUIManager{
+public class WorldManager /*extends GUIManager*/{
 
 
-    private final PannablePane viewPane;
+    /*private final PannablePane viewPane;
     private final World world;
     private final LoadingMessage loadingMessage;
     private final SpeedLogger speedLogger;
@@ -40,15 +35,15 @@ public class WorldManager extends GUIManager{
         return world;
     }
 
-    public Graph getGraph(){
+    /*public Graph getGraph(){
         return world.getGraph();
     }
 
     public void recalcWorldImage(){
         world.generateImage();
-    }
+    }*/
 
-    public void showWorld(){
+    /*public void showWorld(){
         removeComponent(loadingMessage);
         viewPane.addToBackground(world);
     }
@@ -59,6 +54,6 @@ public class WorldManager extends GUIManager{
 
     public SpeedLogger getSpeedLogger(){
         return speedLogger;
-    }
+    }*/
 
 }

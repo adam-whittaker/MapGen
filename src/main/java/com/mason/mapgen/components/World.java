@@ -1,19 +1,11 @@
 package com.mason.mapgen.components;
 
-import com.mason.libgui.core.UIComponent;
-import com.mason.libgui.utils.noise.MidpointDisplacementNoise;
-import com.mason.libgui.utils.noise.PerlinNoise;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.WritableRaster;
-import java.util.List;
 
 
-public class World extends UIComponent{
+public class World /*extends UIComponent*/{
 
 
-    private final int worldWidth, worldHeight;
+    /*private final int worldWidth, worldHeight;
 
     private final WorldMap worldMap;
     private final WorldImage worldImage;
@@ -38,16 +30,16 @@ public class World extends UIComponent{
     @Override
     public void tick(int mx, int my){
         //empty
-    }
+    }*/
 
 
     /*public double[][] getHeightMap(){
         return heightMap;
     }*/
 
-    public double[][] getMoistureTextureMap(){
+    /*public double[][] getMoistureTextureMap(){
         return moistureTextureMap;
-    }
+    }*/
 
     /*public void setHeightMap(double[][] map){
         heightMap = map;
@@ -77,8 +69,8 @@ public class World extends UIComponent{
         }
     }*/
 
-    public WorldMap getMap(){
+    /*public WorldMap getMap(){
         return worldMap;
-    }
+    }*/
 
 }

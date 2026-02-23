@@ -1,18 +1,10 @@
 package com.mason.mapgen.algorithms.riverplacers;
 
-import com.mason.mapgen.components.Biome;
-import com.mason.mapgen.components.Point;
-import com.mason.mapgen.components.World;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import static com.mason.libgui.utils.Utils.R;
-
-public class LakeRiverPlacer implements AbstractRiverPlacer{
+public class LakeRiverPlacer /*implements AbstractRiverPlacer*/{
 
 
-    private final double lakeFraction;
+    /*private final double lakeFraction;
 
 
     public LakeRiverPlacer(double lakeFraction){
@@ -84,6 +76,6 @@ public class LakeRiverPlacer implements AbstractRiverPlacer{
             next = map[c.y+d.y][c.x+d.x];
         }
         return next != null && next.isLand() && !next.isRiver() ? next : null;
-    }
+    }*/
 
 }

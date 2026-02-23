@@ -1,22 +1,10 @@
 package com.mason.mapgen.algorithms.chunkers;
 
-import com.mason.libgui.utils.SpeedLogger;
-import com.mason.libgui.utils.Utils;
-import com.mason.mapgen.components.*;
-import com.mason.mapgen.components.Point;
-
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.function.BiPredicate;
-
-import static java.lang.Math.*;
-import static java.lang.String.format;
 
 public abstract class AbstractChunker{
 
 
-    private final int numCentroids;
+    /*private final int numCentroids;
     private final int lloydRelaxCount;
     protected final WorldMap map;
 
@@ -151,7 +139,7 @@ public abstract class AbstractChunker{
             centroids.get(n).setColor(new Color((int)(250D*n/numCentroids),
                     (int)(250D*n/numCentroids), (int)(250D*n/numCentroids)));
         }*/
-        Graph graph = map.getChunkGraph();
+    /*    Graph graph = map.getChunkGraph();
         for(Point p : map){
             connectChunkBorder(graph, p);
         }
@@ -164,6 +152,6 @@ public abstract class AbstractChunker{
                 break;
             }
         }
-    }
+    }*/
 
 }

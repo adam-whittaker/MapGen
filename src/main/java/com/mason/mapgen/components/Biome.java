@@ -1,17 +1,10 @@
 package com.mason.mapgen.components;
 
-import java.awt.*;
-import java.util.function.BiFunction;
-import java.util.function.Function;
-
-import static com.mason.libgui.utils.ImageUtils.*;
-import static com.mason.libgui.utils.Utils.R;
-import static com.mason.libgui.utils.Utils.sigmoid;
 
 public enum Biome{
 
 
-    OCEAN((world, p) -> waterTexture(world,
+    /*OCEAN((world, p) -> waterTexture(world,
             new Color(165, 182, 218), new Color(67, 73, 96),
             new Color(53, 95, 196), new Color(29, 38, 66)).apply(p), false),
     LAKE((world, p) -> texture(world.getMoistureTextureMap(), new Color(207, 235, 245), new Color(35, 109, 180)).apply(p), false),
@@ -106,6 +99,6 @@ public enum Biome{
     public static Color sprinkle(Color standard, Color odd, double chance){
         if(R.nextDouble()<chance) return odd;
         else return standard;
-    }
+    }*/
 
 }

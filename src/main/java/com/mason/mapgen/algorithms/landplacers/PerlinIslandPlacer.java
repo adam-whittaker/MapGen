@@ -1,14 +1,10 @@
 package com.mason.mapgen.algorithms.landplacers;
 
-import com.mason.libgui.utils.noise.LookupNoise;
-import com.mason.mapgen.components.Point;
-import com.mason.mapgen.components.WorldMap;
+
+public class PerlinIslandPlacer /*extends AbstractLandPlacer*/{
 
 
-public class PerlinIslandPlacer extends AbstractLandPlacer{
-
-
-    private final double seaLevel;
+    /*private final double seaLevel;
     private final double landTapering;
     private final double[][] landMap;
 
@@ -46,13 +42,13 @@ public class PerlinIslandPlacer extends AbstractLandPlacer{
                 heights[y][x] -= amplitude*(seaLevel + landTapering*dist(map[y][x], map[y].length, map.length));
             }
         }*/
-
+/*
         //REDO
     }
 
     public double[][] getPreliminaryHeightMap(){
         return landMap;
-    }
+    }*/
 
 
 }

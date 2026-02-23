@@ -1,15 +1,10 @@
 package com.mason.mapgen.components;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
-import static com.mason.libgui.utils.Utils.R;
-
-public class WorldMap implements Iterable<Point>{
+public class WorldMap /*implements Iterable<Point>*/{
 
 
-    private final Point[][] map;
+    /*private final Point[][] map;
     private final List<Point> centroids = new LinkedList<>();
     private final Graph chunkGraph;
 
@@ -104,6 +99,6 @@ public class WorldMap implements Iterable<Point>{
 
     public void setElevation(double[][] heightMap){
         for(Point p : this) p.setElevation(heightMap[p.y][p.x]);
-    }
+    }*/
 
 }

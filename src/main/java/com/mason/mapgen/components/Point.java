@@ -1,17 +1,10 @@
 package com.mason.mapgen.components;
 
-import com.mason.libgui.utils.Utils;
-
-import java.awt.*;
-import java.util.Objects;
-
-import static com.mason.libgui.utils.Utils.R;
-import static java.lang.Math.abs;
 
 public class Point{
 
 
-    public final int x, y;
+    /*public final int x, y;
     private Color color;
     private Point centroid;
     private CentroidInfo centroidInfo;
@@ -160,6 +153,6 @@ public class Point{
     @Override
     public int hashCode(){
         return Objects.hash(x, y);
-    }
+    }*/
 
 }

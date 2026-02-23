@@ -1,13 +1,9 @@
 package com.mason.mapgen.algorithms.heightMappers;
 
-import com.mason.mapgen.components.World;
-
-import static com.mason.libgui.utils.Utils.R;
-
 public class Weatherer{
 
 
-    private final double[][] heights;
+    /*private final double[][] heights;
     private final int iterations;
     private final World world;
 
@@ -93,6 +89,6 @@ public class Weatherer{
             //world.getMap()[y][x].traverse();
         }
 
-    }
+    }*/
 
 }
