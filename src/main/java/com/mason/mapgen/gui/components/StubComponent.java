@@ -1,5 +1,6 @@
 package com.mason.mapgen.gui.components;
 
+import com.mason.libgui.core.component.AbstractUIComponent;
 import com.mason.libgui.core.component.HitboxRect;
 import com.mason.libgui.core.component.UIComponent;
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
@@ -12,17 +13,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-public class StubComponent extends UIComponent implements BoundedMouseInputListener{
+public class StubComponent extends AbstractUIComponent implements BoundedMouseInputListener{
 
 
-    private final Size size;
     private final BufferedImage image;
     private final int[] pixels;
 
 
     public StubComponent(Coord topLeft, Size size){
         super(new HitboxRect(topLeft, size));
-        this.size = size;
         image = new BufferedImage(size.width(), size.height(), BufferedImage.TYPE_INT_ARGB);
         pixels = getPixelMask(image);
         generateImage();
@@ -35,7 +34,7 @@ public class StubComponent extends UIComponent implements BoundedMouseInputListe
 
     private void generateImage(){
         for(int i = 0; i < pixels.length; i++){
-            pixels[i] = DebugUtils.colorGradientFromSize(i, size);
+            pixels[i] = DebugUtils.colorGradientFromSize(i, getSize());
         }
     }
 
@@ -53,10 +52,6 @@ public class StubComponent extends UIComponent implements BoundedMouseInputListe
     @Override
     public void onMouseClicked(MouseInputEvent e){
         System.out.println("Mouse click on stub: " + e.getCoord());
-    }
-
-    public Size getSize(){
-        return size;
     }
 
 }

@@ -6,6 +6,7 @@ import com.mason.mapgen.procgen.algorithms.chunking.components.BasicCentroidData
 import java.awt.*;
 
 import static com.mason.mapgen.core.Utils.RANDOM;
+import static java.lang.Math.round;
 
 public class PaintCentroidData extends BasicCentroidData<PaintCentroidData>{
 
@@ -28,8 +29,20 @@ public class PaintCentroidData extends BasicCentroidData<PaintCentroidData>{
         return color;
     }
 
-    public void setColor(Color color){
-        this.color = color;
+    public void setColor(Color newColor){
+        this.color = newColor;
+    }
+
+    public void paintColor(Color newColor){
+        float alpha = newColor.getAlpha()/255F;
+        int red = round(this.color.getRed()*(1-alpha) + newColor.getRed()*alpha);
+        int green = round(this.color.getGreen()*(1-alpha) + newColor.getGreen()*alpha);
+        int blue = round(this.color.getBlue()*(1-alpha) + newColor.getBlue()*alpha);
+        this.color = new Color(red, green, blue);
+    }
+
+    public boolean colorMatches(Color color){
+        return color.equals(this.color);
     }
 
 }

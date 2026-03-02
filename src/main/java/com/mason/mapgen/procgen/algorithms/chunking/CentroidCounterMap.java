@@ -19,7 +19,7 @@ public class CentroidCounterMap implements Iterable<Map.Entry<Short, long[]>>{
     private final ChunkingGrid<?> grid;
 
 
-    CentroidCounterMap(ChunkingGrid<?> grid){
+    public CentroidCounterMap(ChunkingGrid<?> grid){
         this.grid = grid;
         counterMap = constructCounterMap(grid);
     }
@@ -33,7 +33,7 @@ public class CentroidCounterMap implements Iterable<Map.Entry<Short, long[]>>{
     }
 
 
-    void averageAndClearCentroids(){
+    public void averageAndClearCentroids(){
         long[] currentCounter;
         int[] currentCoord = {0, 0};
         for(Integer pointIdx : grid.pointIndices()){
@@ -62,7 +62,7 @@ public class CentroidCounterMap implements Iterable<Map.Entry<Short, long[]>>{
         }
     }
 
-    Coord counterToCoord(long[] counter){
+    public Coord counterToCoord(long[] counter){
         return new Coord((int)counter[0], (int)counter[1]);
     }
 

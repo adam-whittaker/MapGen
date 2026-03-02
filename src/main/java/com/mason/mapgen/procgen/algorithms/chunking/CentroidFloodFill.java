@@ -8,7 +8,7 @@ public class CentroidFloodFill<T extends CentroidData<T>>{
 
     private final ChunkingGrid<T> grid;
     private final FloodFillAnnexQuery<T> annexQuery;
-    private final boolean connectChunkGraph;
+    private boolean connectChunkGraph;
 
 
     public CentroidFloodFill(ChunkingGrid<T> grid, FloodFillAnnexQuery<T> annexQuery, boolean connectChunkGraph){
@@ -18,7 +18,11 @@ public class CentroidFloodFill<T extends CentroidData<T>>{
     }
 
 
-    void floodFill(){
+    public void shouldConnectChunkGraph(boolean connectChunkGraph){
+        this.connectChunkGraph = connectChunkGraph;
+    }
+
+    public void floodFill(){
         CentroidFloodFillFrontier frontier = new CentroidFloodFillFrontier(grid);
         Integer currentIdx;
         while(!frontier.isEmpty()){

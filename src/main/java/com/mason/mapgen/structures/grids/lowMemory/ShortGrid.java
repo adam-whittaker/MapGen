@@ -17,8 +17,7 @@ public class ShortGrid{
     }
 
     public ShortGrid(Size size, short initialValue){
-        this.size = size;
-        grid = new short[size.width()*size.height()];
+        this(size);
         Arrays.fill(grid, initialValue);
     }
 
@@ -49,6 +48,16 @@ public class ShortGrid{
 
     public Size size(){
         return size;
+    }
+
+    public short max(){
+        short max = Short.MIN_VALUE;
+        for(short value : grid){
+            if(max < value){
+                max = value;
+            }
+        }
+        return max;
     }
 
 }

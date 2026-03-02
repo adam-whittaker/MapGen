@@ -1,13 +1,15 @@
 package com.mason.mapgen.procgen.algorithms.chunking.components;
 
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.Size;
+import com.mason.libgui.utils.structures.*;
+import com.mason.mapgen.procgen.algorithms.chunking.CentroidNeighbourhoodSearch;
 import com.mason.mapgen.structures.grids.lowMemory.CardinalIndexNeighbours;
 import com.mason.mapgen.structures.grids.lowMemory.ShortGrid;
 
 import java.util.Iterator;
 
 import static com.mason.mapgen.procgen.algorithms.chunking.components.CentroidIDMap.CENTROID_UNSET;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 public class ChunkingGrid<T extends CentroidData<T>>{
 
@@ -18,6 +20,7 @@ public class ChunkingGrid<T extends CentroidData<T>>{
     private final ShortGrid distToCentroidGrid;
     private final CentroidIDMap<T> centroidDataMap;
     private final Size size;
+    private short maxDistToCentroid = -1;
 
 
     public ChunkingGrid(Size size){
@@ -49,6 +52,10 @@ public class ChunkingGrid<T extends CentroidData<T>>{
             throw new IllegalStateException("Point does not have centroid!");
         }
         short centroidID = centroidIDGrid.getByIndex(pointIdx);
+        return centroidDataMap.getCentroidData(centroidID);
+    }
+
+    public T getCentroidDataByID(short centroidID){
         return centroidDataMap.getCentroidData(centroidID);
     }
 
@@ -127,6 +134,57 @@ public class ChunkingGrid<T extends CentroidData<T>>{
                 return current;
             }
         };
+    }
+
+    public Iterable<Integer> indicesInClip(RectQuery clip){
+        return indicesInSafeClip(constructSafeClip(clip));
+    }
+
+    private RectQuery constructSafeClip(RectQuery clip){
+        int x = max(clip.x(), 0);
+        int y = max(clip.y(), 0);
+        int width = min(clip.width(), size.width()-x-1);
+        int height = min(clip.height(), size.height()-y-1);
+        return new Rect(x, y, width, height);
+    }
+
+    private Iterable<Integer> indicesInSafeClip(RectQuery clip){
+        return () -> new Iterator<>(){
+
+            final int maxIndex = asIndex(new Coord(clip.x()+clip.width()-1, clip.y()+clip.height()-1));
+            final int boundX = clip.x() + clip.width();
+            int current = asIndex(clip.getCoord())-1;
+
+            @Override
+            public boolean hasNext(){
+                return current < maxIndex;
+            }
+
+            @Override
+            public Integer next(){
+                current++;
+                if(boundX <= current % size.width()){
+                    current += size.width() - clip.width();
+                }
+                return current;
+            }
+        };
+    }
+
+    public void updateMaxDistToCentroid(){
+        maxDistToCentroid = distToCentroidGrid.max();
+    }
+
+    public RectQuery constructBoundingRectangle(Coord centroidCoord){
+        int x = max(centroidCoord.x() - maxDistToCentroid, 0);
+        int y = max(centroidCoord.y() - maxDistToCentroid, 0);
+        int width = min(2*maxDistToCentroid+1, size.width()-x-1);
+        int height = min(2*maxDistToCentroid+1, size.height()-y-1);
+        return new Rect(x, y, width, height);
+    }
+
+    public Iterable<T> centroidNeighbourhood(T data, int searchDepth){
+        return new CentroidNeighbourhoodSearch<>(this).centroidNeighbourhood(data, searchDepth);
     }
 
 }

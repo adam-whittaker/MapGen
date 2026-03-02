@@ -2,44 +2,49 @@ package com.mason.mapgen.paint.builders;
 
 import com.mason.libgui.components.behaviour.camera.Zoom;
 import com.mason.libgui.components.panes.PanZoomPaneBuilder;
+import com.mason.libgui.components.panes.PanZoomPaneSkeleton;
 import com.mason.libgui.core.component.HitboxRect;
 import com.mason.libgui.core.component.UIComponent;
 import com.mason.libgui.utils.structures.Coord;
 import com.mason.libgui.utils.structures.RectQuery;
 import com.mason.libgui.utils.structures.Size;
-import com.mason.mapgen.paint.components.PaintedImageComponent;
-import com.mason.mapgen.paint.components.panes.PaintedImagePane;
+import com.mason.mapgen.paint.components.GridImageComponent;
+import com.mason.mapgen.paint.skeletons.PaintedImagePaneSkeleton;
 
 import static java.lang.Math.max;
 
 public class PaintedImagePaneBuilder{
 
 
-    public static PaintedImagePane build(PanZoomPaneBuilder.PaneConstructor<PaintedImagePane> constructor,
-                                         HitboxRect boundary,
-                                         PaintedImageComponent component){
-        PanZoomPaneBuilder<PaintedImagePane> builder = new PanZoomPaneBuilder<>(constructor);
+    public static PaintedImagePaneSkeleton buildSkeleton(HitboxRect boundary,
+                                                         GridImageComponent component){
         component.setCoord(new Coord(0, 0));
         RectQuery initialView = constructCentredInitialView(boundary.getSize(), component.getSize());
         RectQuery clampingRect = new HitboxRect(new Coord(0, 0), component.getSize());
         Zoom zoom = constructZoom(boundary.getSize(), component.getSize());
-        PaintedImagePane pane = builder.build(boundary, initialView, clampingRect, zoom);
-        pane.addComponent(component);
-        return pane;
+
+        PanZoomPaneSkeleton panZoomPaneSkeleton = PanZoomPaneBuilder.buildSkeleton(boundary, initialView, clampingRect, zoom);
+        panZoomPaneSkeleton.addComponent(component);
+        PaintedImagePaneSkeleton skeleton = new PaintedImagePaneSkeleton();
+        skeleton.setPaintedImageComponent(component);
+        skeleton.setPanZoomPaneSkeleton(panZoomPaneSkeleton);
+
+        return skeleton;
     }
 
-    public static PaintedImagePane buildWithTestComponent(PanZoomPaneBuilder.PaneConstructor<PaintedImagePane> constructor,
-                                          HitboxRect boundary,
-                                          UIComponent component,
-                                          Size componentSize){
-        PanZoomPaneBuilder<PaintedImagePane> builder = new PanZoomPaneBuilder<>(constructor);
+    public static PaintedImagePaneSkeleton buildSkeletonWithTestComponent(HitboxRect boundary,
+                                                                          UIComponent component,
+                                                                          Size componentSize){
         component.setCoord(new Coord(0, 0));
         RectQuery initialView = constructCentredInitialView(boundary.getSize(), componentSize);
         RectQuery clampingRect = new HitboxRect(new Coord(0, 0), componentSize);
         Zoom zoom = constructZoom(boundary.getSize(), componentSize);
-        PaintedImagePane pane = builder.build(boundary, initialView, clampingRect, zoom);
-        pane.addComponent(component);
-        return pane;
+        PanZoomPaneSkeleton panZoomPaneSkeleton = PanZoomPaneBuilder.buildSkeleton(boundary, initialView, clampingRect, zoom);
+        panZoomPaneSkeleton.addComponent(component);
+        PaintedImagePaneSkeleton skeleton = new PaintedImagePaneSkeleton();
+        skeleton.setPanZoomPaneSkeleton(panZoomPaneSkeleton);
+
+        return skeleton;
     }
 
     private static RectQuery constructCentredInitialView(Size boundarySize, Size compSize){

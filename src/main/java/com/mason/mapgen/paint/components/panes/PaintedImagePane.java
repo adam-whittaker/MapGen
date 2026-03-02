@@ -1,31 +1,34 @@
 package com.mason.mapgen.paint.components.panes;
 
-import com.mason.libgui.components.panes.PanZoomPaneSkeleton;
-import com.mason.libgui.components.panes.RenderReadyPanZoomPane;
+import com.mason.libgui.components.panes.PanZoomPane;
 import com.mason.libgui.core.component.HitboxRect;
 import com.mason.libgui.core.component.UIComponent;
 import com.mason.libgui.utils.structures.Size;
 import com.mason.mapgen.paint.builders.PaintedImagePaneBuilder;
-import com.mason.mapgen.paint.components.PaintedImageComponent;
+import com.mason.mapgen.paint.components.GridImageComponent;
+import com.mason.mapgen.paint.skeletons.PaintedImagePaneSkeleton;
 
 import java.awt.*;
 
-public class PaintedImagePane extends RenderReadyPanZoomPane{
+public class PaintedImagePane extends PanZoomPane{
 
 
     private static final Color BACKGROUND_COLOR = new Color(40, 40, 40);
 
+    private final GridImageComponent paintedImageComponent;
 
-    private PaintedImagePane(PanZoomPaneSkeleton skeleton){
-        super(skeleton);
+
+    private PaintedImagePane(PaintedImagePaneSkeleton skeleton){
+        super(skeleton.getPanZoomPaneSkeleton());
+        paintedImageComponent = skeleton.getPaintedImageComponent();
     }
 
-    public static PaintedImagePane build(HitboxRect boundary, PaintedImageComponent component){
-        return PaintedImagePaneBuilder.build(PaintedImagePane::new, boundary, component);
+    public static PaintedImagePane build(HitboxRect boundary, GridImageComponent component){
+        return new PaintedImagePane(PaintedImagePaneBuilder.buildSkeleton(boundary, component));
     }
 
     public static PaintedImagePane buildWithTestComponent(HitboxRect boundary, UIComponent component, Size componentSize){
-        return PaintedImagePaneBuilder.buildWithTestComponent(PaintedImagePane::new, boundary, component, componentSize);
+        return new PaintedImagePane(PaintedImagePaneBuilder.buildSkeletonWithTestComponent(boundary, component, componentSize));
     }
 
 

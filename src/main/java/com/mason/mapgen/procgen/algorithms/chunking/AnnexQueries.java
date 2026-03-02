@@ -35,6 +35,10 @@ public final class AnnexQueries{
         return (a.x()-b.x())*(a.x()-b.x()) + (a.y()-b.y())*(a.y()-b.y());
     }
 
+    public static double euclideanDist(Coord a, Coord b){
+        return Math.sqrt(squareDist(a, b));
+    }
+
 
     public static boolean minkowskiQuery(ChunkingGrid<?> grid, CentroidData<?> centroidData, Integer targetIdx){
         Coord targetCoord = grid.asCoord(targetIdx);

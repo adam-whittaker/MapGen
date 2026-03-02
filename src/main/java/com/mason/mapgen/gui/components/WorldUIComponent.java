@@ -1,5 +1,6 @@
 package com.mason.mapgen.gui.components;
 
+import com.mason.libgui.core.component.AbstractUIComponent;
 import com.mason.libgui.core.component.HitboxRect;
 import com.mason.libgui.core.component.UIComponent;
 import com.mason.libgui.utils.structures.RectQuery;
@@ -7,7 +8,7 @@ import com.mason.libgui.utils.structures.RectQuery;
 import java.awt.*;
 import java.util.function.Consumer;
 
-public class WorldUIComponent extends UIComponent{
+public class WorldUIComponent extends AbstractUIComponent{
 
 
     private final Consumer<Graphics2D> renderer;

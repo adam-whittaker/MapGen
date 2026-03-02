@@ -1,6 +1,7 @@
 package com.mason.mapgen.procgen.algorithms.misc;
 
 import com.mason.libgui.utils.structures.Coord;
+import com.mason.libgui.utils.structures.RectQuery;
 import com.mason.libgui.utils.structures.Size;
 
 import java.util.HashSet;
@@ -22,6 +23,12 @@ public class RandomCoords{
     public static Coord generateRandomCoord(Size bounds){
         int x = RANDOM.nextInt(bounds.width());
         int y = RANDOM.nextInt(bounds.height());
+        return new Coord(x, y);
+    }
+
+    public static Coord generateRandomCoordWithinClip(RectQuery clip){
+        int x = clip.x() + RANDOM.nextInt(clip.width());
+        int y = clip.y() + RANDOM.nextInt(clip.height());
         return new Coord(x, y);
     }
 
