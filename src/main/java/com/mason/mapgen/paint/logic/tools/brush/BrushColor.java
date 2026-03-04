@@ -5,6 +5,8 @@ import org.apache.commons.math3.distribution.BetaDistribution;
 
 import java.awt.*;
 
+import static com.mason.mapgen.core.Utils.lerp;
+
 public class BrushColor{
 
 
@@ -16,7 +18,7 @@ public class BrushColor{
     private int secondaryBlue = 200;
     private int alpha = 255;
 
-    private double centre = 0.75;
+    private double centre = 0.5;
     private double certainty = 0.5;
     private BetaDistribution distribution;
     private boolean interpolateChannelsIndependently = false;
@@ -27,6 +29,7 @@ public class BrushColor{
     public BrushColor(BrushColorDisplay brushColorDisplay){
         recalculateBetaDistribution();
         this.brushColorDisplay = brushColorDisplay;
+        brushColorDisplay.setBrushPeekers(this);
         brushColorDisplay.displayPrimaryColor(new Color(primaryRed, primaryGreen, primaryBlue));
         brushColorDisplay.displaySecondaryColor(new Color(secondaryRed, secondaryGreen, secondaryBlue));
     }
@@ -50,6 +53,18 @@ public class BrushColor{
         throwIfNotInUnitInterval(centre);
         this.centre = centre;
         recalculateBetaDistribution();
+    }
+
+    public double getCentre(){
+        return centre;
+    }
+
+    public void setAlpha(int alpha){
+        this.alpha = alpha;
+    }
+
+    public int getAlpha(){
+        return alpha;
     }
 
     private void throwIfNotInUnitInterval(double val){
@@ -103,10 +118,6 @@ public class BrushColor{
         return new Color(red, green, blue, alpha);
     }
 
-    private int lerp(int val1, int val2, double t){
-        return (int)(val1*(1-t) + val2*t);
-    }
-
     private double nextBeta(){
         if(certainty > 0.99){
             return centre;
@@ -115,11 +126,18 @@ public class BrushColor{
     }
 
     private Color nextColorUsingLinearInterpolation(){
-        double t = nextBeta();
-        int red = lerp(primaryRed, secondaryRed, t);
-        int green = lerp(primaryGreen, secondaryGreen, t);
-        int blue = lerp(primaryBlue, secondaryBlue, t);
+        return getWeightedColor(nextBeta());
+    }
+
+    private Color getWeightedColor(double weight){
+        int red = lerp(primaryRed, secondaryRed, weight);
+        int green = lerp(primaryGreen, secondaryGreen, weight);
+        int blue = lerp(primaryBlue, secondaryBlue, weight);
         return new Color(red, green, blue, alpha);
+    }
+
+    public Color getAverageColor(){
+        return getWeightedColor(centre);
     }
 
 }

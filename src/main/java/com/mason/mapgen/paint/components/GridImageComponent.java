@@ -10,6 +10,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
+import static com.mason.mapgen.core.Utils.getPixelMask;
+
 public class GridImageComponent extends AbstractUIComponent{
 
 
@@ -24,10 +26,6 @@ public class GridImageComponent extends AbstractUIComponent{
         updateWholeImage(grid);
     }
 
-    private static int[] getPixelMask(BufferedImage image){
-        DataBufferInt dataBufferInt = ((DataBufferInt) image.getRaster().getDataBuffer());
-        return dataBufferInt.getData();
-    }
 
     public final void updateWholeImage(ChunkingGrid<PaintCentroidData> grid){
         updateImageInClip(grid, new HitboxRect(new Coord(0, 0), grid.size()));

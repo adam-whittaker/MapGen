@@ -11,9 +11,10 @@ import com.mason.mapgen.paint.components.panes.leftPane.PaletteImageComponent;
 import com.mason.mapgen.paint.components.panes.*;
 import com.mason.mapgen.paint.components.panes.leftPane.LeftPaintPane;
 import com.mason.mapgen.paint.logic.PaintCanvas;
+import com.mason.mapgen.paint.logic.PaintKeyProcessor;
 import com.mason.mapgen.paint.logic.PaintManager;
-import com.mason.mapgen.paint.logic.tools.PaintToolKit;
 import com.mason.mapgen.paint.skeletons.PaintGUIStateSkeleton;
+import com.mason.mapgen.paint.skeletons.PaintManagerSkeleton;
 import com.mason.mapgen.procgen.algorithms.chunking.AnnexQueries;
 import com.mason.mapgen.procgen.algorithms.chunking.voronoi.VoronoiChunker;
 import com.mason.mapgen.procgen.algorithms.chunking.components.ChunkingGrid;
@@ -43,21 +44,30 @@ public class PaintGUIStateBuilder{
     }
 
     public static PaintGUIStateSkeleton buildSkeleton(Size screenSize, int sidePaneWidth, int topPaneHeight, ChunkingGrid<PaintCentroidData> chunkingGrid){
-        GridImageComponent imageComponent = new GridImageComponent(chunkingGrid);
-        HitboxRect paneBoundary = constructPaneBoundary(screenSize, sidePaneWidth, topPaneHeight);
-        ChunkingGrid<PaintCentroidData> paletteGrid = constructPaletteGrid(screenSize, sidePaneWidth, 30);
-        PaletteImageComponent paletteComponent = new PaletteImageComponent(paletteGrid);
-        PaintCanvas palette = new PaintCanvas(paletteGrid, paletteComponent);
-        PaintManager paintManager = constructPaintManager(chunkingGrid, imageComponent, palette);
-        paletteComponent.setPaintManager(paintManager);
-        PaintGUIStateSkeleton skeleton = buildSkeletonFromSubPanes(
-                PaintedImagePane.build(paneBoundary, imageComponent),
-                LeftPaintPane.build(screenSize, sidePaneWidth, paletteComponent, paintManager),
+        PaintGUIStateSkeleton skeleton = buildSkeletonWithInitialComponents(screenSize, sidePaneWidth, topPaneHeight, chunkingGrid);
+        addSubPanesToSkeleton(skeleton,
+                PaintedImagePane.build(skeleton),
+                LeftPaintPane.build(skeleton, sidePaneWidth),
                 RightPaintPane.build(screenSize, sidePaneWidth),
                 TopPaintPane.build(screenSize, sidePaneWidth, topPaneHeight),
                 BottomPaintPane.build(screenSize, sidePaneWidth, topPaneHeight));
-        skeleton.setPaintManager(paintManager);
+
         skeleton.getPaintedImagePane().addMouseInputListener(skeleton.getPaintManager());
+        skeleton.getPaintedImagePane().addKeyListener(skeleton.getPaintManager());
+
+        return skeleton;
+    }
+
+    private static PaintGUIStateSkeleton buildSkeletonWithInitialComponents(Size screenSize, int sidePaneWidth, int topPaneHeight, ChunkingGrid<PaintCentroidData> chunkingGrid){
+        PaintGUIStateSkeleton skeleton = new PaintGUIStateSkeleton();
+        skeleton.setGuiStateSkeleton(new GUIStateSkeleton());
+        skeleton.setScreenSize(screenSize);
+        skeleton.setPaintedImagePaneBoundary(constructPaneBoundary(screenSize, sidePaneWidth, topPaneHeight));
+        skeleton.setMainCanvasChunkingGrid(chunkingGrid);
+
+        constructAndAddPaletteToSkeleton(skeleton, sidePaneWidth);
+        constructAndAddPaintManagerToSkeleton(skeleton);
+
         return skeleton;
     }
 
@@ -67,8 +77,16 @@ public class PaintGUIStateBuilder{
         return new HitboxRect(new Coord(sidePaneWidth, topPaneHeight), new Size(width, height));
     }
 
+    private static void constructAndAddPaletteToSkeleton(PaintGUIStateSkeleton skeleton, int sidePaneWidth){
+        ChunkingGrid<PaintCentroidData> paletteGrid = constructPaletteGrid(skeleton.getScreenSize(), sidePaneWidth, 30);
+        PaletteImageComponent paletteImageComponent = new PaletteImageComponent(paletteGrid);
+        PaintCanvas palette = new PaintCanvas(paletteGrid, paletteImageComponent);
+        skeleton.setPaletteImageComponent(paletteImageComponent);
+        skeleton.setPalette(palette);
+    }
+
     private static ChunkingGrid<PaintCentroidData> constructPaletteGrid(Size screenSize, int sidePaneWidth, int numChunks){
-        Size paletteSize = new Size(sidePaneWidth-128, screenSize.height()/3);
+        Size paletteSize = new Size(sidePaneWidth-128, screenSize.height()/3 - 64);
         VoronoiChunker<PaintCentroidData> paletteChunker = constructPaletteChunker(paletteSize, numChunks);
         paletteChunker.createChunks();
         ChunkingGrid<PaintCentroidData> grid = paletteChunker.getGrid();
@@ -84,31 +102,42 @@ public class PaintGUIStateBuilder{
         return VoronoiChunker.buildFromSkeleton(paletteChunkerSkeleton);
     }
 
-    private static PaintManager constructPaintManager(ChunkingGrid<PaintCentroidData> chunkingGrid, GridImageComponent imageComponent, PaintCanvas palette){
-        PaintCanvas canvas = new PaintCanvas(chunkingGrid, imageComponent);
-        return new PaintManager(canvas, palette);
+    private static void constructAndAddPaintManagerToSkeleton(PaintGUIStateSkeleton skeleton){
+        PaintKeyProcessor paintKeyProcessor = new PaintKeyProcessor();
+        skeleton.setPaintKeyProcessor(paintKeyProcessor);
+        skeleton.setPaintImageComponent(new GridImageComponent(skeleton.getMainCanvasChunkingGrid()));
+        PaintManager paintManager = constructPaintManager(skeleton);
+        skeleton.getPaletteImageComponent().setPaintManager(paintManager);
+        skeleton.setPaintManager(paintManager);
     }
 
-    private static PaintGUIStateSkeleton buildSkeletonFromSubPanes(PaintedImagePane paintedImagePane,
-                                                                   LeftPaintPane leftPaintPane,
-                                                                   RightPaintPane rightPaintPane,
-                                                                   TopPaintPane topPaintPane,
-                                                                   BottomPaintPane bottomPaintPane){
-        GUIStateSkeleton guiStateSkeleton = new GUIStateSkeleton();
+    private static PaintManager constructPaintManager(PaintGUIStateSkeleton skeleton){
+        PaintManagerSkeleton paintManagerSkeleton = new PaintManagerSkeleton();
+        PaintCanvas mainCanvas = new PaintCanvas(skeleton.getMainCanvasChunkingGrid(), skeleton.getPaintImageComponent());
+        paintManagerSkeleton.setMainCanvas(mainCanvas);
+        paintManagerSkeleton.setPalette(skeleton.getPalette());
+        paintManagerSkeleton.setPaintKeyProcessor(skeleton.getPaintKeyProcessor());
+        return PaintManager.build(paintManagerSkeleton);
+    }
+
+    private static void addSubPanesToSkeleton(PaintGUIStateSkeleton skeleton,
+                                               PaintedImagePane paintedImagePane,
+                                               LeftPaintPane leftPaintPane,
+                                               RightPaintPane rightPaintPane,
+                                               TopPaintPane topPaintPane,
+                                               BottomPaintPane bottomPaintPane){
+        GUIStateSkeleton guiStateSkeleton = skeleton.getGuiStateSkeleton();
         registerPaneWithGUIStateSkeleton(paintedImagePane, guiStateSkeleton);
         registerPaneWithGUIStateSkeleton(leftPaintPane, guiStateSkeleton);
         registerPaneWithGUIStateSkeleton(rightPaintPane, guiStateSkeleton);
         registerPaneWithGUIStateSkeleton(topPaintPane, guiStateSkeleton);
         registerPaneWithGUIStateSkeleton(bottomPaintPane, guiStateSkeleton);
 
-        PaintGUIStateSkeleton skeleton = new PaintGUIStateSkeleton();
-        skeleton.setGuiStateSkeleton(guiStateSkeleton);
         skeleton.setPaintedImagePane(paintedImagePane);
         skeleton.setLeftPaintPane(leftPaintPane);
         skeleton.setRightPaintPane(rightPaintPane);
         skeleton.setTopPaintPane(topPaintPane);
         skeleton.setBottomPaintPane(bottomPaintPane);
-        return skeleton;
     }
 
     private static void registerPaneWithGUIStateSkeleton(Pane pane, GUIStateSkeleton guiStateSkeleton){

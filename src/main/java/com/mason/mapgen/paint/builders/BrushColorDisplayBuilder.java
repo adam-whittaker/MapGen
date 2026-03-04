@@ -41,7 +41,7 @@ public class BrushColorDisplayBuilder{
         return grid;
     }
 
-    private static Set<Coord> generateCoords(Size size,  CoordSlot coordSlot){
+    private static Set<Coord> generateCoords(Size size, CoordSlot coordSlot){
         int w = size.width()/6;
         int h = size.height()/6;
         addRandomInnerCoordsToCoordSlot(w, h, coordSlot);
@@ -49,9 +49,11 @@ public class BrushColorDisplayBuilder{
     }
 
     private static void addRandomInnerCoordsToCoordSlot(int w, int h, CoordSlot coordSlot){
-        Coord primary = generateRandomCoordWithinClip(new Rect(w, h, 2*w, 4*h));
-        Coord secondary = generateRandomCoordWithinClip(new Rect(3*w, h, 2*w, 4*h));
+        Coord primary = generateRandomCoordWithinClip(new Rect(w, h, w, 4*h));
+        Coord average = generateRandomCoordWithinClip(new Rect(2*w, h, 2*w, 4*h));
+        Coord secondary = generateRandomCoordWithinClip(new Rect(4*w, h, 2*w, 4*h));
         coordSlot.setPrimary(primary);
+        coordSlot.setAverage(average);
         coordSlot.setSecondary(secondary);
     }
 
@@ -59,6 +61,7 @@ public class BrushColorDisplayBuilder{
         Set<Coord> coords = new HashSet<>();
         coords.add(filledCoordSlot.getPrimary());
         coords.add(filledCoordSlot.getSecondary());
+        coords.add(filledCoordSlot.getAverage());
         addHorizontalBarsOfRandomCentroidsToSet(w, h, coords);
         addVerticalBarsOfRandomCentroidsToSet(w, h, coords);
         return coords;
@@ -81,14 +84,16 @@ public class BrushColorDisplayBuilder{
     private static void addColorCentroidsToSkeleton(BrushColorDisplaySkeleton skeleton, ChunkingGrid<PaintCentroidData> grid, CoordSlot coordSlot){
         PaintCentroidData primary = grid.getCentroidDataByIndex(grid.asIndex(coordSlot.getPrimary()));
         PaintCentroidData secondary = grid.getCentroidDataByIndex(grid.asIndex(coordSlot.getSecondary()));
+        PaintCentroidData average = grid.getCentroidDataByIndex(grid.asIndex(coordSlot.getAverage()));
         skeleton.setPrimaryColorCentroid(primary);
         skeleton.setSecondaryColorCentroid(secondary);
+        skeleton.setAverageColorCentroid(average);
     }
 
     private static void makeOuterCentroidsTransparent(ChunkingGrid<PaintCentroidData> grid, CoordSlot innerCentroids){
         for(Short centroidID : grid.getAllCentroidIDs()){
             if(!innerCentroids.contains(grid.getCentroidCoord(centroidID))){
-                //setCentroidTransparent(grid.getCentroidDataByID(centroidID));
+                setCentroidTransparent(grid.getCentroidDataByID(centroidID));
             }
         }
     }
@@ -105,16 +110,20 @@ public class BrushColorDisplayBuilder{
 
         private Coord primary;
         private Coord secondary;
+        private Coord average;
 
 
         public Coord getPrimary(){
             if(primary == null){
-                throw new IllegalStateException("secondary is not set");
+                throw new IllegalStateException("primary is not set");
             }
             return primary;
         }
 
         public void setPrimary(Coord primary){
+            if(this.primary != null){
+                throw new IllegalStateException("primary is already set");
+            }
             this.primary = primary;
         }
 
@@ -126,12 +135,28 @@ public class BrushColorDisplayBuilder{
         }
 
         public void setSecondary(Coord secondary){
+            if(this.secondary != null){
+                throw new IllegalStateException("secondary is already set");
+            }
             this.secondary = secondary;
         }
 
+        public Coord getAverage(){
+            if(average == null){
+                throw new IllegalStateException("average is not set");
+            }
+            return average;
+        }
+
+        public void setAverage(Coord average){
+            if(this.average != null){
+                throw new IllegalStateException("average is already set");
+            }
+            this.average = average;
+        }
 
         boolean contains(Coord coord){
-            return primary.equals(coord) || secondary.equals(coord);
+            return primary.equals(coord) || average.equals(coord) || secondary.equals(coord);
         }
 
     }

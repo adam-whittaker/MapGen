@@ -9,6 +9,7 @@ import com.mason.libgui.utils.structures.Coord;
 import com.mason.libgui.utils.structures.RectQuery;
 import com.mason.libgui.utils.structures.Size;
 import com.mason.mapgen.paint.components.GridImageComponent;
+import com.mason.mapgen.paint.skeletons.PaintGUIStateSkeleton;
 import com.mason.mapgen.paint.skeletons.PaintedImagePaneSkeleton;
 
 import static java.lang.Math.max;
@@ -16,8 +17,9 @@ import static java.lang.Math.max;
 public class PaintedImagePaneBuilder{
 
 
-    public static PaintedImagePaneSkeleton buildSkeleton(HitboxRect boundary,
-                                                         GridImageComponent component){
+    public static PaintedImagePaneSkeleton buildSkeleton(PaintGUIStateSkeleton skeleton){
+        GridImageComponent component = skeleton.getPaintImageComponent();
+        HitboxRect boundary = skeleton.getPaintedImagePaneBoundary();
         component.setCoord(new Coord(0, 0));
         RectQuery initialView = constructCentredInitialView(boundary.getSize(), component.getSize());
         RectQuery clampingRect = new HitboxRect(new Coord(0, 0), component.getSize());
@@ -25,11 +27,11 @@ public class PaintedImagePaneBuilder{
 
         PanZoomPaneSkeleton panZoomPaneSkeleton = PanZoomPaneBuilder.buildSkeleton(boundary, initialView, clampingRect, zoom);
         panZoomPaneSkeleton.addComponent(component);
-        PaintedImagePaneSkeleton skeleton = new PaintedImagePaneSkeleton();
-        skeleton.setPaintedImageComponent(component);
-        skeleton.setPanZoomPaneSkeleton(panZoomPaneSkeleton);
+        PaintedImagePaneSkeleton paintedImagePaneSkeleton = new PaintedImagePaneSkeleton();
+        paintedImagePaneSkeleton.setPaintedImageComponent(component);
+        paintedImagePaneSkeleton.setPanZoomPaneSkeleton(panZoomPaneSkeleton);
 
-        return skeleton;
+        return paintedImagePaneSkeleton;
     }
 
     public static PaintedImagePaneSkeleton buildSkeletonWithTestComponent(HitboxRect boundary,

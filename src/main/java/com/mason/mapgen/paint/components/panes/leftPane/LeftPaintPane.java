@@ -1,11 +1,10 @@
 package com.mason.mapgen.paint.components.panes.leftPane;
 
 import com.mason.libgui.components.panes.PaneWithDeco;
-import com.mason.libgui.utils.structures.Size;
 import com.mason.libgui.components.deco.BasicPaneDeco;
 import com.mason.mapgen.paint.builders.LeftPaintPaneBuilder;
-import com.mason.mapgen.paint.logic.PaintManager;
 import com.mason.mapgen.paint.skeletons.LeftPaintPaneSkeleton;
+import com.mason.mapgen.paint.skeletons.PaintGUIStateSkeleton;
 
 public class LeftPaintPane extends PaneWithDeco{
 
@@ -14,8 +13,8 @@ public class LeftPaintPane extends PaneWithDeco{
         super(skeleton, new BasicPaneDeco());
     }
 
-    public static LeftPaintPane build(Size screenSize, int sidePaneWidth, PaletteImageComponent paletteImageComponent, PaintManager paintManager){
-        return new LeftPaintPane(LeftPaintPaneBuilder.buildSkeleton(screenSize, sidePaneWidth, paletteImageComponent, paintManager));
+    public static LeftPaintPane build(PaintGUIStateSkeleton paintGUIStateSkeleton, int sidePaneWidth){
+        return new LeftPaintPane(LeftPaintPaneBuilder.buildSkeleton(paintGUIStateSkeleton, sidePaneWidth));
     }
 
 

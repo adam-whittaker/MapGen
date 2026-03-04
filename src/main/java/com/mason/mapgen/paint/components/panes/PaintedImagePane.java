@@ -6,6 +6,7 @@ import com.mason.libgui.core.component.UIComponent;
 import com.mason.libgui.utils.structures.Size;
 import com.mason.mapgen.paint.builders.PaintedImagePaneBuilder;
 import com.mason.mapgen.paint.components.GridImageComponent;
+import com.mason.mapgen.paint.skeletons.PaintGUIStateSkeleton;
 import com.mason.mapgen.paint.skeletons.PaintedImagePaneSkeleton;
 
 import java.awt.*;
@@ -23,8 +24,8 @@ public class PaintedImagePane extends PanZoomPane{
         paintedImageComponent = skeleton.getPaintedImageComponent();
     }
 
-    public static PaintedImagePane build(HitboxRect boundary, GridImageComponent component){
-        return new PaintedImagePane(PaintedImagePaneBuilder.buildSkeleton(boundary, component));
+    public static PaintedImagePane build(PaintGUIStateSkeleton paintGUIStateSkeleton){
+        return new PaintedImagePane(PaintedImagePaneBuilder.buildSkeleton(paintGUIStateSkeleton));
     }
 
     public static PaintedImagePane buildWithTestComponent(HitboxRect boundary, UIComponent component, Size componentSize){

@@ -5,18 +5,28 @@ import com.mason.libgui.core.input.mouse.MouseInputEvent;
 import com.mason.libgui.utils.structures.Coord;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
 import com.mason.mapgen.paint.logic.tools.brush.BrushTool;
+import com.mason.mapgen.paint.skeletons.PaintManagerSkeleton;
 
-public class PaintManager implements BoundedMouseInputListener{
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+public class PaintManager implements BoundedMouseInputListener, KeyListener{
 
 
     private final PaintCanvas mainCanvas;
     private final PaintCanvas palette;
+    private final PaintKeyProcessor paintKeyProcessor;
     private PaintTool currentTool;
 
 
-    public PaintManager(PaintCanvas canvas, PaintCanvas palette){
-        this.mainCanvas = canvas;
-        this.palette = palette;
+    protected PaintManager(PaintManagerSkeleton skeleton){
+        this.mainCanvas = skeleton.getMainCanvas();
+        this.palette = skeleton.getPalette();
+        this.paintKeyProcessor = skeleton.getPaintKeyProcessor();
+    }
+
+    public static PaintManager build(PaintManagerSkeleton skeleton){
+        return new PaintManager(skeleton);
     }
 
 
@@ -79,6 +89,22 @@ public class PaintManager implements BoundedMouseInputListener{
 
     public void onMouseReleasedOnPalette(MouseInputEvent event){
         onMouseReleasedOnGivenCanvas(event, palette);
+    }
+
+
+    @Override
+    public void keyTyped(KeyEvent e){
+        paintKeyProcessor.keyTyped(e);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e){
+        paintKeyProcessor.keyPressed(e);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e){
+        paintKeyProcessor.keyReleased(e);
     }
 
 }

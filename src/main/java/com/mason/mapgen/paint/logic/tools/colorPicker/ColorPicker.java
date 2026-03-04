@@ -36,7 +36,7 @@ public class ColorPicker implements PaintTool{
         brushColor.setPrimaryColor(color);
     }
 
-    private boolean secondaryColorMask(MouseInputEvent event){
+    public static boolean secondaryColorMask(MouseInputEvent event){
         return event.isMouseButtonTwoDown();
     }
 
