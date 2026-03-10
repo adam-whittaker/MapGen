@@ -1,11 +1,5 @@
 
-package com.mason.mapgen.rawPortsFromLibGUI;
-
-import com.mason.libgui.core.component.UIComponent;
-import com.mason.libgui.core.guiManagement.Window;
-
-import java.awt.*;
-import java.awt.geom.AffineTransform;
+package com.mason.mapgen.rawPortsFromOldLibGUI;
 
 /**
  * A simple rotating circle animation.

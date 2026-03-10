@@ -1,4 +1,4 @@
-package com.mason.mapgen.rawPortsFromLibGUI;
+package com.mason.mapgen.rawPortsFromOldLibGUI;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

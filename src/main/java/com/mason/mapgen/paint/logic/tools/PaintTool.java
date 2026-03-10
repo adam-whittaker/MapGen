@@ -1,7 +1,7 @@
 package com.mason.mapgen.paint.logic.tools;
 
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
-import com.mason.mapgen.paint.logic.PaintCanvas;
+import com.mason.mapgen.paint.logic.canvas.PaintCanvas;
 
 public interface PaintTool{
 
@@ -12,6 +12,6 @@ public interface PaintTool{
 
     boolean isActive();
 
-    boolean acceptMouseInput(MouseInputEvent event);
+    boolean shouldAcceptMouseInput(MouseInputEvent event);
 
 }

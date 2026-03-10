@@ -1,5 +1,7 @@
 package com.mason.mapgen.structures.iterators;
 
+import com.mason.mapgen.core.Utils;
+
 import java.util.Iterator;
 
 public class ColumnIterator<T> implements Iterator<T>{
@@ -15,13 +17,7 @@ public class ColumnIterator<T> implements Iterator<T>{
         this.grid = grid;
         this.colIndex = colIndex;
         this.height = grid.length;
-        validateColumnIndex();
-    }
-
-    private void validateColumnIndex(){
-        if(colIndex < 0 || colIndex >= grid[0].length){
-            throw new IllegalStateException("Column out of bounds");
-        }
+        Utils.verifyArrayIndexWithinBounds(colIndex, grid[0]);
     }
 
 

@@ -2,7 +2,7 @@ package com.mason.mapgen.paint.skeletons;
 
 import com.mason.libgui.components.panes.PaneSkeleton;
 import com.mason.libgui.components.toggles.ExclusiveToggleGroup;
-import com.mason.mapgen.paint.builders.PaneLayout;
+import com.mason.libgui.components.panes.PaneLayout;
 import com.mason.mapgen.paint.logic.PaintKeyProcessor;
 import com.mason.mapgen.paint.logic.tools.PaintToolKit;
 

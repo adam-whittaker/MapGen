@@ -32,8 +32,12 @@ public class GridImageComponent extends AbstractUIComponent{
     }
 
     public final void updateImageInClip(ChunkingGrid<PaintCentroidData> grid, RectQuery clip){
+        updateImageOverIndices(grid, grid.indicesInClip(clip));
+    }
+
+    public final void updateImageOverIndices(ChunkingGrid<PaintCentroidData> grid, Iterable<Integer> indices){
         PaintCentroidData data;
-        for(Integer i : grid.indicesInClip(clip)){
+        for(Integer i : indices){
             data = grid.getCentroidDataByIndex(i);
             pixels[i] = data.getColor().getRGB();
         }

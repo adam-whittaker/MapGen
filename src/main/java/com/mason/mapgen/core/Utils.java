@@ -27,4 +27,10 @@ public final class Utils{
         return dataBufferInt.getData();
     }
 
+    public static void verifyArrayIndexWithinBounds(int index, Object[] array){
+        if(index >= array.length || index < 0){
+            throw new IllegalArgumentException("Index " + index + " out of bounds for array of length " + array.length);
+        }
+    }
+
 }

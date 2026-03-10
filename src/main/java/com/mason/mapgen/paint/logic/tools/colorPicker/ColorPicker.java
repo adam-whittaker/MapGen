@@ -1,21 +1,21 @@
 package com.mason.mapgen.paint.logic.tools.colorPicker;
 
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
-import com.mason.mapgen.paint.logic.PaintCanvas;
+import com.mason.mapgen.paint.logic.canvas.PaintCanvas;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
-import com.mason.mapgen.paint.logic.tools.brush.BrushColor;
+import com.mason.mapgen.paint.logic.tools.brush.DualColorable;
 
 import java.awt.*;
 
 public class ColorPicker implements PaintTool{
 
 
-    private final BrushColor brushColor;
     private boolean active = false;
+    private final DualColorable colorable;
 
 
-    public ColorPicker(BrushColor brushColor){
-        this.brushColor = brushColor;
+    public ColorPicker(DualColorable colorable){
+        this.colorable = colorable;
     }
 
 
@@ -30,10 +30,10 @@ public class ColorPicker implements PaintTool{
     private void chooseColor(PaintCanvas canvas, MouseInputEvent event){
         Color color = canvas.getChunkColor(event.getCoord());
         if(secondaryColorMask(event)){
-            brushColor.setSecondaryColor(color);
+            colorable.setSecondaryColor(color);
             return;
         }
-        brushColor.setPrimaryColor(color);
+        colorable.setPrimaryColor(color);
     }
 
     public static boolean secondaryColorMask(MouseInputEvent event){
@@ -51,7 +51,7 @@ public class ColorPicker implements PaintTool{
     }
 
     @Override
-    public boolean acceptMouseInput(MouseInputEvent event){
+    public boolean shouldAcceptMouseInput(MouseInputEvent event){
         return true;
     }
 

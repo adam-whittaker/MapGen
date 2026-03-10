@@ -1,4 +1,4 @@
-package com.mason.mapgen.paint.logic;
+package com.mason.mapgen.paint.logic.canvas;
 
 import com.mason.libgui.utils.structures.*;
 import com.mason.mapgen.paint.components.PaintCentroidData;
@@ -7,7 +7,7 @@ import com.mason.mapgen.procgen.algorithms.chunking.components.ChunkingGrid;
 
 import java.awt.*;
 
-public class PaintCanvas{
+public class PaintCanvas implements Boundable{
 
 
     private final ChunkingGrid<PaintCentroidData> grid;
@@ -28,7 +28,6 @@ public class PaintCanvas{
         return getCentroidData(coord).getColor();
     }
 
-
     public void changeChunkColor(Color newColor, Coord coord){
         Integer pointIdx = grid.asIndex(coord);
         PaintCentroidData centroidData = grid.getCentroidDataByIndex(pointIdx);
@@ -42,6 +41,15 @@ public class PaintCanvas{
 
     public Iterable<PaintCentroidData> centroidNeighbourhood(PaintCentroidData data, int searchDepth){
         return grid.centroidNeighbourhood(data, searchDepth);
+    }
+
+    @Override
+    public boolean withinBounds(Coord c){
+        return image.withinBounds(c);
+    }
+
+    public Coord getCoord(){
+        return image.getCoord();
     }
 
 }

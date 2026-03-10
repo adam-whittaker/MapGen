@@ -1,6 +1,6 @@
 package com.mason.mapgen.paint.skeletons;
 
-import com.mason.mapgen.paint.logic.PaintCanvas;
+import com.mason.mapgen.paint.logic.canvas.PaintCanvas;
 import com.mason.mapgen.paint.logic.PaintKeyProcessor;
 
 public class PaintManagerSkeleton{

@@ -2,7 +2,7 @@ package com.mason.mapgen.paint.components.panes.leftPane;
 
 import com.mason.libgui.components.panes.PaneWithDeco;
 import com.mason.libgui.components.deco.BasicPaneDeco;
-import com.mason.mapgen.paint.builders.LeftPaintPaneBuilder;
+import com.mason.mapgen.paint.builders.leftPane.LeftPaintPaneBuilder;
 import com.mason.mapgen.paint.skeletons.LeftPaintPaneSkeleton;
 import com.mason.mapgen.paint.skeletons.PaintGUIStateSkeleton;
 

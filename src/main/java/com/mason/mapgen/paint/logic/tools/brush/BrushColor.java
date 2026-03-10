@@ -1,6 +1,5 @@
 package com.mason.mapgen.paint.logic.tools.brush;
 
-import com.mason.mapgen.paint.components.panes.leftPane.BrushColorDisplay;
 import org.apache.commons.math3.distribution.BetaDistribution;
 
 import java.awt.*;
@@ -23,15 +22,9 @@ public class BrushColor{
     private BetaDistribution distribution;
     private boolean interpolateChannelsIndependently = false;
 
-    private final BrushColorDisplay brushColorDisplay;
 
-
-    public BrushColor(BrushColorDisplay brushColorDisplay){
+    public BrushColor(){
         recalculateBetaDistribution();
-        this.brushColorDisplay = brushColorDisplay;
-        brushColorDisplay.setBrushPeekers(this);
-        brushColorDisplay.displayPrimaryColor(new Color(primaryRed, primaryGreen, primaryBlue));
-        brushColorDisplay.displaySecondaryColor(new Color(secondaryRed, secondaryGreen, secondaryBlue));
     }
 
     private void recalculateBetaDistribution(){
@@ -87,19 +80,21 @@ public class BrushColor{
         interpolateChannelsIndependently = independence;
     }
 
+    public boolean getChannelIndependence(){
+        return interpolateChannelsIndependently;
+    }
+
 
     public void setPrimaryColor(Color color){
         primaryRed = color.getRed();
         primaryGreen = color.getGreen();
         primaryBlue = color.getBlue();
-        brushColorDisplay.displayPrimaryColor(color);
     }
 
     public void setSecondaryColor(Color color){
         secondaryRed = color.getRed();
         secondaryGreen = color.getGreen();
         secondaryBlue = color.getBlue();
-        brushColorDisplay.displaySecondaryColor(color);
     }
 
 
