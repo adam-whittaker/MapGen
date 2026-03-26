@@ -1,6 +1,6 @@
 package com.mason.mapgen.paint.logic.tools.brush;
 
-import com.mason.mapgen.paint.components.PaintCentroidData;
+import com.mason.mapgen.paint.components.misc.PaintCentroidData;
 
 import java.util.HashSet;
 import java.util.Set;

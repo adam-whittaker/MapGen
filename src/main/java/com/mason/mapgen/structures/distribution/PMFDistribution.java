@@ -3,7 +3,7 @@ package com.mason.mapgen.structures.distribution;
 import java.util.List;
 import java.util.function.Function;
 
-import static com.mason.mapgen.core.Utils.RANDOM;
+import com.mason.mapgen.core.random.RandomSource;
 
 public class PMFDistribution<T> implements Distribution<T>{
 
@@ -56,7 +56,7 @@ public class PMFDistribution<T> implements Distribution<T>{
 
     @Override
     public T next(){
-        double chance = RANDOM.nextDouble() * totalMass;
+        double chance = RandomSource.nextDouble() * totalMass;
         for(int n=0; n<pmf.length; n++){
             if(chance < pmf[n]) return items.get(n);
             else chance -= pmf[n];

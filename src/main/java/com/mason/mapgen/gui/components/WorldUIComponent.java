@@ -1,9 +1,8 @@
 package com.mason.mapgen.gui.components;
 
 import com.mason.libgui.core.component.AbstractUIComponent;
-import com.mason.libgui.core.component.HitboxRect;
-import com.mason.libgui.core.component.UIComponent;
-import com.mason.libgui.utils.structures.RectQuery;
+import com.mason.libgui.core.component.hitbox.HitboxRect;
+import com.mason.libgui.utils.structures.interfaces.RectQuery;
 
 import java.awt.*;
 import java.util.function.Consumer;
@@ -16,7 +15,7 @@ public class WorldUIComponent extends AbstractUIComponent{
 
 
     public WorldUIComponent(RectQuery box, Consumer<Graphics2D> renderer, Runnable ticker){
-        super(new HitboxRect(box.getCoord(), box.getSize()));
+        super(HitboxRect.build(box.getCoord(), box.getSize()));
         this.renderer = renderer;
         this.ticker = ticker;
     }

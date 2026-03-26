@@ -2,9 +2,10 @@ package com.mason.mapgen.procgen.noise;
 
 import com.mason.libgui.utils.structures.Coord;
 import com.mason.libgui.utils.structures.Size;
+import com.mason.mapgen.core.random.RandomSource;
 import com.mason.mapgen.structures.records.Rect;
 
-import static com.mason.mapgen.core.Utils.RANDOM;
+import com.mason.mapgen.core.random.RandomSource;
 
 public class MidpointDisplacementNoise extends AbstractNoise{
 
@@ -60,7 +61,7 @@ public class MidpointDisplacementNoise extends AbstractNoise{
     }
 
     private double randomDouble(){
-        return 2D*RANDOM.nextDouble() - 1D;
+        return 2D* RandomSource.nextDouble() - 1D;
     }
 
 
@@ -109,7 +110,7 @@ public class MidpointDisplacementNoise extends AbstractNoise{
     private void computeCentre(Rect view, double jitter){
         double average = (grid.getValue(view.topLeft()) + grid.getValue(view.topRight())
                 + grid.getValue(view.bottomLeft()) + grid.getValue(view.bottomRight())) / 4D;
-        double randomFactor = RANDOM.nextDouble() * jitter;
+        double randomFactor = RandomSource.nextDouble() * jitter;
         if(!tileArtefacts) randomFactor -= jitter / 2;
         setClampedValueIfUninitialized(view.centre(), average + randomFactor);
     }

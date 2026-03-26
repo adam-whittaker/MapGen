@@ -1,34 +1,31 @@
 package com.mason.mapgen.paint.logic.tools;
 
-import com.mason.mapgen.paint.logic.tools.brush.BrushToolAdapter;
+import com.mason.libgui.utils.structures.states.onOff.OnOffState;
+import com.mason.mapgen.paint.logic.tools.brush.*;
+import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.PaintControlSettingsSkeleton;
 import com.mason.mapgen.paint.logic.tools.colorPicker.ColorPicker;
 
 public class PaintToolKit{
 
 
-    private final BrushToolAdapter brushAdapter;
+    private final BrushTool brush;
     private final ColorPicker colorPicker;
-    private PaintTool currentTool;
+    private final OnOffState colorPickerState;
 
 
-    public PaintToolKit(int numBrushes){
-        this.brushAdapter = new BrushToolAdapter(numBrushes);
-        this.currentTool = brushAdapter;
-        this.colorPicker = new ColorPicker(brushAdapter);
+    public PaintToolKit(PaintControlSettingsSkeleton skeleton){
+        skeleton.setPaintToolKit(this);
+        skeleton.setCurrentPaintToolQuery(this::getCurrentTool);
+        this.brush = new BrushTool(skeleton);
+        this.colorPickerState = skeleton.getColorPickerState();
+        this.colorPicker = new ColorPicker(skeleton.getPrimaryRGBState(), skeleton.getSecondaryRGBState());
     }
 
-
-    public PaintTool getCurrentTool(){
-        return currentTool;
-    }
-
-    public void setToolToBrushWithNumber(int number){
-        currentTool = brushAdapter;
-        brushAdapter.setCurrentBrushIndex(number);
-    }
-
-    public void setToolToColorPicker(){
-        currentTool = colorPicker;
+    private PaintTool getCurrentTool(){
+        if(colorPickerState.isOn()){
+            return colorPicker;
+        }
+        return brush;
     }
 
 }

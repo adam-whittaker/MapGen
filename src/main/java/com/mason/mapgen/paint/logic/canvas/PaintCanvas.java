@@ -1,8 +1,9 @@
 package com.mason.mapgen.paint.logic.canvas;
 
 import com.mason.libgui.utils.structures.*;
-import com.mason.mapgen.paint.components.PaintCentroidData;
-import com.mason.mapgen.paint.components.GridImageComponent;
+import com.mason.libgui.utils.structures.interfaces.Boundable;
+import com.mason.mapgen.paint.components.misc.PaintCentroidData;
+import com.mason.mapgen.paint.components.misc.GridImageComponent;
 import com.mason.mapgen.procgen.algorithms.chunking.components.ChunkingGrid;
 
 import java.awt.*;
@@ -14,9 +15,9 @@ public class PaintCanvas implements Boundable{
     private final GridImageComponent image;
 
 
-    public PaintCanvas(ChunkingGrid<PaintCentroidData> grid, GridImageComponent image){
+    public PaintCanvas(Coord topLeft, ChunkingGrid<PaintCentroidData> grid){
         this.grid = grid;
-        this.image = image;
+        this.image = new GridImageComponent(topLeft, grid);
     }
 
 
@@ -50,6 +51,14 @@ public class PaintCanvas implements Boundable{
 
     public Coord getCoord(){
         return image.getCoord();
+    }
+
+    public Size getSize(){
+        return image.getSize();
+    }
+
+    protected GridImageComponent getImageComponent(){
+        return image;
     }
 
 }

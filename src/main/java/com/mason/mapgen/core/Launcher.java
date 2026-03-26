@@ -3,11 +3,11 @@ package com.mason.mapgen.core;
 import com.mason.libgui.utils.structures.Size;
 import com.mason.mapgen.gui.MapGenGUI;
 import com.mason.mapgen.gui.states.GUIState;
-import com.mason.mapgen.paint.components.*;
+import com.mason.mapgen.paint.components.misc.PaintCentroidData;
+import com.mason.mapgen.paint.components.paintGUIState.PaintGUIState;
 import com.mason.mapgen.procgen.algorithms.chunking.AnnexQueries;
 import com.mason.mapgen.procgen.algorithms.chunking.voronoi.VoronoiChunker;
 import com.mason.mapgen.procgen.algorithms.chunking.components.ChunkingGrid;
-import com.mason.mapgen.procgen.algorithms.chunking.voronoi.VoronoiChunkerBuilder;
 
 
 public class Launcher{

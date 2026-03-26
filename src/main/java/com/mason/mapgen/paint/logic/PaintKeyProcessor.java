@@ -1,6 +1,6 @@
 package com.mason.mapgen.paint.logic;
 
-import com.mason.libgui.components.toggles.Toggle;
+import com.mason.libgui.utils.structures.states.onOff.OnOffState;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -8,17 +8,14 @@ import java.awt.event.KeyListener;
 public class PaintKeyProcessor implements KeyListener{
 
 
-    private Toggle brushToggle;
-    private Toggle colorPickerToggle;
-    private boolean active;
+    private OnOffState colorPickerState;
 
 
     public PaintKeyProcessor(){}
 
 
-    public void registerToggles(Toggle brushToggle, Toggle colorPickerToggle){
-        this.brushToggle = brushToggle;
-        this.colorPickerToggle = colorPickerToggle;
+    public void registerToggles(OnOffState colorPickerState){
+        this.colorPickerState = colorPickerState;
     }
 
 
@@ -29,24 +26,29 @@ public class PaintKeyProcessor implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e){
-        verifyTogglesExist();
-        if(!active){
-            active = true;
-            colorPickerToggle.select();
+        if(!shouldAcceptEvent(e)){
+            return;
         }
+        verifyColorPickerStateSet();
+        colorPickerState.turnOn();
     }
 
     @Override
     public void keyReleased(KeyEvent e){
-        verifyTogglesExist();
-        active = false;
-        brushToggle.select();
+        if(!shouldAcceptEvent(e)){
+            return;
+        }
+        colorPickerState.turnOff();
     }
 
-    private void verifyTogglesExist(){
-        if(brushToggle == null || colorPickerToggle == null){
-            throw new IllegalStateException("toggles unset!");
+    private void verifyColorPickerStateSet(){
+        if(colorPickerState == null){
+            throw new IllegalStateException("colorPickerState unset!");
         }
+    }
+
+    private boolean shouldAcceptEvent(KeyEvent event){
+        return event.getKeyCode() == KeyEvent.VK_CONTROL;
     }
 
 }

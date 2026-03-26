@@ -1,13 +1,12 @@
 package com.mason.mapgen.procgen.algorithms.misc;
 
 import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.RectQuery;
+import com.mason.libgui.utils.structures.interfaces.RectQuery;
 import com.mason.libgui.utils.structures.Size;
+import com.mason.mapgen.core.random.RandomSource;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import static com.mason.mapgen.core.Utils.RANDOM;
 
 public class RandomCoords{
 
@@ -21,14 +20,14 @@ public class RandomCoords{
     }
 
     public static Coord generateRandomCoord(Size bounds){
-        int x = RANDOM.nextInt(bounds.width());
-        int y = RANDOM.nextInt(bounds.height());
+        int x = RandomSource.nextInt(bounds.width());
+        int y = RandomSource.nextInt(bounds.height());
         return new Coord(x, y);
     }
 
     public static Coord generateRandomCoordWithinClip(RectQuery clip){
-        int x = clip.x() + RANDOM.nextInt(clip.width());
-        int y = clip.y() + RANDOM.nextInt(clip.height());
+        int x = clip.x() + RandomSource.nextInt(clip.width());
+        int y = clip.y() + RandomSource.nextInt(clip.height());
         return new Coord(x, y);
     }
 

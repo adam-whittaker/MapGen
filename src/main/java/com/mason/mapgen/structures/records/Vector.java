@@ -1,6 +1,6 @@
 package com.mason.mapgen.structures.records;
 
-import static com.mason.mapgen.core.Utils.RANDOM;
+import com.mason.mapgen.core.random.RandomSource;
 import static java.lang.Math.PI;
 
 public record Vector(double x, double y){
@@ -20,7 +20,7 @@ public record Vector(double x, double y){
     }
 
     public static Vector generateRandomUnitVector(){
-        return fromPolar(1, 2 * PI * RANDOM.nextDouble());
+        return fromPolar(1, 2 * PI * RandomSource.nextDouble());
     }
 
 

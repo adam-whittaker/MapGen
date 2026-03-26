@@ -1,10 +1,10 @@
 package com.mason.mapgen.procgen.algorithms.chunking;
 
 import com.mason.libgui.utils.structures.Coord;
+import com.mason.mapgen.core.random.RandomSource;
 import com.mason.mapgen.procgen.algorithms.chunking.components.CentroidData;
 import com.mason.mapgen.procgen.algorithms.chunking.components.ChunkingGrid;
 
-import static com.mason.mapgen.core.Utils.RANDOM;
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
 
@@ -58,15 +58,15 @@ public final class AnnexQueries{
         CentroidData<?> targetCentroidData = grid.getCentroidDataByIndex(targetIdx);
         int targetOwnCentroidDist = squareDist(targetCentroidData.getCoord(), targetCoord);
         int targetAnnexingCentroidDist = squareDist(centroidData.getCoord(), targetCoord);
-        if(RANDOM.nextDouble() * (targetAnnexingCentroidDist + targetOwnCentroidDist) < targetOwnCentroidDist){
+        if(RandomSource.nextDouble() * (targetAnnexingCentroidDist + targetOwnCentroidDist) < targetOwnCentroidDist){
             return true;
         }
         int adjacents = numCardinalAdjacents(grid, centroidData, targetIdx);
         if(adjacents == 4){
-            return RANDOM.nextDouble() < 0.9;
+            return RandomSource.nextDouble() < 0.9;
         }
         if(adjacents == 3){
-            return RANDOM.nextDouble() < 0.65;
+            return RandomSource.nextDouble() < 0.65;
         }
         return false;
     }

@@ -1,8 +1,7 @@
 package com.mason.mapgen.gui.components;
 
 import com.mason.libgui.core.component.AbstractUIComponent;
-import com.mason.libgui.core.component.HitboxRect;
-import com.mason.libgui.core.component.UIComponent;
+import com.mason.libgui.core.component.hitbox.HitboxRect;
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
 import com.mason.libgui.utils.structures.Coord;
@@ -21,7 +20,7 @@ public class StubComponent extends AbstractUIComponent implements BoundedMouseIn
 
 
     public StubComponent(Coord topLeft, Size size){
-        super(new HitboxRect(topLeft, size));
+        super(HitboxRect.build(topLeft, size));
         image = new BufferedImage(size.width(), size.height(), BufferedImage.TYPE_INT_ARGB);
         pixels = getPixelMask(image);
         generateImage();

@@ -1,6 +1,7 @@
 package com.mason.mapgen.procgen.algorithms.chunking.components;
 
 import com.mason.libgui.utils.structures.*;
+import com.mason.libgui.utils.structures.interfaces.RectQuery;
 import com.mason.mapgen.procgen.algorithms.chunking.CentroidNeighbourhoodSearch;
 import com.mason.mapgen.structures.grids.lowMemory.CardinalIndexNeighbours;
 import com.mason.mapgen.structures.grids.lowMemory.ShortGrid;
