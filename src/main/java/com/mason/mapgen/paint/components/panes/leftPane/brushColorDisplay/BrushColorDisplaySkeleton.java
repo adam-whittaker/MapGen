@@ -23,6 +23,7 @@ public class BrushColorDisplaySkeleton{
     private RGBQuery averageRGBQuery;
 
     private UpdaterSlot brushDisplayUpdateSlot;
+    private UpdaterSlot averageBrushDisplayUpdateSlot;
 
 
     public BrushColorDisplaySkeleton(){}
@@ -161,11 +162,25 @@ public class BrushColorDisplaySkeleton{
         brushDisplayUpdateSlot.setUpdate(update);
     }
 
-    public void setBrushDisplayUpdaterSlot(UpdaterSlot brushDisplayUpdateSlot){
+    public void setBrushColorDisplayUpdaterSlot(UpdaterSlot brushDisplayUpdateSlot){
         if(this.brushDisplayUpdateSlot != null){
             throw new IllegalStateException("brushDisplayUpdateSlot is already set");
         }
         this.brushDisplayUpdateSlot = brushDisplayUpdateSlot;
+    }
+
+    public void setAverageBrushColorDisplayUpdate(Runnable update){
+        if(averageBrushDisplayUpdateSlot == null){
+            throw new IllegalStateException("averageBrushDisplayUpdateSlot is not set");
+        }
+        averageBrushDisplayUpdateSlot.setUpdate(update);
+    }
+
+    public void setAverageBrushColorDisplayUpdaterSlot(UpdaterSlot averageBrushDisplayUpdateSlot){
+        if(this.averageBrushDisplayUpdateSlot != null){
+            throw new IllegalStateException("averageBrushDisplayUpdateSlot is already set");
+        }
+        this.averageBrushDisplayUpdateSlot = averageBrushDisplayUpdateSlot;
     }
 
 }

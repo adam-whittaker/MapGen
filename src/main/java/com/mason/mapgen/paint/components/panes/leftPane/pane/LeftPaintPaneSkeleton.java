@@ -15,6 +15,8 @@ public class LeftPaintPaneSkeleton extends PaneSkeleton{
 
     private PaintToolQuerySlot paintToolQuerySlot;
     private final UpdaterSlot colorMixerUpdateSlot = new UpdaterSlot();
+    private final UpdaterSlot brushColorDisplayUpdateSlot = new UpdaterSlot();
+    private final UpdaterSlot averageBrushColorDisplayUpdateSlot = new UpdaterSlot();
     private final UpdaterSlot colorSelectorUpdateSlot = new UpdaterSlot();
 
     private int numBrushes = -1;
@@ -120,6 +122,22 @@ public class LeftPaintPaneSkeleton extends PaneSkeleton{
 
     public Runnable getColorSelectorUpdate(){
         return colorSelectorUpdateSlot;
+    }
+
+    public Runnable getBrushColorDisplayUpdate(){
+        return brushColorDisplayUpdateSlot;
+    }
+
+    public UpdaterSlot getBrushColorDisplayUpdateSlot(){
+        return brushColorDisplayUpdateSlot;
+    }
+
+    public Runnable getAverageBrushColorDisplayUpdate(){
+        return averageBrushColorDisplayUpdateSlot;
+    }
+
+    public UpdaterSlot getAverageBrushColorDisplayUpdateSlot(){
+        return averageBrushColorDisplayUpdateSlot;
     }
 
     public int getNumBrushes(){

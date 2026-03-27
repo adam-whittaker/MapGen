@@ -9,7 +9,6 @@ import com.mason.libgui.utils.structures.interfaces.RectQuery;
 import com.mason.libgui.utils.structures.states.position.PositionQuery;
 import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.PaintControlSettingsSkeleton;
 import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneSkeleton;
-import com.mason.mapgen.paint.components.panes.leftPane.sliders.SliderPositionStateWithUpdater;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBState;
 import com.mason.mapgen.paint.logic.tools.colorPicker.ColorPicker;
 
@@ -27,8 +26,8 @@ public class ColorSelector extends AbstractUIComponent implements BoundedMouseIn
     public ColorSelector(RectQuery bounds, LeftPaintPaneSkeleton skeleton){
         super(HitboxRect.fromRect(bounds));
         PaintControlSettingsSkeleton settingsSkeleton = skeleton.getPaintControlSettingsSkeleton();
-        this.primaryColor = settingsSkeleton.getPrimaryRGBState();
-        this.secondaryColor = settingsSkeleton.getSecondaryRGBState();
+        this.primaryColor = settingsSkeleton.getPrimaryColorState();
+        this.secondaryColor = settingsSkeleton.getSecondaryColorState();
         colorSelectorImage = new ColorSelectorImage(bounds.getSize());
         brightness = skeleton.getBrightnessSlider();
         skeleton.setColorSelectorUpdate(this::updateBrightness);

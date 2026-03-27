@@ -47,7 +47,7 @@ public class MapGenGUI{
             gui.removeKeyListener(listener);
         }
         for(BoundedMouseInputListener listener : oldState.getMouseInputListeners()){
-            gui.removeMouseInputListener(listener);
+            listener.unsetInputSource(gui);
         }
     }
 
@@ -59,7 +59,7 @@ public class MapGenGUI{
             gui.addKeyListener(listener);
         }
         for(BoundedMouseInputListener listener : newState.getMouseInputListeners()){
-            gui.addMouseInputListener(listener);
+            listener.setInputSource(gui);
         }
     }
 

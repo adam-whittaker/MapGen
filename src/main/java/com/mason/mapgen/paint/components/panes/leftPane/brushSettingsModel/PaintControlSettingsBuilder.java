@@ -2,18 +2,44 @@ package com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel;
 
 import com.mason.libgui.utils.structures.states.onOff.OnOffState;
 import com.mason.libgui.utils.structures.states.position.PositionState;
+import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.colorState.AverageColorQuery;
+import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.colorState.ColorChannelIntState;
+import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.colorState.ColorState;
 import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneSkeleton;
 import com.mason.mapgen.paint.logic.tools.PaintToolKit;
 import com.mason.mapgen.paint.logic.tools.brush.settings.ColorMixer;
 import com.mason.libgui.utils.structures.states.intState.IntState;
 import com.mason.libgui.utils.structures.states.intState.PositionTo8BitIntStateAdapter;
-import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.AverageColorQuery;
-import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.ColorStateWithUpdate;
-import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBState;
-
-import java.util.Arrays;
 
 public class PaintControlSettingsBuilder{
+
+
+    private static final int[] primaryRed = {
+            47, 142, 242,
+            242, 243, 247
+    };
+    private static final int[] secondaryRed = {
+            243, 191, 174,
+            169, 199, 215
+    };
+
+    private static final int[] primaryGreen = {
+            47, 138, 238,
+            184, 162, 197
+    };
+    private static final int[] secondaryGreen = {
+            232, 216, 229,
+            199, 179, 163
+    };
+
+    private static final int[] primaryBlue = {
+            51, 134, 232,
+            181, 143, 159
+    };
+    private static final int[] secondaryBlue = {
+            161, 184, 216,
+            232, 242, 199
+    };
 
 
     public static PaintControlSettingsSkeleton buildSkeletonWithSliderBacking(LeftPaintPaneSkeleton paneSkeleton){
@@ -29,6 +55,7 @@ public class PaintControlSettingsBuilder{
     private static PaintControlSettingsSkeleton buildSkeletonWithInitialFields(LeftPaintPaneSkeleton paneSkeleton){
         PaintControlSettingsSkeleton skeleton = new PaintControlSettingsSkeleton();
         skeleton.setColorMixerUpdateSlot(paneSkeleton.getColorMixerUpdateSlot());
+        skeleton.setBrushColorDisplayUpdate(paneSkeleton.getBrushColorDisplayUpdate());
         skeleton.setBrushNumState(paneSkeleton.getBrushNumState());
         skeleton.setNumBrushes(paneSkeleton.getNumBrushes());
         skeleton.setPaintToolQuerySlot(paneSkeleton.getPaintToolQuerySlot());
@@ -76,12 +103,12 @@ public class PaintControlSettingsBuilder{
 
 
     private static void initializeColorStates(PaintControlSettingsSkeleton skeleton){
-        RGBState primary = createRGBState(skeleton, 200, 0, 0);
-        RGBState secondary = createRGBState(skeleton, 0, 0, 200);
+        ColorState primary = createColorState(skeleton, primaryRed, primaryGreen, primaryBlue);
+        ColorState secondary = createColorState(skeleton, secondaryRed, secondaryGreen, secondaryBlue);
         PositionState centre = skeleton.getCentrePositionState();
 
-        skeleton.setPrimaryRGBState(primary);
-        skeleton.setSecondaryRGBState(secondary);
+        skeleton.setPrimaryColorState(primary);
+        skeleton.setSecondaryColorState(secondary);
         skeleton.setAverageRGBQuery(new AverageColorQuery(primary, secondary, centre));
     }
 
@@ -95,35 +122,18 @@ public class PaintControlSettingsBuilder{
     }
 
 
-    private static RGBState createRGBState(PaintControlSettingsSkeleton skeleton, int initialRed, int initialGreen, int initialBlue){
+    private static ColorState createColorState(PaintControlSettingsSkeleton skeleton, int[] r, int[] g, int[] b){
         Runnable brushDisplayUpdate = skeleton.getBrushColorDisplayUpdate();
-        IntState red = createColorChannelState(skeleton, initialRed);
-        IntState green = createColorChannelState(skeleton, initialGreen);
-        IntState blue = createColorChannelState(skeleton, initialBlue);
-        return new ColorStateWithUpdate(red, green, blue, brushDisplayUpdate);
+        ColorChannelIntState red =   createColorChannelState(skeleton, r);
+        ColorChannelIntState green = createColorChannelState(skeleton, g);
+        ColorChannelIntState blue =  createColorChannelState(skeleton, b);
+        return new ColorState(red, green, blue, brushDisplayUpdate);
     }
 
-    private static IntState createColorChannelState(PaintControlSettingsSkeleton skeleton, int initialValue){
+    private static ColorChannelIntState createColorChannelState(PaintControlSettingsSkeleton skeleton, int[] initialValues){
         IntState brushNum = skeleton.getBrushNumState();
-        return new IntState(){
-
-            final int[] channel = new int[skeleton.getNumBrushes()];
-            {
-                Arrays.fill(channel, initialValue);
-            }
-
-            @Override
-            public int getState(){
-                return channel[brushNum.getState()];
-            }
-
-            @Override
-            public void setState(int state){
-                IntState.verifyStateWithinBounds(state, 0, 256);
-                channel[brushNum.getState()] = state;
-            }
-
-        };
+        int numBrushes = skeleton.getNumBrushes();
+        return new ColorChannelIntState(brushNum, numBrushes, initialValues);
     }
 
 }

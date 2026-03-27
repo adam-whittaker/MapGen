@@ -6,8 +6,6 @@ import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBQuery;
 import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneSkeleton;
 import com.mason.mapgen.procgen.algorithms.chunking.components.ChunkingGrid;
 
-import java.awt.*;
-
 public class BrushColorDisplay extends GridImageComponent{
 
 
@@ -31,7 +29,8 @@ public class BrushColorDisplay extends GridImageComponent{
         secondaryColor = skeleton.getSecondaryRGBQuery();
         averageColor = skeleton.getAverageRGBQuery();
         grid = skeleton.getGrid();
-        skeleton.setBrushDisplayUpdate(this::update);
+        skeleton.setBrushDisplayUpdate(this::updateAllColors);
+        skeleton.setAverageBrushColorDisplayUpdate(this::updateAverageColor);
     }
 
     public static BrushColorDisplay build(LeftPaintPaneSkeleton leftPaintPaneSkeleton){
@@ -39,19 +38,22 @@ public class BrushColorDisplay extends GridImageComponent{
     }
 
 
-    private void update(){
+    private void updateAllColors(){
         displayColorOnCentroid(primaryColor, primaryColorCentroid);
         displayColorOnCentroid(secondaryColor, secondaryColorCentroid);
         displayColorOnCentroid(averageColor, averageColorCentroid);
     }
 
     private void displayColorOnCentroid(RGBQuery colorState, PaintCentroidData centroid){
-        centroid.setColor(sampleRGBColor(colorState));
+        centroid.setColor(colorState.sampleRGBColor());
         updateImageInClip(grid, grid.constructBoundingRectangle(centroid.getCoord()));
     }
 
-    private Color sampleRGBColor(RGBQuery colorState){
-        return new Color(colorState.getRed(), colorState.getGreen(), colorState.getBlue());
+
+    private void updateAverageColor(){
+        displayColorOnCentroid(primaryColor, primaryColorCentroid);
+        displayColorOnCentroid(secondaryColor, secondaryColorCentroid);
+        displayColorOnCentroid(averageColor, averageColorCentroid);
     }
 
 }

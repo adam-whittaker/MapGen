@@ -109,7 +109,8 @@ public class LeftPaintPaneBuilder{
     }
 
     private static void setUpBrushToggles(LeftPaintPaneSkeleton skeleton){
-        Toggle[] brushToggles = BrushTogglesBuilder.buildToggles(skeleton);
+        BrushTogglesBuilder builder = new BrushTogglesBuilder(skeleton);
+        Toggle[] brushToggles = builder.buildToggles(skeleton);
         for(Toggle toggle : brushToggles){
             skeleton.addComponent(toggle);
         }

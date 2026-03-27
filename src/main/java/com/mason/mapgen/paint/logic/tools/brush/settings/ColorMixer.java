@@ -27,8 +27,8 @@ public class ColorMixer{
 
 
     public ColorMixer(BrushSettingsSkeleton skeleton){
-        this.primary = skeleton.getPrimaryRGBState();
-        this.secondary = skeleton.getSecondaryRGBState();
+        this.primary = skeleton.getPrimaryColorState();
+        this.secondary = skeleton.getSecondaryColorState();
         this.centre = skeleton.getCentrePositionState();
         this.certainty = skeleton.getCertaintyPositionState();
         this.channelsIndependence = skeleton.getChannelIndependenceState();

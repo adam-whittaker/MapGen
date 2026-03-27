@@ -2,6 +2,7 @@ package com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel;
 
 import com.mason.libgui.utils.structures.states.onOff.OnOffState;
 import com.mason.libgui.utils.structures.states.position.PositionState;
+import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.colorState.ColorState;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
 import com.mason.mapgen.paint.logic.tools.PaintToolKit;
 import com.mason.mapgen.paint.logic.tools.brush.settings.ColorMixer;
@@ -28,8 +29,8 @@ public class PaintControlSettingsSkeleton implements BrushSettingsSkeleton{
 
     private OnOffState channelIndependenceState;
 
-    private RGBState primaryRGBState;
-    private RGBState secondaryRGBState;
+    private ColorState primaryColorState;
+    private ColorState secondaryColorState;
     private RGBQuery averageRGBQuery;
 
     private ColorMixer colorMixer;
@@ -37,7 +38,7 @@ public class PaintControlSettingsSkeleton implements BrushSettingsSkeleton{
 
     private PaintToolQuerySlot paintToolQuerySlot;
     private UpdaterSlot colorMixerUpdateSlot;
-    private final UpdaterSlot brushColorDisplayUpdateSlot = new UpdaterSlot();
+    private Runnable brushColorDisplayUpdate;
 
     private OnOffState colorPickerState;
 
@@ -150,32 +151,34 @@ public class PaintControlSettingsSkeleton implements BrushSettingsSkeleton{
         this.numBrushes = numBrushes;
     }
 
-    public RGBState getPrimaryRGBState(){
-        if(primaryRGBState == null){
+    @Override
+    public ColorState getPrimaryColorState(){
+        if(primaryColorState == null){
             throw new IllegalStateException("primaryColorState is not set");
         }
-        return primaryRGBState;
+        return primaryColorState;
     }
 
-    public void setPrimaryRGBState(RGBState primaryRGBState){
-        if(this.primaryRGBState != null){
+    public void setPrimaryColorState(ColorState primaryColorState){
+        if(this.primaryColorState != null){
             throw new IllegalStateException("primaryColorState is already set");
         }
-        this.primaryRGBState = primaryRGBState;
+        this.primaryColorState = primaryColorState;
     }
 
-    public RGBState getSecondaryRGBState(){
-        if(secondaryRGBState == null){
+    @Override
+    public ColorState getSecondaryColorState(){
+        if(secondaryColorState == null){
             throw new IllegalStateException("secondaryColorState is not set");
         }
-        return secondaryRGBState;
+        return secondaryColorState;
     }
 
-    public void setSecondaryRGBState(RGBState secondaryRGBState){
-        if(this.secondaryRGBState != null){
+    public void setSecondaryColorState(ColorState secondaryColorState){
+        if(this.secondaryColorState != null){
             throw new IllegalStateException("secondaryColorState is already set");
         }
-        this.secondaryRGBState = secondaryRGBState;
+        this.secondaryColorState = secondaryColorState;
     }
 
     @Override
@@ -252,11 +255,17 @@ public class PaintControlSettingsSkeleton implements BrushSettingsSkeleton{
     }
 
     public Runnable getBrushColorDisplayUpdate(){
-        return brushColorDisplayUpdateSlot;
+        if(brushColorDisplayUpdate == null){
+            throw new IllegalStateException("brushColorDisplayUpdate is not set");
+        }
+        return brushColorDisplayUpdate;
     }
 
-    public UpdaterSlot getBrushColorDisplayUpdaterSlot(){
-        return brushColorDisplayUpdateSlot;
+    public void setBrushColorDisplayUpdate(Runnable brushColorDisplayUpdate){
+        if(this.brushColorDisplayUpdate != null){
+            throw new IllegalStateException("brushColorDisplayUpdate is already set");
+        }
+        this.brushColorDisplayUpdate = brushColorDisplayUpdate;
     }
 
     public Supplier<PaintTool> getPaintToolQuery(){

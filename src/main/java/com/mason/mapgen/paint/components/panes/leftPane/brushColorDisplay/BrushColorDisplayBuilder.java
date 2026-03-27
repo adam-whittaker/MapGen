@@ -33,10 +33,11 @@ public class BrushColorDisplayBuilder{
     private static BrushColorDisplaySkeleton buildSkeletonWithInitialFields(LeftPaintPaneSkeleton leftPaintPaneSkeleton){
         PaintControlSettingsSkeleton controlSettingsSkeleton = leftPaintPaneSkeleton.getPaintControlSettingsSkeleton();
         BrushColorDisplaySkeleton skeleton = new BrushColorDisplaySkeleton();
-        skeleton.setPrimaryRGBQuery(controlSettingsSkeleton.getPrimaryRGBState());
-        skeleton.setSecondaryRGBQuery(controlSettingsSkeleton.getSecondaryRGBState());
+        skeleton.setPrimaryRGBQuery(controlSettingsSkeleton.getPrimaryColorState());
+        skeleton.setSecondaryRGBQuery(controlSettingsSkeleton.getSecondaryColorState());
         skeleton.setAverageRGBQuery(controlSettingsSkeleton.getAverageRGBQuery());
-        skeleton.setBrushDisplayUpdaterSlot(controlSettingsSkeleton.getBrushColorDisplayUpdaterSlot());
+        skeleton.setBrushColorDisplayUpdaterSlot(leftPaintPaneSkeleton.getBrushColorDisplayUpdateSlot());
+        skeleton.setAverageBrushColorDisplayUpdaterSlot(leftPaintPaneSkeleton.getAverageBrushColorDisplayUpdateSlot());
         skeleton.setBoundary(constructBrushSettingsBoundary(leftPaintPaneSkeleton));
         return skeleton;
     }

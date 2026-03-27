@@ -32,6 +32,7 @@ public class LeftPaintPaneLayout extends PaneLayout{
         nameAddress("[0,0]-[0,0]-[1,0]", "TOGGLE_BOX");
         nameAddress("[0,0]-[0,1]", "BRUSH_COLOR_DISPLAY");
         reduceBoxSizeWithMargin("TOGGLE_BOX", 0.0, 0.15);
+        reduceBoxSizeWithMargin("BRUSH_COLOR_DISPLAY", 0.1, 0.1);
 
         divide("TOGGLE_BOX", 2, 6);
         nameAddress("TOGGLE_BOX-[0,1]", "BRUSH_0_TOGGLE");

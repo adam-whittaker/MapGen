@@ -33,8 +33,8 @@ public class BrushSettingsModel{
         certaintyState = skeleton.getCertaintyPositionState();
         sizeState = skeleton.getSizeState();
         channelIndependenceState = skeleton.getChannelIndependenceState();
-        primaryColor = skeleton.getPrimaryRGBState();
-        secondaryColor = skeleton.getSecondaryRGBState();
+        primaryColor = skeleton.getPrimaryColorState();
+        secondaryColor = skeleton.getSecondaryColorState();
         colorMixer = skeleton.getColorMixer();
         paintToolKit = skeleton.getPaintToolKit();
     }

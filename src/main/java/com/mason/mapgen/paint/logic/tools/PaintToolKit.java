@@ -18,7 +18,7 @@ public class PaintToolKit{
         skeleton.setCurrentPaintToolQuery(this::getCurrentTool);
         this.brush = new BrushTool(skeleton);
         this.colorPickerState = skeleton.getColorPickerState();
-        this.colorPicker = new ColorPicker(skeleton.getPrimaryRGBState(), skeleton.getSecondaryRGBState());
+        this.colorPicker = new ColorPicker(skeleton.getPrimaryColorState(), skeleton.getSecondaryColorState());
     }
 
     private PaintTool getCurrentTool(){

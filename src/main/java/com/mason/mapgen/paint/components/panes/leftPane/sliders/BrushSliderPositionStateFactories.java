@@ -16,6 +16,7 @@ public class BrushSliderPositionStateFactories{
     private final IntState brushNumState;
     private final int numBrushes;
     private final Runnable colorMixerUpdate;
+    private final Runnable averageBrushDisplayUpdate;
     private final Runnable colorSelectorUpdate;
     private final int sliderHandleWidth;
 
@@ -24,6 +25,7 @@ public class BrushSliderPositionStateFactories{
         brushNumState = skeleton.getBrushNumState();
         numBrushes = skeleton.getNumBrushes();
         colorMixerUpdate = skeleton.getColorMixerUpdate();
+        averageBrushDisplayUpdate = skeleton.getAverageBrushColorDisplayUpdate();
         colorSelectorUpdate = skeleton.getColorSelectorUpdate();
         this.sliderHandleWidth = sliderHandleWidth;
     }
@@ -35,12 +37,16 @@ public class BrushSliderPositionStateFactories{
     }
 
     public SliderPositionState buildCentreState(RectQuery railClamp){
-        SliderPositionStateFactory factory = createBrushNumIndexedFactoryWithColorMixerUpdate(1);
+        Runnable combinedUpdate = () -> {
+            colorMixerUpdate.run();
+            averageBrushDisplayUpdate.run();
+        };
+        SliderPositionStateFactory factory = createBrushNumIndexedFactoryWithUpdate(0, combinedUpdate);
         return factory.buildSliderPositionState(railClamp);
     }
 
     public SliderPositionState buildCertaintyState(RectQuery railClamp){
-        SliderPositionStateFactory factory = createBrushNumIndexedFactoryWithColorMixerUpdate(0.5);
+        SliderPositionStateFactory factory = createBrushNumIndexedFactoryWithUpdate(0.5, colorMixerUpdate);
         return factory.buildSliderPositionState(railClamp);
     }
 
@@ -50,7 +56,7 @@ public class BrushSliderPositionStateFactories{
     }
 
     public SliderPositionState buildBrightnessState(RectQuery railClamp){
-        SliderPositionStateFactory factory = createUnindexedFactoryWithColorSelectorUpdate(0.5);
+        SliderPositionStateFactory factory = createUnindexedFactoryWithColorSelectorUpdate(0.7);
         return factory.buildSliderPositionState(railClamp);
     }
 
@@ -101,14 +107,14 @@ public class BrushSliderPositionStateFactories{
     }
 
 
-    private SliderPositionStateFactory createBrushNumIndexedFactoryWithColorMixerUpdate(double initialPosition){
+    private SliderPositionStateFactory createBrushNumIndexedFactoryWithUpdate(double initialPosition, Runnable update){
         return (railClamp) -> {
             RectQuery coordClamp = getCoordClamp(railClamp);
             Coord initialCoord = getInitialCoordFromCoordClamp(coordClamp, initialPosition);
             Movable movable = createBrushNumIndexedMovableWithInitialCoord(initialCoord);
             IntRange range = getIntRange(coordClamp);
             SliderPositionStateWithUpdater state = new SliderPositionStateWithUpdater(movable, range);
-            state.setUpdater(colorMixerUpdate);
+            state.setUpdater(update);
             return state;
         };
     }

@@ -18,8 +18,8 @@ public interface BrushSettingsSkeleton{
     IntState getSizeState();
     OnOffState getChannelIndependenceState();
 
-    RGBState getPrimaryRGBState();
-    RGBState getSecondaryRGBState();
+    RGBState getPrimaryColorState();
+    RGBState getSecondaryColorState();
     RGBQuery getAverageRGBQuery();
 
     ColorMixer getColorMixer();
