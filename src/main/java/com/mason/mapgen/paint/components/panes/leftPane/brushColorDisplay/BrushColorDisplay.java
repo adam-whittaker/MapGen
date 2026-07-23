@@ -4,7 +4,7 @@ import com.mason.mapgen.paint.components.misc.GridImageComponent;
 import com.mason.mapgen.paint.components.misc.PaintCentroidData;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBQuery;
 import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneSkeleton;
-import com.mason.mapgen.procgen.algorithms.chunking.components.ChunkingGrid;
+import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
 
 public class BrushColorDisplay extends GridImageComponent{
 

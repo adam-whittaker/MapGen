@@ -1,10 +1,10 @@
 package com.mason.mapgen.paint.logic.canvas;
 
-import com.mason.libgui.utils.structures.*;
-import com.mason.libgui.utils.structures.interfaces.Boundable;
+import com.mason.libstruct.geo.*;
+import com.mason.libstruct.interfaces.Boundable;
 import com.mason.mapgen.paint.components.misc.PaintCentroidData;
 import com.mason.mapgen.paint.components.misc.GridImageComponent;
-import com.mason.mapgen.procgen.algorithms.chunking.components.ChunkingGrid;
+import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
 
 import java.awt.*;
 
@@ -21,17 +21,17 @@ public class PaintCanvas implements Boundable{
     }
 
 
-    public PaintCentroidData getCentroidData(Coord coord){
-        return grid.getCentroidDataByIndex(grid.asIndex(coord));
+    public Short getCentroidIDFromCoord(Coord coord){
+        return grid.centroidID(grid.asIndex(coord));
     }
 
     public Color getChunkColor(Coord coord){
-        return getCentroidData(coord).getColor();
+        PaintCentroidData data = grid.getCentroidDataByIndex(grid.asIndex(coord));
+        return data.getColor();
     }
 
-    public void changeChunkColor(Color newColor, Coord coord){
-        Integer pointIdx = grid.asIndex(coord);
-        PaintCentroidData centroidData = grid.getCentroidDataByIndex(pointIdx);
+    public void changeChunkColor(Color newColor, Short centroidID){
+        PaintCentroidData centroidData = grid.getCentroidDataByID(centroidID);
         centroidData.paintColor(newColor);
         updateImageLocallyAroundCentroid(centroidData.getCoord());
     }
@@ -40,8 +40,8 @@ public class PaintCanvas implements Boundable{
         image.updateImageInClip(grid, grid.constructBoundingRectangle(centroidCoord));
     }
 
-    public Iterable<PaintCentroidData> centroidNeighbourhood(PaintCentroidData data, int searchDepth){
-        return grid.centroidNeighbourhood(data, searchDepth);
+    public Iterable<Short> centroidNeighbourhood(Short centroidID, int searchDepth){
+        return grid.centroidNeighbourhood(centroidID, searchDepth);
     }
 
     @Override

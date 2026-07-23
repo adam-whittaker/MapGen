@@ -4,8 +4,8 @@ import com.mason.libgui.core.component.AbstractUIComponent;
 import com.mason.libgui.core.component.hitbox.HitboxRect;
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.Size;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.geo.Size;
 import com.mason.mapgen.core.DebugUtils;
 
 import java.awt.*;

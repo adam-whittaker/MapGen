@@ -1,21 +1,22 @@
 package com.mason.mapgen.paint.components.panes.leftPane.brushColorDisplay;
 
 import com.mason.libgui.components.panes.layout.PaneLayout;
-import com.mason.libgui.utils.structures.*;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
+import com.mason.libstruct.geo.*;
+import com.mason.libstruct.interfaces.RectQuery;
+import com.mason.libvoronoi.algorithms.AnnexQueries;
+import com.mason.libvoronoi.algorithms.FloodFillAnnexQuery;
+import com.mason.libvoronoi.algorithms.voronoi.VoronoiChunker;
+import com.mason.libvoronoi.algorithms.voronoi.VoronoiChunkerBuilder;
+import com.mason.libvoronoi.algorithms.voronoi.VoronoiChunkerSkeleton;
+import com.mason.libvoronoi.misc.RandomCoords;
+import com.mason.mapgen.core.random.RandomSource;
 import com.mason.mapgen.paint.components.misc.PaintCentroidData;
 import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneSkeleton;
 import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.PaintControlSettingsSkeleton;
-import com.mason.mapgen.procgen.algorithms.chunking.AnnexQueries;
-import com.mason.mapgen.procgen.algorithms.chunking.components.ChunkingGrid;
-import com.mason.mapgen.procgen.algorithms.chunking.voronoi.VoronoiChunker;
-import com.mason.mapgen.procgen.algorithms.chunking.voronoi.VoronoiChunkerBuilder;
-import com.mason.mapgen.procgen.algorithms.chunking.voronoi.VoronoiChunkerSkeleton;
+import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
 
 import java.awt.*;
 import java.util.*;
-
-import static com.mason.mapgen.procgen.algorithms.misc.RandomCoords.generateRandomCoordWithinClip;
 
 public class BrushColorDisplayBuilder{
 
@@ -56,8 +57,9 @@ public class BrushColorDisplayBuilder{
     }
 
     private static VoronoiChunker<PaintCentroidData> buildChunker(Size size, CoordSlot coordSlot){
+        FloodFillAnnexQuery<PaintCentroidData> randomQuery = AnnexQueries.buildDefaultRandomQuery(RandomSource.asRandom());
         VoronoiChunkerSkeleton<PaintCentroidData> voronoiChunkerSkeleton =
-                VoronoiChunkerBuilder.buildSkeleton(size, -1, 0, PaintCentroidData::new, AnnexQueries::randomQuery);
+                VoronoiChunkerBuilder.buildSkeleton(RandomSource.asRandom(), size, -1, 0, PaintCentroidData::new, randomQuery);
         voronoiChunkerSkeleton.preventCentroidGraph();
         voronoiChunkerSkeleton.setRandomCoordGenerator((boundingSize, numCoords) -> generateCoords(boundingSize, coordSlot));
         return VoronoiChunker.buildFromSkeleton(voronoiChunkerSkeleton);
@@ -71,9 +73,10 @@ public class BrushColorDisplayBuilder{
     }
 
     private static void addRandomInnerCoordsToCoordSlot(int w, int h, CoordSlot coordSlot){
-        Coord primary = generateRandomCoordWithinClip(new Rect(w, h, w, 4*h));
-        Coord average = generateRandomCoordWithinClip(new Rect(2*w, h, 2*w, 4*h));
-        Coord secondary = generateRandomCoordWithinClip(new Rect(4*w, h, 2*w, 4*h));
+        RandomCoords randomCoords = new RandomCoords(RandomSource.asRandom());
+        Coord primary = randomCoords.generateRandomCoordWithinClip(new Rect(w, h, w, 4*h));
+        Coord average = randomCoords.generateRandomCoordWithinClip(new Rect(2*w, h, 2*w, 4*h));
+        Coord secondary = randomCoords.generateRandomCoordWithinClip(new Rect(4*w, h, 2*w, 4*h));
         coordSlot.setPrimary(primary);
         coordSlot.setAverage(average);
         coordSlot.setSecondary(secondary);
@@ -90,16 +93,18 @@ public class BrushColorDisplayBuilder{
     }
 
     private static void addHorizontalBarsOfRandomCentroidsToSet(int w, int h, Set<Coord> coords){
+        RandomCoords randomCoords = new RandomCoords(RandomSource.asRandom());
         for(int i = 0; i<6; i++){
-            coords.add(generateRandomCoordWithinClip(new Rect(i*w, 0, w, h)));
-            coords.add(generateRandomCoordWithinClip(new Rect(i*w, 5*h, w, h)));
+            coords.add(randomCoords.generateRandomCoordWithinClip(new Rect(i*w, 0, w, h)));
+            coords.add(randomCoords.generateRandomCoordWithinClip(new Rect(i*w, 5*h, w, h)));
         }
     }
 
     private static void addVerticalBarsOfRandomCentroidsToSet(int w, int h, Set<Coord> coords){
+        RandomCoords randomCoords = new RandomCoords(RandomSource.asRandom());
         for(int i = 1; i<=4; i++){
-            coords.add(generateRandomCoordWithinClip(new Rect(0, i*h, w, h)));
-            coords.add(generateRandomCoordWithinClip(new Rect(5*w, i*h, w, h)));
+            coords.add(randomCoords.generateRandomCoordWithinClip(new Rect(0, i*h, w, h)));
+            coords.add(randomCoords.generateRandomCoordWithinClip(new Rect(5*w, i*h, w, h)));
         }
     }
 

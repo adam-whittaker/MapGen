@@ -1,6 +1,6 @@
 package com.mason.mapgen.world;
 
-import com.mason.libgui.utils.structures.Coord;
+import com.mason.libstruct.geo.Coord;
 
 public class WorldPoint{
 

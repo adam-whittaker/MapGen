@@ -15,6 +15,17 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>com.mason</groupId>
+            <artifactId>LibVoronoi</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mason</groupId>
+            <artifactId>LibStruct</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-math3</artifactId>
             <version>3.6.1</version>

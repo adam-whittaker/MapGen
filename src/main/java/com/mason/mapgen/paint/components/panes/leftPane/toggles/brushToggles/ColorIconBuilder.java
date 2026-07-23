@@ -1,10 +1,10 @@
 package com.mason.mapgen.paint.components.panes.leftPane.toggles.brushToggles;
 
 
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.Rect;
-import com.mason.libgui.utils.structures.Size;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.geo.Rect;
+import com.mason.libstruct.geo.Size;
+import com.mason.libstruct.interfaces.RectQuery;
 import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.colorState.ColorState;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBQuery;
 

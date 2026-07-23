@@ -1,6 +1,6 @@
 package com.mason.mapgen.paint.components.panes.leftPane.toggles.brushToggles;
 
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
+import com.mason.libstruct.interfaces.RectQuery;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBQuery;
 
 import java.awt.*;

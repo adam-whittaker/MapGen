@@ -1,11 +1,11 @@
 package com.mason.mapgen.paint.components.panes.leftPane.sliders;
 
 import com.mason.libgui.components.sliders.sliderPositionState.*;
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.Rect;
-import com.mason.libgui.utils.structures.interfaces.Movable;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
-import com.mason.libgui.utils.structures.states.intState.IntState;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.geo.Rect;
+import com.mason.libstruct.interfaces.Movable;
+import com.mason.libstruct.interfaces.RectQuery;
+import com.mason.libstruct.states.intState.IntState;
 import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneSkeleton;
 
 import java.util.Arrays;

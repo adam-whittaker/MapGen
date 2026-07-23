@@ -1,6 +1,6 @@
 package com.mason.mapgen.paint.logic;
 
-import com.mason.libgui.utils.structures.states.onOff.OnOffState;
+import com.mason.libstruct.states.onOff.OnOffState;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

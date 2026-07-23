@@ -1,8 +1,8 @@
 package com.mason.mapgen.core;
 
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.Size;
-import com.mason.mapgen.procgen.algorithms.chunking.components.ChunkingGrid;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.geo.Size;
+import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
 
 import java.awt.*;
 

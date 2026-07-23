@@ -1,8 +1,8 @@
 package com.mason.mapgen.paint.components.panes.leftPane.paletteCanvas;
 
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
-import com.mason.libgui.utils.structures.states.intState.IntState;
-import com.mason.libgui.utils.structures.states.position.PositionState;
+import com.mason.libstruct.states.intState.IntState;
+import com.mason.libstruct.states.position.PositionState;
 import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneSkeleton;
 import com.mason.mapgen.paint.logic.canvas.CanvasController;
 import com.mason.mapgen.paint.logic.tools.PaintTool;

@@ -1,12 +1,12 @@
 package com.mason.mapgen.paint.components.panes.leftPane.paletteCanvas;
 
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
-import com.mason.libgui.utils.structures.states.intState.IntState;
-import com.mason.libgui.utils.structures.states.position.PositionState;
+import com.mason.libstruct.interfaces.RectQuery;
+import com.mason.libstruct.states.intState.IntState;
+import com.mason.libstruct.states.position.PositionState;
 import com.mason.mapgen.paint.components.misc.PaintCentroidData;
 import com.mason.mapgen.paint.logic.canvas.PaintCanvas;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
-import com.mason.mapgen.procgen.algorithms.chunking.FloodFillAnnexQuery;
+import com.mason.libvoronoi.algorithms.FloodFillAnnexQuery;
 
 import java.util.function.Supplier;
 

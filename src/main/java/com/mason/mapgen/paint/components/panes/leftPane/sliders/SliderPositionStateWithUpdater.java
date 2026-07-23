@@ -2,8 +2,8 @@ package com.mason.mapgen.paint.components.panes.leftPane.sliders;
 
 import com.mason.libgui.components.sliders.sliderPositionState.BasicSliderPositionState;
 import com.mason.libgui.components.sliders.sliderPositionState.IntRange;
-import com.mason.libgui.utils.structures.interfaces.Movable;
-import com.mason.libgui.utils.structures.Coord;
+import com.mason.libstruct.interfaces.Movable;
+import com.mason.libstruct.geo.Coord;
 import com.mason.mapgen.paint.skeletons.UpdaterSlot;
 
 public class SliderPositionStateWithUpdater extends BasicSliderPositionState{

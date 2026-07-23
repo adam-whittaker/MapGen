@@ -1,7 +1,7 @@
 package com.mason.mapgen.paint.components.panes.leftPane.pane;
 
 import com.mason.libgui.components.panes.layout.PaneLayout;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
+import com.mason.libstruct.interfaces.RectQuery;
 
 public class LeftPaintPaneLayout extends PaneLayout{
 

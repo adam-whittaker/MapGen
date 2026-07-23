@@ -7,8 +7,8 @@ import com.mason.libgui.components.sliders.Slider;
 import com.mason.libgui.components.sliders.sliderWithIcons.SliderWithIcons;
 import com.mason.libgui.components.sliders.sliderWithIcons.SliderWithIconsBuilder;
 import com.mason.libgui.components.sliders.sliderWithIcons.SliderWithIconsSkeleton;
-import com.mason.libgui.utils.structures.Size;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
+import com.mason.libstruct.geo.Size;
+import com.mason.libstruct.interfaces.RectQuery;
 import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneSkeleton;
 
 public class BrushSliderBuilder extends SliderWithIconsBuilder{

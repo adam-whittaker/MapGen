@@ -1,7 +1,7 @@
 package com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.colorState;
 
-import com.mason.libgui.utils.structures.states.intState.IntQuery;
-import com.mason.libgui.utils.structures.states.intState.IntState;
+import com.mason.libstruct.states.intState.IntQuery;
+import com.mason.libstruct.states.intState.IntState;
 
 public class ColorChannelIntState implements IntState{
 

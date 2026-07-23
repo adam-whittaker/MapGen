@@ -1,14 +1,12 @@
 package com.mason.mapgen.paint.logic.tools.brush;
 
-import com.mason.mapgen.paint.components.misc.PaintCentroidData;
-
 import java.util.HashSet;
 import java.util.Set;
 
 public class BrushStroke{
 
 
-    private final Set<PaintCentroidData> centroidDataSet;
+    private final Set<Short> centroidDataSet;
 
 
     BrushStroke(){
@@ -16,12 +14,12 @@ public class BrushStroke{
     }
 
 
-    void addToStroke(PaintCentroidData data){
-        centroidDataSet.add(data);
+    void addToStroke(Short centroidID){
+        centroidDataSet.add(centroidID);
     }
 
-    boolean isInStroke(PaintCentroidData data){
-        return centroidDataSet.contains(data);
+    boolean isInStroke(Short centroidID){
+        return centroidDataSet.contains(centroidID);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.mason.mapgen.structures.grids.lowMemory;
 
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.Size;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.geo.Size;
 
 import java.util.Arrays;
 

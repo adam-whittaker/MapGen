@@ -3,7 +3,7 @@ package com.mason.mapgen.paint.components.panes.leftPane.toggles.brushToggles;
 import com.mason.libgui.components.deco.BasicButtonDeco;
 import com.mason.libgui.components.toggles.ToggleRenderState;
 import com.mason.libgui.utils.ImageUtils;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
+import com.mason.libstruct.interfaces.RectQuery;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

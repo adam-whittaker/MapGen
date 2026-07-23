@@ -3,7 +3,7 @@ package com.mason.mapgen.gui;
 import com.mason.libgui.core.component.UIComponent;
 import com.mason.libgui.core.guiManagement.GUI;
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
-import com.mason.libgui.utils.structures.Size;
+import com.mason.libstruct.geo.Size;
 import com.mason.mapgen.gui.states.GUIState;
 import com.mason.mapgen.gui.states.NullGUIState;
 

@@ -2,7 +2,7 @@ package com.mason.mapgen.paint.components.paintGUIState;
 
 import com.mason.libgui.components.panes.layout.PaneLayout;
 import com.mason.libgui.core.component.hitbox.HitboxRect;
-import com.mason.libgui.utils.structures.Coord;
+import com.mason.libstruct.geo.Coord;
 
 public class PaintGUIStateLayout extends PaneLayout{
 

@@ -1,15 +1,15 @@
 package com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel;
 
-import com.mason.libgui.utils.structures.states.onOff.OnOffState;
-import com.mason.libgui.utils.structures.states.position.PositionState;
+import com.mason.libstruct.states.onOff.OnOffState;
+import com.mason.libstruct.states.position.PositionState;
 import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.colorState.AverageColorQuery;
 import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.colorState.ColorChannelIntState;
 import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.colorState.ColorState;
 import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneSkeleton;
 import com.mason.mapgen.paint.logic.tools.PaintToolKit;
 import com.mason.mapgen.paint.logic.tools.brush.settings.ColorMixer;
-import com.mason.libgui.utils.structures.states.intState.IntState;
-import com.mason.libgui.utils.structures.states.intState.PositionTo8BitIntStateAdapter;
+import com.mason.libstruct.states.intState.IntState;
+import com.mason.libstruct.states.intState.PositionTo8BitIntStateAdapter;
 
 public class PaintControlSettingsBuilder{
 

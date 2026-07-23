@@ -1,13 +1,15 @@
 package com.mason.mapgen.core;
 
-import com.mason.libgui.utils.structures.Size;
+import com.mason.libstruct.geo.Size;
+import com.mason.libvoronoi.algorithms.FloodFillAnnexQuery;
+import com.mason.mapgen.core.random.RandomSource;
 import com.mason.mapgen.gui.MapGenGUI;
 import com.mason.mapgen.gui.states.GUIState;
 import com.mason.mapgen.paint.components.misc.PaintCentroidData;
 import com.mason.mapgen.paint.components.paintGUIState.PaintGUIState;
-import com.mason.mapgen.procgen.algorithms.chunking.AnnexQueries;
-import com.mason.mapgen.procgen.algorithms.chunking.voronoi.VoronoiChunker;
-import com.mason.mapgen.procgen.algorithms.chunking.components.ChunkingGrid;
+import com.mason.libvoronoi.algorithms.AnnexQueries;
+import com.mason.libvoronoi.algorithms.voronoi.VoronoiChunker;
+import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
 
 
 public class Launcher{
@@ -15,8 +17,15 @@ public class Launcher{
 
     public static void launch(){
 
-        VoronoiChunker<PaintCentroidData> chunker = VoronoiChunker.build(new Size(1200, 1200),
-                2400, 0, PaintCentroidData::new, AnnexQueries::randomQuery);
+        FloodFillAnnexQuery<PaintCentroidData> randomQuery = AnnexQueries.buildDefaultRandomQuery(RandomSource.asRandom());
+        VoronoiChunker<PaintCentroidData> chunker = VoronoiChunker.build(
+                RandomSource.asRandom(),
+                new Size(1200, 1200),
+                2400,
+                0,
+                PaintCentroidData::new,
+                randomQuery);
+
         chunker.createChunks();
         ChunkingGrid<PaintCentroidData> chunkingGrid = chunker.getGrid();
         chunkingGrid.updateMaxDistToCentroid();

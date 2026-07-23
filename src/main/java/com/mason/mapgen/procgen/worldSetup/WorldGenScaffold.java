@@ -1,7 +1,7 @@
 package com.mason.mapgen.procgen.worldSetup;
 
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.Size;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.geo.Size;
 import com.mason.mapgen.structures.grids.Grid;
 import com.mason.mapgen.structures.grids.MutableGrid;
 import com.mason.mapgen.world.WorldPoint;

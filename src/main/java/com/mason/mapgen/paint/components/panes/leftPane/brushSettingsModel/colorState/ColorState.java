@@ -1,6 +1,6 @@
 package com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.colorState;
 
-import com.mason.libgui.utils.structures.states.intState.IntQuery;
+import com.mason.libstruct.states.intState.IntQuery;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBQuery;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBState;
 

@@ -1,14 +1,14 @@
 package com.mason.mapgen.paint.components.misc;
 
-import com.mason.libgui.utils.structures.Coord;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libvoronoi.algorithms.components.CentroidData;
 import com.mason.mapgen.core.random.RandomSource;
-import com.mason.mapgen.procgen.algorithms.chunking.components.BasicCentroidData;
 
 import java.awt.*;
 
 import static java.lang.Math.round;
 
-public class PaintCentroidData extends BasicCentroidData<PaintCentroidData>{
+public class PaintCentroidData extends CentroidData{
 
 
     private Color color;

@@ -1,8 +1,9 @@
 package com.mason.mapgen.paint.components.paintGUIState;
 
-import com.mason.libgui.utils.structures.Size;
+import com.mason.libstruct.geo.Size;
 import com.mason.mapgen.gui.states.GUIStateSkeleton;
 import com.mason.mapgen.paint.components.misc.PaintCentroidData;
+import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
 import com.mason.mapgen.paint.components.panes.bottomPane.BottomPaintPane;
 import com.mason.mapgen.paint.components.panes.imagePane.PaintedImagePane;
 import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPane;
@@ -11,7 +12,6 @@ import com.mason.mapgen.paint.components.panes.topPane.TopPaintPane;
 import com.mason.mapgen.paint.logic.PaintKeyProcessor;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
 import com.mason.mapgen.paint.skeletons.PaintToolQuerySlot;
-import com.mason.mapgen.procgen.algorithms.chunking.components.ChunkingGrid;
 
 import java.util.function.Supplier;
 

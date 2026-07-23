@@ -3,8 +3,8 @@ package com.mason.mapgen.paint.logic.canvas;
 import com.mason.libgui.core.componentManagement.InteractiveContainer;
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.Size;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.geo.Size;
 import com.mason.mapgen.paint.skeletons.PaintToolQuerySlot;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
 

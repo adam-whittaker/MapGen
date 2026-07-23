@@ -2,6 +2,8 @@ package com.mason.mapgen.core.random;
 
 import org.apache.commons.math3.distribution.BetaDistribution;
 
+import java.util.Random;
+
 public final class RandomSource{
 
 
@@ -30,6 +32,10 @@ public final class RandomSource{
 
     public static BetaDistribution createBetaDistribution(double alpha, double beta){
         return new BetaDistribution(RANDOM, alpha, beta);
+    }
+
+    public static Random asRandom(){
+        return RANDOM.asRandom();
     }
 
 }

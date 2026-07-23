@@ -1,6 +1,6 @@
 package com.mason.mapgen.structures.grids;
 
-import com.mason.libgui.utils.structures.Coord;
+import com.mason.libstruct.geo.Coord;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;

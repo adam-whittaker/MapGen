@@ -1,6 +1,6 @@
 package com.mason.mapgen.procgen.worldSetup;
 
-import com.mason.libgui.utils.structures.Coord;
+import com.mason.libstruct.geo.Coord;
 import com.mason.mapgen.world.*;
 
 public class WorldPointScaffold implements WorldPointSkeleton{

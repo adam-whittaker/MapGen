@@ -1,16 +1,17 @@
 package com.mason.mapgen.paint.components.panes.leftPane.paletteCanvas;
 
 import com.mason.libgui.components.panes.layout.PaneLayout;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
+import com.mason.libstruct.interfaces.RectQuery;
+import com.mason.libvoronoi.algorithms.AnnexQueries;
+import com.mason.mapgen.core.random.RandomSource;
 import com.mason.mapgen.paint.components.misc.PaintCentroidData;
 import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.PaintControlSettingsSkeleton;
 import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneSkeleton;
 import com.mason.mapgen.paint.logic.canvas.PaintCanvas;
-import com.mason.mapgen.procgen.algorithms.chunking.AnnexQueries;
-import com.mason.mapgen.procgen.algorithms.chunking.components.ChunkingGrid;
-import com.mason.mapgen.procgen.algorithms.chunking.voronoi.VoronoiChunker;
-import com.mason.mapgen.procgen.algorithms.chunking.voronoi.VoronoiChunkerBuilder;
-import com.mason.mapgen.procgen.algorithms.chunking.voronoi.VoronoiChunkerSkeleton;
+import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
+import com.mason.libvoronoi.algorithms.voronoi.VoronoiChunker;
+import com.mason.libvoronoi.algorithms.voronoi.VoronoiChunkerBuilder;
+import com.mason.libvoronoi.algorithms.voronoi.VoronoiChunkerSkeleton;
 
 public class PaletteCanvasControllerBuilder{
 
@@ -50,6 +51,7 @@ public class PaletteCanvasControllerBuilder{
     private static VoronoiChunker<PaintCentroidData> constructPaletteChunker(PaletteCanvasControllerSkeleton skeleton){
         RectQuery boundary = skeleton.getBoundary();
         VoronoiChunkerSkeleton<PaintCentroidData> paletteChunkerSkeleton = VoronoiChunkerBuilder.buildSkeleton(
+                RandomSource.asRandom(),
                 boundary.getSize(),
                 skeleton.getNumChunks(),
                 skeleton.getLloydRelaxCount(),

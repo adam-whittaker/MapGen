@@ -1,7 +1,7 @@
 package com.mason.mapgen.structures.iterators;
 
 
-import com.mason.libgui.utils.structures.Size;
+import com.mason.libstruct.geo.Size;
 
 import java.util.Iterator;
 

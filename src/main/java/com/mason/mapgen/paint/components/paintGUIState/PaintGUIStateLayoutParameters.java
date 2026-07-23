@@ -1,6 +1,6 @@
 package com.mason.mapgen.paint.components.paintGUIState;
 
-import com.mason.libgui.utils.structures.Size;
+import com.mason.libstruct.geo.Size;
 
 public class PaintGUIStateLayoutParameters{
 

@@ -1,6 +1,6 @@
 package com.mason.mapgen.structures.iterators;
 
-import com.mason.libgui.utils.structures.Coord;
+import com.mason.libstruct.geo.Coord;
 import com.mason.mapgen.structures.grids.Grid;
 import com.mason.mapgen.structures.direction.CardinalDirection;
 import com.mason.mapgen.structures.direction.CompassDirection;

@@ -1,8 +1,8 @@
 package com.mason.mapgen.paint.logic.tools.brush.settings;
 
-import com.mason.libgui.utils.structures.states.intState.IntQuery;
-import com.mason.libgui.utils.structures.states.onOff.OnOffQuery;
-import com.mason.libgui.utils.structures.states.position.PositionQuery;
+import com.mason.libstruct.states.intState.IntQuery;
+import com.mason.libstruct.states.onOff.OnOffQuery;
+import com.mason.libstruct.states.position.PositionQuery;
 import com.mason.mapgen.paint.logic.tools.PaintToolKit;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBQuery;
 import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.BrushSettingsSkeleton;

@@ -1,7 +1,6 @@
 package com.mason.mapgen.paint.logic.tools.brush;
 
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
-import com.mason.mapgen.paint.components.misc.PaintCentroidData;
 import com.mason.mapgen.paint.logic.canvas.PaintCanvas;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
 import com.mason.mapgen.paint.logic.tools.brush.settings.BrushSettingsModel;
@@ -32,8 +31,8 @@ public class BrushTool implements PaintTool{
         if(!active){
             startBrush();
         }
-        PaintCentroidData data = canvas.getCentroidData(event.getCoord());
-        Iterable<PaintCentroidData> recoloredCentroids = canvas.centroidNeighbourhood(data, settings.getBrushSize());
+        Short centroidID = canvas.getCentroidIDFromCoord(event.getCoord());
+        Iterable<Short> recoloredCentroids = canvas.centroidNeighbourhood(centroidID, settings.getBrushSize());
         changeColor(canvas, recoloredCentroids);
     }
 
@@ -42,13 +41,13 @@ public class BrushTool implements PaintTool{
         stroke = new BrushStroke();
     }
 
-    private void changeColor(PaintCanvas canvas, Iterable<PaintCentroidData> recoloredCentroids){
-        for(PaintCentroidData target : recoloredCentroids){
-            if(stroke.isInStroke(target)){
+    private void changeColor(PaintCanvas canvas, Iterable<Short> recoloredCentroids){
+        for(Short centroidID : recoloredCentroids){
+            if(stroke.isInStroke(centroidID)){
                 continue;
             }
-            stroke.addToStroke(target);
-            canvas.changeChunkColor(settings.nextRandomColor(), target.getCoord());
+            stroke.addToStroke(centroidID);
+            canvas.changeChunkColor(settings.nextRandomColor(), centroidID);
         }
     }
 

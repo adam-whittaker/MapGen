@@ -1,4 +1,4 @@
-package com.mason.mapgen.structures.records;
+package com.mason.mapgen.rawPortsFromOldLibGUI.records;
 
 import com.mason.mapgen.core.random.RandomSource;
 import static java.lang.Math.PI;

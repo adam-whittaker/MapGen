@@ -7,9 +7,9 @@ import com.mason.libgui.components.toggles.Toggle;
 import com.mason.libgui.components.toggles.sourced.SourcedToggle;
 import com.mason.libgui.core.component.hitbox.BasicHitboxRect;
 import com.mason.libgui.core.component.hitbox.HitboxRect;
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.Size;
-import com.mason.libgui.utils.structures.states.onOff.OnOffState;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.geo.Size;
+import com.mason.libstruct.states.onOff.OnOffState;
 import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.PaintControlSettingsSkeleton;
 import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneSkeleton;
 

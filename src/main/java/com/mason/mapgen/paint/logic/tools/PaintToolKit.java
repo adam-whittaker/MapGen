@@ -1,6 +1,6 @@
 package com.mason.mapgen.paint.logic.tools;
 
-import com.mason.libgui.utils.structures.states.onOff.OnOffState;
+import com.mason.libstruct.states.onOff.OnOffState;
 import com.mason.mapgen.paint.logic.tools.brush.*;
 import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.PaintControlSettingsSkeleton;
 import com.mason.mapgen.paint.logic.tools.colorPicker.ColorPicker;

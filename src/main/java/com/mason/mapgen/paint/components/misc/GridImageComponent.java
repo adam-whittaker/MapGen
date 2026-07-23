@@ -2,9 +2,9 @@ package com.mason.mapgen.paint.components.misc;
 
 import com.mason.libgui.core.component.AbstractUIComponent;
 import com.mason.libgui.core.component.hitbox.BasicHitboxRect;
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
-import com.mason.mapgen.procgen.algorithms.chunking.components.ChunkingGrid;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.interfaces.RectQuery;
+import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
