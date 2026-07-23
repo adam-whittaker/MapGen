@@ -5,6 +5,10 @@ import com.mason.libvoronoi.algorithms.components.CentroidData;
 import com.mason.mapgen.core.random.RandomSource;
 
 import java.awt.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.util.Set;
 
 import static java.lang.Math.round;
 
@@ -17,6 +21,11 @@ public class PaintCentroidData extends CentroidData{
     public PaintCentroidData(Coord coord){
         super(coord);
         color = randomUnsetColor();
+    }
+
+    protected PaintCentroidData(Coord coord, Set<Short> neighbours, Color color){
+        super(coord, neighbours);
+        this.color = color;
     }
 
     private Color randomUnsetColor(){
@@ -41,8 +50,17 @@ public class PaintCentroidData extends CentroidData{
         this.color = new Color(red, green, blue);
     }
 
-    public boolean colorMatches(Color color){
-        return color.equals(this.color);
+
+    public void writeToDataStream(DataOutputStream out) throws IOException{
+        out.writeInt(color.getRGB());
+        super.writeToDataStream(out);
+    }
+
+    public static PaintCentroidData readFromDataStream(DataInputStream in) throws IOException{
+        int rgb = in.readInt();
+        Color color = new Color(rgb);
+        CentroidData rawData = CentroidData.readFromDataStream(in);
+        return new PaintCentroidData(rawData.getCoord(), (Set<Short>)rawData.neighbours(), color);
     }
 
 }

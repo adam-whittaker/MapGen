@@ -1,4 +1,4 @@
-package com.mason.mapgen.paint.components.panes.bottomPane;
+package com.mason.mapgen.paint.components.panes.bottomPane.pane;
 
 import com.mason.libgui.components.panes.construction.PaneSkeleton;
 

@@ -5,13 +5,15 @@ import com.mason.libstruct.interfaces.Boundable;
 import com.mason.mapgen.paint.components.misc.PaintCentroidData;
 import com.mason.mapgen.paint.components.misc.GridImageComponent;
 import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
+import com.mason.mapgen.paint.components.panes.topPane.resources.ImageQuery;
+import com.mason.mapgen.paint.components.panes.topPane.resources.PaintGridQuery;
 
 import java.awt.*;
 
 public class PaintCanvas implements Boundable{
 
 
-    private final ChunkingGrid<PaintCentroidData> grid;
+    private ChunkingGrid<PaintCentroidData> grid;
     private final GridImageComponent image;
 
 
@@ -59,6 +61,19 @@ public class PaintCanvas implements Boundable{
 
     protected GridImageComponent getImageComponent(){
         return image;
+    }
+
+    public void loadInNewPaintGrid(ChunkingGrid<PaintCentroidData> newGrid){
+        this.grid = newGrid;
+        image.loadInNewPaintGrid(newGrid);
+    }
+
+    public PaintGridQuery getGridQueryForSaving(){
+        return () -> grid;
+    }
+
+    public ImageQuery getImageQueryForExporting(){
+        return image.getImageQueryForExporting();
     }
 
 }

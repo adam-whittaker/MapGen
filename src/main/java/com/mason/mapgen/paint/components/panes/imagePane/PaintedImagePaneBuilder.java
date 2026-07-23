@@ -39,6 +39,9 @@ public class PaintedImagePaneBuilder{
 
     private static CanvasController buildCanvasController(PaintGUIStateSkeleton skeleton){
         PaintCanvas canvas = new PaintCanvas(new Coord(0, 0), skeleton.getMainCanvasChunkingGrid());
+        skeleton.setPaintGridReceiver(canvas::loadInNewPaintGrid);
+        skeleton.setPaintGridQuery(canvas.getGridQueryForSaving());
+        skeleton.setPaintImageQuery(canvas.getImageQueryForExporting());
         Supplier<PaintTool> currentPaintToolQuery = skeleton.getCurrentPaintToolQuery();
         return new CanvasController(canvas, currentPaintToolQuery);
     }

@@ -3,8 +3,10 @@ package com.mason.mapgen.paint.components.misc;
 import com.mason.libgui.core.component.AbstractUIComponent;
 import com.mason.libgui.core.component.hitbox.BasicHitboxRect;
 import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.geo.Size;
 import com.mason.libstruct.interfaces.RectQuery;
 import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
+import com.mason.mapgen.paint.components.panes.topPane.resources.ImageQuery;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -14,15 +16,20 @@ import static com.mason.mapgen.core.Utils.getPixelMask;
 public class GridImageComponent extends AbstractUIComponent{
 
 
-    private final BufferedImage image;
-    private final int[] pixels;
+    private BufferedImage image;
+    private int[] pixels;
 
 
     public GridImageComponent(Coord topLeft, ChunkingGrid<PaintCentroidData> grid){
         super(new BasicHitboxRect(topLeft, grid.size()));
-        image = new BufferedImage(getSize().width(), getSize().height(), BufferedImage.TYPE_INT_ARGB);
+        loadInNewPaintGrid(grid);
+    }
+
+    public void loadInNewPaintGrid(ChunkingGrid<PaintCentroidData> newGrid){
+        Size size = newGrid.size();
+        image = new BufferedImage(size.width(), size.height(), BufferedImage.TYPE_INT_ARGB);
         pixels = getPixelMask(image);
-        updateWholeImage(grid);
+        updateWholeImage(newGrid);
     }
 
 
@@ -50,5 +57,10 @@ public class GridImageComponent extends AbstractUIComponent{
 
     @Override
     public void tick(){}
+
+
+    public ImageQuery getImageQueryForExporting(){
+        return () -> image;
+    }
 
 }

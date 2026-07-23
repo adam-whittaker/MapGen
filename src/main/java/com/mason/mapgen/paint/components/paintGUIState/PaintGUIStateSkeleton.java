@@ -4,11 +4,14 @@ import com.mason.libstruct.geo.Size;
 import com.mason.mapgen.gui.states.GUIStateSkeleton;
 import com.mason.mapgen.paint.components.misc.PaintCentroidData;
 import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
-import com.mason.mapgen.paint.components.panes.bottomPane.BottomPaintPane;
+import com.mason.mapgen.paint.components.panes.bottomPane.pane.BottomPaintPane;
 import com.mason.mapgen.paint.components.panes.imagePane.PaintedImagePane;
 import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPane;
 import com.mason.mapgen.paint.components.panes.rightPane.RightPaintPane;
-import com.mason.mapgen.paint.components.panes.topPane.TopPaintPane;
+import com.mason.mapgen.paint.components.panes.topPane.pane.TopPaintPane;
+import com.mason.mapgen.paint.components.panes.topPane.resources.ImageQuery;
+import com.mason.mapgen.paint.components.panes.topPane.resources.PaintGridQuery;
+import com.mason.mapgen.paint.components.panes.topPane.resources.PaintGridReceiver;
 import com.mason.mapgen.paint.logic.PaintKeyProcessor;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
 import com.mason.mapgen.paint.skeletons.PaintToolQuerySlot;
@@ -18,6 +21,9 @@ import java.util.function.Supplier;
 public class PaintGUIStateSkeleton extends GUIStateSkeleton{
 
 
+    private PaintGridReceiver paintGridReceiver;
+    private PaintGridQuery paintGridQuery;
+    private ImageQuery paintImageQuery;
     private PaintedImagePane paintedImagePane;
     private LeftPaintPane leftPaintPane;
     private RightPaintPane rightPaintPane;
@@ -32,6 +38,48 @@ public class PaintGUIStateSkeleton extends GUIStateSkeleton{
 
     public PaintGUIStateSkeleton(){}
 
+
+    public ImageQuery getPaintImageQuery(){
+        if(paintImageQuery == null){
+            throw new IllegalStateException("paintImageQuery is not set");
+        }
+        return paintImageQuery;
+    }
+
+    public void setPaintImageQuery(ImageQuery paintImageQuery){
+        if(this.paintImageQuery != null){
+            throw new IllegalStateException("paintImageQuery is already set");
+        }
+        this.paintImageQuery = paintImageQuery;
+    }
+
+    public PaintGridReceiver getPaintGridReceiver(){
+        if(paintGridReceiver == null){
+            throw new IllegalStateException("paintGridReceiver is not set");
+        }
+        return paintGridReceiver;
+    }
+
+    public void setPaintGridReceiver(PaintGridReceiver paintGridReceiver){
+        if(this.paintGridReceiver != null){
+            throw new IllegalStateException("paintGridReceiver is already set");
+        }
+        this.paintGridReceiver = paintGridReceiver;
+    }
+
+    public PaintGridQuery getPaintGridQuery(){
+        if(paintGridQuery == null){
+            throw new IllegalStateException("paintGridQuery is not set");
+        }
+        return paintGridQuery;
+    }
+
+    public void setPaintGridQuery(PaintGridQuery paintGridQuery){
+        if(this.paintGridQuery != null){
+            throw new IllegalStateException("paintGridQuery is already set");
+        }
+        this.paintGridQuery = paintGridQuery;
+    }
 
     public PaintedImagePane getPaintedImagePane(){
         if(paintedImagePane == null){

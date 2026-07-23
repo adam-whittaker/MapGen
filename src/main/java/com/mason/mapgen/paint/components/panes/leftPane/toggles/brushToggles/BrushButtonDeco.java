@@ -1,7 +1,7 @@
 package com.mason.mapgen.paint.components.panes.leftPane.toggles.brushToggles;
 
 import com.mason.libgui.components.deco.BasicButtonDeco;
-import com.mason.libgui.components.toggles.ToggleRenderState;
+import com.mason.libgui.components.deco.ButtonDecoRenderState;
 import com.mason.libgui.utils.ImageUtils;
 import com.mason.libstruct.interfaces.RectQuery;
 
@@ -28,7 +28,7 @@ public class BrushButtonDeco extends BasicButtonDeco{
 
 
     @Override
-    protected void drawButtonDecoWithGraphicsContext(Graphics2D g, RectQuery box, ToggleRenderState state){
+    protected void drawButtonDecoWithGraphicsContext(Graphics2D g, RectQuery box, ButtonDecoRenderState state){
         super.drawButtonDecoWithGraphicsContext(g, box, state);
         primaryIcon.render(g);
         secondaryIcon.render(g);

@@ -1,8 +1,9 @@
-package com.mason.mapgen.paint.components.panes.bottomPane;
+package com.mason.mapgen.paint.components.panes.bottomPane.pane;
 
 import com.mason.libgui.components.panes.layout.PaneLayout;
 import com.mason.libstruct.interfaces.RectQuery;
 import com.mason.mapgen.paint.components.paintGUIState.PaintGUIStateSkeleton;
+import com.mason.mapgen.paint.components.panes.bottomPane.pane.BottomPaintPaneSkeleton;
 
 public class BottomPaintPaneBuilder{
 

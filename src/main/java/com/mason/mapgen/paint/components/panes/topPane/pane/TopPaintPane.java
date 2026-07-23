@@ -1,4 +1,4 @@
-package com.mason.mapgen.paint.components.panes.topPane;
+package com.mason.mapgen.paint.components.panes.topPane.pane;
 
 import com.mason.libgui.components.panes.PaneWithDeco;
 import com.mason.libgui.components.deco.BasicPaneDeco;
