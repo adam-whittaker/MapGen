@@ -13,52 +13,65 @@ import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.Paint
 import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.colorState.ColorState;
 import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneSkeleton;
 
+import java.util.function.Function;
+
 public class BrushTogglesBuilder{
     
 
     private final ColorIconBuilder iconBuilder;
+    private final int numBrushes;
+    private final IntegerToggleGroup toggleGroup;
+    private final Function<String, HitboxRect> toggleBoundaryBuilder;
     
     
     public BrushTogglesBuilder(LeftPaintPaneSkeleton skeleton){
+        iconBuilder = createColorIconBuilder(skeleton);
+        numBrushes = getNumBrushes(skeleton);
+        toggleGroup = createToggleGroup(skeleton);
+        toggleBoundaryBuilder = createToggleBoundaryBuilder(skeleton);
+    }
+
+    private static ColorIconBuilder createColorIconBuilder(LeftPaintPaneSkeleton skeleton){
         PaintControlSettingsSkeleton settingsSkeleton = skeleton.getPaintControlSettingsSkeleton();
         ColorState primary = settingsSkeleton.getPrimaryColorState();
         ColorState secondary = settingsSkeleton.getSecondaryColorState();
-        iconBuilder = new ColorIconBuilder(primary, secondary);
+        return new ColorIconBuilder(primary, secondary);
     }
 
-
-    public Toggle[] buildToggles(LeftPaintPaneSkeleton skeleton){
-        IntegerToggleGroup group = createToggleGroup(skeleton);
-        int numBrushes = getNumBrushes(skeleton);
-        Toggle[] toggles = new Toggle[numBrushes];
-        for(int brushNum=0; brushNum<numBrushes; brushNum++){
-            toggles[brushNum] = constructBrushToggle(skeleton, group, brushNum);
-        }
-        return toggles;
-    }
-
-    private IntegerToggleGroup createToggleGroup(LeftPaintPaneSkeleton skeleton){
-        PaintControlSettingsSkeleton settingsSkeleton = skeleton.getPaintControlSettingsSkeleton();
-        return new IntegerToggleGroup(settingsSkeleton.getBrushNumState());
-    }
-
-    private int getNumBrushes(LeftPaintPaneSkeleton skeleton){
+    private static int getNumBrushes(LeftPaintPaneSkeleton skeleton){
         PaintControlSettingsSkeleton settingsSkeleton = skeleton.getPaintControlSettingsSkeleton();
         return settingsSkeleton.getNumBrushes();
     }
 
-    private Toggle constructBrushToggle(LeftPaintPaneSkeleton skeleton, IntegerToggleGroup group, int brushNum){
-        String brushName = "BRUSH_" + brushNum + "_TOGGLE";
-        HitboxRect boundary = createToggleBoundary(skeleton, brushName);
-        ButtonDeco deco = createToggleDeco(boundary, brushNum);
-        return group.createToggle(brushName, boundary, deco, brushNum);
+    private static IntegerToggleGroup createToggleGroup(LeftPaintPaneSkeleton skeleton){
+        PaintControlSettingsSkeleton settingsSkeleton = skeleton.getPaintControlSettingsSkeleton();
+        Runnable brushColorDisplayUpdate = skeleton.getBrushColorDisplayUpdate();
+        return new IntegerToggleGroup(settingsSkeleton.getBrushNumState(), brushColorDisplayUpdate);
     }
 
-    private HitboxRect createToggleBoundary(LeftPaintPaneSkeleton skeleton, String brushName){
+    private static Function<String, HitboxRect> createToggleBoundaryBuilder(LeftPaintPaneSkeleton skeleton){
         PaneLayout layout = skeleton.getPaneLayout();
         Size toggleSize = skeleton.getToggleSize();
-        Coord coord = layout.centre(brushName, toggleSize);
-        return new BasicHitboxRect(coord, toggleSize);
+        return (brushName) -> {
+            Coord coord = layout.centre(brushName, toggleSize);
+            return new BasicHitboxRect(coord, toggleSize);
+        };
+    }
+
+
+    public Toggle[] buildToggles(){
+        Toggle[] toggles = new Toggle[numBrushes];
+        for(int brushNum=0; brushNum<numBrushes; brushNum++){
+            toggles[brushNum] = constructBrushToggle(brushNum);
+        }
+        return toggles;
+    }
+
+    private Toggle constructBrushToggle(int brushNum){
+        String brushName = "BRUSH_" + brushNum + "_TOGGLE";
+        HitboxRect boundary = toggleBoundaryBuilder.apply(brushName);
+        ButtonDeco deco = createToggleDeco(boundary, brushNum);
+        return toggleGroup.createToggle(brushName, boundary, deco, brushNum);
     }
 
     private BrushButtonDeco createToggleDeco(RectQuery bounds, int brushNum){
