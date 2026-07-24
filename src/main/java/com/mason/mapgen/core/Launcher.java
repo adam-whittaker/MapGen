@@ -21,7 +21,7 @@ public class Launcher{
         VoronoiChunker<PaintCentroidData> chunker = VoronoiChunker.build(
                 RandomSource.asRandom(),
                 new Size(1200, 1200),
-                2400,
+                8600,
                 0,
                 PaintCentroidData::new,
                 randomQuery);
@@ -31,8 +31,8 @@ public class Launcher{
         chunkingGrid.updateMaxDistToCentroid();
         System.out.println("Chunks created");
 
-        Size screenSize = new Size(1680, 840);
-        GUIState paintState = PaintGUIState.buildWithEvenHorizontalPanes(screenSize, 480, chunkingGrid);
+        Size screenSize = /*new Size(1680, 840)*/ new Size(1760, 960);
+        GUIState paintState = PaintGUIState.buildWithEvenHorizontalPanes(screenSize, 460, chunkingGrid);
         MapGenGUI gui = new MapGenGUI(screenSize, "MapGen", "assets/AppIcon.png");
         gui.start();
         System.out.println("GUI started");
