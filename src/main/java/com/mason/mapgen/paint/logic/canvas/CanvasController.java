@@ -5,7 +5,6 @@ import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
 import com.mason.libstruct.geo.Coord;
 import com.mason.libstruct.geo.Size;
-import com.mason.mapgen.paint.skeletons.PaintToolQuerySlot;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
 
 import java.util.function.Supplier;
@@ -60,7 +59,7 @@ public class CanvasController implements BoundedMouseInputListener{
 
     @Override
     public void onMouseReleased(MouseInputEvent event){
-        PaintTool currentTool = currentToolQuery.get();
+        PaintTool currentTool = getCurrentPaintTool();
         if(currentTool.isActive()){
             currentTool.releaseTool();
         }

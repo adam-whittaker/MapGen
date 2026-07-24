@@ -5,7 +5,7 @@ import com.mason.libstruct.geo.Size;
 import com.mason.libstruct.interfaces.RectQuery;
 import com.mason.mapgen.paint.components.paintGUIState.PaintGUIStateSkeleton;
 import com.mason.mapgen.paint.components.panes.topPane.resources.SaveLocation;
-import com.mason.mapgen.paint.components.panes.topPane.save.*;
+import com.mason.mapgen.paint.components.panes.topPane.buttons.*;
 
 public class TopPaintPaneBuilder{
 
@@ -25,6 +25,8 @@ public class TopPaintPaneBuilder{
         skeleton.setGridQuery(paintGUIStateSkeleton.getPaintGridQuery());
         skeleton.setGridReceiver(paintGUIStateSkeleton.getPaintGridReceiver());
         skeleton.setImageQuery(paintGUIStateSkeleton.getPaintImageQuery());
+        skeleton.setRedoCallable(paintGUIStateSkeleton.getRedoCallable());
+        skeleton.setUndoCallable(paintGUIStateSkeleton.getUndoCallable());
         return skeleton;
     }
 
@@ -52,6 +54,14 @@ public class TopPaintPaneBuilder{
         ExportButton exportButton = ExportButton.build(skeleton);
         skeleton.setExportButton(exportButton);
         skeleton.addComponent(exportButton);
+
+        UndoButton undoButton = UndoButton.build(skeleton);
+        skeleton.setUndoButton(undoButton);
+        skeleton.addComponent(undoButton);
+
+        RedoButton redoButton = RedoButton.build(skeleton);
+        skeleton.setRedoButton(redoButton);
+        skeleton.addComponent(redoButton);
     }
 
 }

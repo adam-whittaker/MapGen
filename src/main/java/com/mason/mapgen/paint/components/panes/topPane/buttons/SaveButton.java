@@ -1,4 +1,4 @@
-package com.mason.mapgen.paint.components.panes.topPane.save;
+package com.mason.mapgen.paint.components.panes.topPane.buttons;
 
 import com.mason.libgui.components.buttons.AbstractButton;
 import com.mason.libgui.components.deco.ButtonDeco;
@@ -9,35 +9,35 @@ import com.mason.mapgen.paint.components.panes.topPane.resources.PaintGridQuery;
 import com.mason.mapgen.paint.components.panes.topPane.resources.SaveLocation;
 import com.mason.mapgen.paint.logic.fileIO.PaintGridPersistence;
 
-import java.io.File;
-
-public class SaveAsButton extends AbstractButton{
+public class SaveButton extends AbstractButton{
 
 
     private final SaveLocation saveLocation;
+    private final SaveAsButton saveAsButton;
     private final PaintGridQuery gridQuery;
 
 
-    protected SaveAsButton(TopPaintPaneSkeleton skeleton, String name, HitboxRect boundary, ButtonDeco buttonDeco){
+    protected SaveButton(TopPaintPaneSkeleton skeleton, String name, HitboxRect boundary, ButtonDeco buttonDeco){
         super(name, boundary, buttonDeco);
         saveLocation = skeleton.getSaveLocation();
+        saveAsButton = skeleton.getSaveAsButton();
         gridQuery = skeleton.getGridQuery();
     }
 
-    public static SaveAsButton build(TopPaintPaneSkeleton skeleton){
-        String name = "SAVE_AS_BUTTON";
+    public static SaveButton build(TopPaintPaneSkeleton skeleton){
+        String name = "SAVE_BUTTON";
         HitboxRect boundary = ButtonBuilder.getBoundary(skeleton, name);
         ButtonDeco deco = ButtonBuilder.buildDeco(name);
-        return new SaveAsButton(skeleton, name, boundary, deco);
+        return new SaveButton(skeleton, name, boundary, deco);
     }
 
 
     @Override
     public void click(MouseInputEvent e){
-        File file = PaintGridPersistence.chooseSaveFile();
-        if(file != null){
-            saveLocation.setFile(file);
+        if(saveLocation.isFileSet()){
             PaintGridPersistence.tryWriteToFile(saveLocation.getFile(), gridQuery.getGrid());
+        }else{
+            saveAsButton.click(e);
         }
     }
 

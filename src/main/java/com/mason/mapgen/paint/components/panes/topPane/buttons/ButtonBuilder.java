@@ -1,4 +1,4 @@
-package com.mason.mapgen.paint.components.panes.topPane.save;
+package com.mason.mapgen.paint.components.panes.topPane.buttons;
 
 import com.mason.libgui.components.deco.BasicButtonDeco;
 import com.mason.libgui.components.deco.ButtonDeco;

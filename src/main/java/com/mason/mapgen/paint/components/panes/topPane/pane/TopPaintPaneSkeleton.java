@@ -4,7 +4,7 @@ import com.mason.libgui.components.panes.construction.PaneSkeleton;
 import com.mason.libgui.components.panes.layout.PaneLayout;
 import com.mason.libstruct.geo.Size;
 import com.mason.mapgen.paint.components.panes.topPane.resources.*;
-import com.mason.mapgen.paint.components.panes.topPane.save.*;
+import com.mason.mapgen.paint.components.panes.topPane.buttons.*;
 
 public class TopPaintPaneSkeleton extends PaneSkeleton{
 
@@ -14,11 +14,15 @@ public class TopPaintPaneSkeleton extends PaneSkeleton{
     private PaintGridQuery gridQuery;
     private PaintGridReceiver gridReceiver;
     private ImageQuery imageQuery;
+    private Runnable undoCallable;
+    private Runnable redoCallable;
     private SaveLocation saveLocation;
     private SaveAsButton saveAsButton;
     private SaveButton saveButton;
     private LoadButton loadButton;
     private ExportButton exportButton;
+    private UndoButton undoButton;
+    private RedoButton redoButton;
 
 
     public TopPaintPaneSkeleton(){}
@@ -94,6 +98,34 @@ public class TopPaintPaneSkeleton extends PaneSkeleton{
         this.imageQuery = imageQuery;
     }
 
+    public Runnable getUndoCallable(){
+        if(undoCallable == null){
+            throw new IllegalStateException("undoCallable is not set");
+        }
+        return undoCallable;
+    }
+
+    public void setUndoCallable(Runnable undoCallable){
+        if(this.undoCallable != null){
+            throw new IllegalStateException("undoCallable is already set");
+        }
+        this.undoCallable = undoCallable;
+    }
+
+    public Runnable getRedoCallable(){
+        if(redoCallable == null){
+            throw new IllegalStateException("redoCallable is not set");
+        }
+        return redoCallable;
+    }
+
+    public void setRedoCallable(Runnable redoCallable){
+        if(this.redoCallable != null){
+            throw new IllegalStateException("redoCallable is already set");
+        }
+        this.redoCallable = redoCallable;
+    }
+
     public SaveLocation getSaveLocation(){
         if(saveLocation == null){
             throw new IllegalStateException("saveLocation is not set");
@@ -162,6 +194,34 @@ public class TopPaintPaneSkeleton extends PaneSkeleton{
             throw new IllegalStateException("exportButton is already set");
         }
         this.exportButton = exportButton;
+    }
+
+    public UndoButton getUndoButton(){
+        if(undoButton == null){
+            throw new IllegalStateException("undoButton is not set");
+        }
+        return undoButton;
+    }
+
+    public void setUndoButton(UndoButton undoButton){
+        if(this.undoButton != null){
+            throw new IllegalStateException("undoButton is already set");
+        }
+        this.undoButton = undoButton;
+    }
+
+    public RedoButton getRedoButton(){
+        if(redoButton == null){
+            throw new IllegalStateException("redoButton is not set");
+        }
+        return redoButton;
+    }
+
+    public void setRedoButton(RedoButton redoButton){
+        if(this.redoButton != null){
+            throw new IllegalStateException("redoButton is already set");
+        }
+        this.redoButton = redoButton;
     }
 
 }

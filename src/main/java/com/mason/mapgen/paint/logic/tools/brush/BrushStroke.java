@@ -1,25 +1,47 @@
 package com.mason.mapgen.paint.logic.tools.brush;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.mason.mapgen.paint.logic.canvas.PaintCanvas;
+import com.mason.mapgen.paint.logic.history.PaintAction;
 
-public class BrushStroke{
+import java.awt.*;
+import java.util.*;
+
+public class BrushStroke implements PaintAction{
 
 
-    private final Set<Short> centroidDataSet;
+    private record ColorChange(Color currentColor, Color nextColor){
+
+    }
+
+    private final Map<Short, ColorChange> colorChangeMap;
 
 
     BrushStroke(){
-        centroidDataSet = new HashSet<>();
+        colorChangeMap = new HashMap<>();
     }
 
 
-    void addToStroke(Short centroidID){
-        centroidDataSet.add(centroidID);
+    void addToStroke(Short centroidID, Color currentColor, Color nextColor){
+        colorChangeMap.put(centroidID, new ColorChange(currentColor, nextColor));
     }
 
     boolean isInStroke(Short centroidID){
-        return centroidDataSet.contains(centroidID);
+        return colorChangeMap.containsKey(centroidID);
+    }
+
+
+    @Override
+    public void apply(PaintCanvas canvas){
+        colorChangeMap.forEach((centroidID, colorChange) -> {
+            canvas.changeChunkColor(colorChange.nextColor(), centroidID);
+        });
+    }
+
+    @Override
+    public void undo(PaintCanvas canvas){
+        colorChangeMap.forEach((centroidID, colorChange) -> {
+            canvas.changeChunkColor(colorChange.currentColor(), centroidID);
+        });
     }
 
 }

@@ -2,9 +2,12 @@ package com.mason.mapgen.paint.logic.tools.brush;
 
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
 import com.mason.mapgen.paint.logic.canvas.PaintCanvas;
+import com.mason.mapgen.paint.logic.history.PaintAction;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
 import com.mason.mapgen.paint.logic.tools.brush.settings.BrushSettingsModel;
 import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.PaintControlSettingsSkeleton;
+
+import java.awt.*;
 
 public class BrushTool implements PaintTool{
 
@@ -46,14 +49,20 @@ public class BrushTool implements PaintTool{
             if(stroke.isInStroke(centroidID)){
                 continue;
             }
-            stroke.addToStroke(centroidID);
-            canvas.changeChunkColor(settings.nextRandomColor(), centroidID);
+            Color currentColor = canvas.getChunkColorFromCentroidID(centroidID);
+            Color nextColor = settings.nextRandomColor();
+            stroke.addToStroke(centroidID, currentColor, nextColor);
+            canvas.changeChunkColor(nextColor, centroidID);
         }
     }
 
     @Override
     public void releaseTool(){
         active = false;
+    }
+
+    public PaintAction obtainAction(){
+        return stroke;
     }
 
     @Override

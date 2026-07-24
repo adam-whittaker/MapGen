@@ -32,6 +32,11 @@ public class PaintCanvas implements Boundable{
         return data.getColor();
     }
 
+    public Color getChunkColorFromCentroidID(Short centroidID){
+        PaintCentroidData data = grid.getCentroidDataByID(centroidID);
+        return data.getColor();
+    }
+
     public void changeChunkColor(Color newColor, Short centroidID){
         PaintCentroidData centroidData = grid.getCentroidDataByID(centroidID);
         centroidData.paintColor(newColor);

@@ -2,6 +2,7 @@ package com.mason.mapgen.paint.logic.tools.colorPicker;
 
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
 import com.mason.mapgen.paint.logic.canvas.PaintCanvas;
+import com.mason.mapgen.paint.logic.history.PaintAction;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBState;
 
@@ -46,6 +47,11 @@ public class ColorPicker implements PaintTool{
     @Override
     public void releaseTool(){
         active = false;
+    }
+
+    @Override
+    public PaintAction obtainAction(){
+        return PaintAction.EMPTY_ACTION;
     }
 
     @Override

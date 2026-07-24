@@ -43,7 +43,10 @@ public class PaintedImagePaneBuilder{
         skeleton.setPaintGridQuery(canvas.getGridQueryForSaving());
         skeleton.setPaintImageQuery(canvas.getImageQueryForExporting());
         Supplier<PaintTool> currentPaintToolQuery = skeleton.getCurrentPaintToolQuery();
-        return new CanvasController(canvas, currentPaintToolQuery);
+        VersionedCanvasController canvasController = new VersionedCanvasController(canvas, currentPaintToolQuery, 10);
+        skeleton.setUndoCallable(canvasController::undo);
+        skeleton.setRedoCallable(canvasController::redo);
+        return canvasController;
     }
 
     private static HitboxRect buildPaneBoundary(PaintGUIStateSkeleton skeleton){

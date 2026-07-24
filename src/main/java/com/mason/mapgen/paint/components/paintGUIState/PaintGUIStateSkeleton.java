@@ -24,6 +24,8 @@ public class PaintGUIStateSkeleton extends GUIStateSkeleton{
     private PaintGridReceiver paintGridReceiver;
     private PaintGridQuery paintGridQuery;
     private ImageQuery paintImageQuery;
+    private Runnable undoCallable;
+    private Runnable redoCallable;
     private PaintedImagePane paintedImagePane;
     private LeftPaintPane leftPaintPane;
     private RightPaintPane rightPaintPane;
@@ -79,6 +81,34 @@ public class PaintGUIStateSkeleton extends GUIStateSkeleton{
             throw new IllegalStateException("paintGridQuery is already set");
         }
         this.paintGridQuery = paintGridQuery;
+    }
+
+    public Runnable getUndoCallable(){
+        if(undoCallable == null){
+            throw new IllegalStateException("undoCallable is not set");
+        }
+        return undoCallable;
+    }
+
+    public void setUndoCallable(Runnable undoCallable){
+        if(this.undoCallable != null){
+            throw new IllegalStateException("undoCallable is already set");
+        }
+        this.undoCallable = undoCallable;
+    }
+
+    public Runnable getRedoCallable(){
+        if(redoCallable == null){
+            throw new IllegalStateException("redoCallable is not set");
+        }
+        return redoCallable;
+    }
+
+    public void setRedoCallable(Runnable redoCallable){
+        if(this.redoCallable != null){
+            throw new IllegalStateException("redoCallable is already set");
+        }
+        this.redoCallable = redoCallable;
     }
 
     public PaintedImagePane getPaintedImagePane(){
