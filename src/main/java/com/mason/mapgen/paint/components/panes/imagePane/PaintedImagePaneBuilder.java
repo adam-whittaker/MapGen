@@ -43,7 +43,7 @@ public class PaintedImagePaneBuilder{
         skeleton.setPaintGridQuery(canvas.getGridQueryForSaving());
         skeleton.setPaintImageQuery(canvas.getImageQueryForExporting());
         Supplier<PaintTool> currentPaintToolQuery = skeleton.getCurrentPaintToolQuery();
-        VersionedCanvasController canvasController = new VersionedCanvasController(canvas, currentPaintToolQuery, 10);
+        VersionedCanvasController canvasController = new VersionedCanvasController(canvas, currentPaintToolQuery, 100);
         skeleton.setUndoCallable(canvasController::undo);
         skeleton.setRedoCallable(canvasController::redo);
         return canvasController;
