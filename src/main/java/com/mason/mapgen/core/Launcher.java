@@ -28,7 +28,6 @@ public class Launcher{
 
         chunker.createChunks();
         ChunkingGrid<PaintCentroidData> chunkingGrid = chunker.getGrid();
-        chunkingGrid.updateMaxDistToCentroid();
         System.out.println("Chunks created");
 
         Size screenSize = /*new Size(1680, 840)*/ new Size(1760, 960);

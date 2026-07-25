@@ -4,7 +4,7 @@ import com.mason.libgui.core.component.AbstractUIComponent;
 import com.mason.libgui.core.component.hitbox.BasicHitboxRect;
 import com.mason.libstruct.geo.Coord;
 import com.mason.libstruct.geo.Size;
-import com.mason.libstruct.interfaces.RectQuery;
+import com.mason.libvoronoi.algorithms.components.CentroidData;
 import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
 import com.mason.mapgen.paint.components.panes.topPane.resources.ImageQuery;
 
@@ -34,14 +34,15 @@ public class GridImageComponent extends AbstractUIComponent{
 
 
     public final void updateWholeImage(ChunkingGrid<PaintCentroidData> grid){
-        updateImageInClip(grid, new BasicHitboxRect(new Coord(0, 0), grid.size()));
+        updateImageOverIndices(grid, grid.pointIndices());
     }
 
-    public final void updateImageInClip(ChunkingGrid<PaintCentroidData> grid, RectQuery clip){
-        updateImageOverIndices(grid, grid.indicesInClip(clip));
+    public final void updateImageInChunk(ChunkingGrid<PaintCentroidData> grid, short centroidID){
+        CentroidData data = grid.getCentroidDataByID(centroidID);
+        updateImageOverIndices(grid, data.pointIndices());
     }
 
-    public final void updateImageOverIndices(ChunkingGrid<PaintCentroidData> grid, Iterable<Integer> indices){
+    protected final void updateImageOverIndices(ChunkingGrid<PaintCentroidData> grid, Iterable<Integer> indices){
         PaintCentroidData data;
         for(Integer i : indices){
             data = grid.getCentroidDataByIndex(i);

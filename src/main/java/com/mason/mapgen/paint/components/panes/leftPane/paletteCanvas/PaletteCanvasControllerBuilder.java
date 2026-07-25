@@ -41,8 +41,6 @@ public class PaletteCanvasControllerBuilder{
         VoronoiChunker<PaintCentroidData> paletteChunker = constructPaletteChunker(skeleton);
         paletteChunker.createChunks();
         ChunkingGrid<PaintCentroidData> grid = paletteChunker.getGrid();
-        //@Unfinished: slow
-        grid.updateMaxDistToCentroid();
 
         RectQuery boundary = skeleton.getBoundary();
         return new PaintCanvas(boundary.getCoord(), grid);

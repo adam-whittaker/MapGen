@@ -46,7 +46,7 @@ public class BrushColorDisplay extends GridImageComponent{
 
     private void displayColorOnCentroid(RGBQuery colorState, PaintCentroidData centroid){
         centroid.setColor(colorState.sampleRGBColor());
-        updateImageInClip(grid, grid.constructBoundingRectangle(centroid.getCoord()));
+        updateImageOverIndices(grid, centroid.pointIndices());
     }
 
 

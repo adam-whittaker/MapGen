@@ -52,7 +52,6 @@ public class BrushColorDisplayBuilder{
         VoronoiChunker<PaintCentroidData> chunker = buildChunker(size, coordSlot);
         chunker.createChunks();
         ChunkingGrid<PaintCentroidData> grid = chunker.getGrid();
-        grid.updateMaxDistToCentroid();
         return grid;
     }
 

@@ -40,11 +40,7 @@ public class PaintCanvas implements Boundable{
     public void changeChunkColor(Color newColor, Short centroidID){
         PaintCentroidData centroidData = grid.getCentroidDataByID(centroidID);
         centroidData.paintColor(newColor);
-        updateImageLocallyAroundCentroid(centroidData.getCoord());
-    }
-
-    private void updateImageLocallyAroundCentroid(Coord centroidCoord){
-        image.updateImageInClip(grid, grid.constructBoundingRectangle(centroidCoord));
+        image.updateImageInChunk(grid, centroidID);
     }
 
     public Iterable<Short> centroidNeighbourhood(Short centroidID, int searchDepth){
