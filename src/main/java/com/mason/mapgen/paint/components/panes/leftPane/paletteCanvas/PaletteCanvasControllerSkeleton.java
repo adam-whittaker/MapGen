@@ -1,20 +1,19 @@
 package com.mason.mapgen.paint.components.panes.leftPane.paletteCanvas;
 
 import com.mason.libstruct.interfaces.RectQuery;
+import com.mason.libstruct.states.intState.IntQuery;
 import com.mason.libstruct.states.intState.IntState;
 import com.mason.libstruct.states.position.PositionState;
 import com.mason.mapgen.paint.components.misc.PaintCentroidData;
 import com.mason.mapgen.paint.logic.canvas.PaintCanvas;
-import com.mason.mapgen.paint.logic.tools.PaintTool;
 import com.mason.libvoronoi.algorithms.FloodFillAnnexQuery;
-
-import java.util.function.Supplier;
+import com.mason.mapgen.paint.skeletons.PaintToolQuery;
 
 public class PaletteCanvasControllerSkeleton{
 
 
-    private Supplier<PaintTool> currentToolQuery;
-    private IntState alphaState;
+    private PaintToolQuery currentToolQuery;
+    private IntQuery alphaQuery;
     private PositionState certaintyState;
 
     private RectQuery boundary;
@@ -27,14 +26,14 @@ public class PaletteCanvasControllerSkeleton{
     public PaletteCanvasControllerSkeleton(){}
 
 
-    public Supplier<PaintTool> getCurrentToolQuery(){
+    public PaintToolQuery getCurrentToolQuery(){
         if(currentToolQuery == null){
             throw new IllegalStateException("currentToolQuery is not set");
         }
         return currentToolQuery;
     }
 
-    public void setCurrentToolQuery(Supplier<PaintTool> currentToolQuery){
+    public void setCurrentToolQuery(PaintToolQuery currentToolQuery){
         if(this.currentToolQuery != null){
             throw new IllegalStateException("currentToolQuery is already set");
         }
@@ -105,18 +104,18 @@ public class PaletteCanvasControllerSkeleton{
         this.canvas = canvas;
     }
 
-    public IntState getAlphaState(){
-        if(alphaState == null){
+    public IntQuery getAlphaQuery(){
+        if(alphaQuery == null){
             throw new IllegalStateException("alphaState is not set");
         }
-        return alphaState;
+        return alphaQuery;
     }
 
-    public void setAlphaState(IntState alphaState){
-        if(this.alphaState != null){
+    public void setAlphaQuery(IntQuery alphaQuery){
+        if(this.alphaQuery != null){
             throw new IllegalStateException("alphaState is already set");
         }
-        this.alphaState = alphaState;
+        this.alphaQuery = alphaQuery;
     }
 
     public PositionState getCertaintyState(){

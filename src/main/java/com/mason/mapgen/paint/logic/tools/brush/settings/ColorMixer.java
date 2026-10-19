@@ -5,7 +5,7 @@ import com.mason.libstruct.states.onOff.OnOffQuery;
 import com.mason.libstruct.states.position.PositionQuery;
 import com.mason.mapgen.core.random.RandomSource;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBQuery;
-import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.BrushSettingsSkeleton;
+import com.mason.mapgen.paint.skeletons.UpdateSetter;
 import org.apache.commons.math3.distribution.BetaDistribution;
 
 import java.awt.*;
@@ -26,14 +26,20 @@ public class ColorMixer{
     private BetaDistribution distribution;
 
 
-    public ColorMixer(BrushSettingsSkeleton skeleton){
-        this.primary = skeleton.getPrimaryColorState();
-        this.secondary = skeleton.getSecondaryColorState();
-        this.centre = skeleton.getCentrePositionState();
-        this.certainty = skeleton.getCertaintyPositionState();
-        this.channelsIndependence = skeleton.getChannelIndependenceState();
-        this.alpha = skeleton.getAlphaState();
-        skeleton.setColorMixerUpdate(this::recalculateDistribution);
+    public ColorMixer(RGBQuery primary,
+                      RGBQuery secondary,
+                      PositionQuery centre,
+                      PositionQuery certainty,
+                      OnOffQuery channelsIndependence,
+                      IntQuery alpha,
+                      UpdateSetter colorMixerUpdateSetter){
+        this.primary = primary;
+        this.secondary = secondary;
+        this.centre = centre;
+        this.certainty = certainty;
+        this.channelsIndependence = channelsIndependence;
+        this.alpha = alpha;
+        colorMixerUpdateSetter.setUpdate(this::recalculateDistribution);
         recalculateDistribution();
     }
 

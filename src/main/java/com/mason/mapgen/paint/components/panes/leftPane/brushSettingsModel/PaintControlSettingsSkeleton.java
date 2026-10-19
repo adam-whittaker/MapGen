@@ -3,16 +3,12 @@ package com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel;
 import com.mason.libstruct.states.onOff.OnOffState;
 import com.mason.libstruct.states.position.PositionState;
 import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.colorState.ColorState;
-import com.mason.mapgen.paint.logic.tools.PaintTool;
 import com.mason.mapgen.paint.logic.tools.PaintToolKit;
 import com.mason.mapgen.paint.logic.tools.brush.settings.ColorMixer;
 import com.mason.libstruct.states.intState.IntState;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBQuery;
-import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBState;
-import com.mason.mapgen.paint.skeletons.PaintToolQuerySlot;
-import com.mason.mapgen.paint.skeletons.UpdaterSlot;
-
-import java.util.function.Supplier;
+import com.mason.mapgen.paint.skeletons.PaintToolQuery;
+import com.mason.mapgen.paint.skeletons.UpdateSetter;
 
 public class PaintControlSettingsSkeleton implements BrushSettingsSkeleton{
 
@@ -36,8 +32,8 @@ public class PaintControlSettingsSkeleton implements BrushSettingsSkeleton{
     private ColorMixer colorMixer;
     private PaintToolKit paintToolKit;
 
-    private PaintToolQuerySlot paintToolQuerySlot;
-    private UpdaterSlot colorMixerUpdateSlot;
+    private PaintToolQuery.PaintToolQuerySlot paintToolQuerySlot;
+    private UpdateSetter colorMixerUpdateSlot;
     private Runnable brushColorDisplayUpdate;
 
     private OnOffState colorPickerState;
@@ -240,7 +236,7 @@ public class PaintControlSettingsSkeleton implements BrushSettingsSkeleton{
         this.colorPickerState = colorPickerState;
     }
 
-    public void setColorMixerUpdateSlot(UpdaterSlot colorMixerUpdateSlot){
+    public void setColorMixerUpdateSlot(UpdateSetter colorMixerUpdateSlot){
         if(this.colorMixerUpdateSlot != null){
             throw new IllegalStateException("colorMixerUpdateSlot is already set");
         }
@@ -268,25 +264,25 @@ public class PaintControlSettingsSkeleton implements BrushSettingsSkeleton{
         this.brushColorDisplayUpdate = brushColorDisplayUpdate;
     }
 
-    public Supplier<PaintTool> getPaintToolQuery(){
+    public PaintToolQuery getPaintToolQuery(){
         if(paintToolQuerySlot == null){
             throw new IllegalStateException("paintToolQuerySlot is not set");
         }
         return paintToolQuerySlot;
     }
 
-    public void setPaintToolQuerySlot(PaintToolQuerySlot paintToolQuerySlot){
+    public void setPaintToolQuerySlot(PaintToolQuery.PaintToolQuerySlot paintToolQuerySlot){
         if(this.paintToolQuerySlot != null){
             throw new IllegalStateException("paintToolQuerySlot is already set");
         }
         this.paintToolQuerySlot = paintToolQuerySlot;
     }
 
-    public void setCurrentPaintToolQuery(Supplier<PaintTool> paintToolQuery){
+    public void setCurrentPaintToolQuery(PaintToolQuery paintToolQuery){
         if(paintToolQuerySlot == null){
             throw new IllegalStateException("paintToolQuerySlot is not set");
         }
-        paintToolQuerySlot.setQuery(paintToolQuery);
+        paintToolQuerySlot.setPaintToolQuery(paintToolQuery);
     }
 
 }

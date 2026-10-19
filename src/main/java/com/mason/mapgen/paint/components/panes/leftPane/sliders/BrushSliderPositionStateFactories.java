@@ -6,7 +6,6 @@ import com.mason.libstruct.geo.Rect;
 import com.mason.libstruct.interfaces.Movable;
 import com.mason.libstruct.interfaces.RectQuery;
 import com.mason.libstruct.states.intState.IntState;
-import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneSkeleton;
 
 import java.util.Arrays;
 
@@ -21,12 +20,17 @@ public class BrushSliderPositionStateFactories{
     private final int sliderHandleWidth;
 
 
-    BrushSliderPositionStateFactories(LeftPaintPaneSkeleton skeleton, int sliderHandleWidth){
-        brushNumState = skeleton.getBrushNumState();
-        numBrushes = skeleton.getNumBrushes();
-        colorMixerUpdate = skeleton.getColorMixerUpdate();
-        averageBrushDisplayUpdate = skeleton.getAverageBrushColorDisplayUpdate();
-        colorSelectorUpdate = skeleton.getColorSelectorUpdate();
+    BrushSliderPositionStateFactories(IntState brushNumState,
+                                      int numBrushes,
+                                      Runnable colorMixerUpdate,
+                                      Runnable averageBrushDisplayUpdate,
+                                      Runnable colorSelectorUpdate,
+                                      int sliderHandleWidth){
+        this.brushNumState = brushNumState;
+        this.numBrushes = numBrushes;
+        this.colorMixerUpdate = colorMixerUpdate;
+        this.averageBrushDisplayUpdate = averageBrushDisplayUpdate;
+        this.colorSelectorUpdate = colorSelectorUpdate;
         this.sliderHandleWidth = sliderHandleWidth;
     }
 

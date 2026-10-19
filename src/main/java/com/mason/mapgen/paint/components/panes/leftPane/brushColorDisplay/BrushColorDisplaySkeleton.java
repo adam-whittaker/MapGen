@@ -5,7 +5,7 @@ import com.mason.libstruct.interfaces.RectQuery;
 import com.mason.libstruct.geo.Size;
 import com.mason.mapgen.paint.components.misc.PaintCentroidData;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBQuery;
-import com.mason.mapgen.paint.skeletons.UpdaterSlot;
+import com.mason.mapgen.paint.skeletons.UpdateSetter;
 import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
 
 public class BrushColorDisplaySkeleton{
@@ -22,8 +22,8 @@ public class BrushColorDisplaySkeleton{
     private RGBQuery secondaryRGBQuery;
     private RGBQuery averageRGBQuery;
 
-    private UpdaterSlot brushDisplayUpdateSlot;
-    private UpdaterSlot averageBrushDisplayUpdateSlot;
+    private UpdateSetter brushDisplayUpdateSetter;
+    private UpdateSetter averageBrushDisplayUpdateSlot;
 
 
     public BrushColorDisplaySkeleton(){}
@@ -156,17 +156,17 @@ public class BrushColorDisplaySkeleton{
     }
 
     public void setBrushDisplayUpdate(Runnable update){
-        if(brushDisplayUpdateSlot == null){
+        if(brushDisplayUpdateSetter == null){
             throw new IllegalStateException("brushDisplayUpdateSlot is not set");
         }
-        brushDisplayUpdateSlot.setUpdate(update);
+        brushDisplayUpdateSetter.setUpdate(update);
     }
 
-    public void setBrushColorDisplayUpdaterSlot(UpdaterSlot brushDisplayUpdateSlot){
-        if(this.brushDisplayUpdateSlot != null){
+    public void setBrushColorDisplayUpdateSetter(UpdateSetter brushDisplayUpdateSlot){
+        if(this.brushDisplayUpdateSetter != null){
             throw new IllegalStateException("brushDisplayUpdateSlot is already set");
         }
-        this.brushDisplayUpdateSlot = brushDisplayUpdateSlot;
+        this.brushDisplayUpdateSetter = brushDisplayUpdateSlot;
     }
 
     public void setAverageBrushColorDisplayUpdate(Runnable update){
@@ -176,7 +176,7 @@ public class BrushColorDisplaySkeleton{
         averageBrushDisplayUpdateSlot.setUpdate(update);
     }
 
-    public void setAverageBrushColorDisplayUpdaterSlot(UpdaterSlot averageBrushDisplayUpdateSlot){
+    public void setAverageBrushColorDisplayUpdateSetter(UpdateSetter averageBrushDisplayUpdateSlot){
         if(this.averageBrushDisplayUpdateSlot != null){
             throw new IllegalStateException("averageBrushDisplayUpdateSlot is already set");
         }

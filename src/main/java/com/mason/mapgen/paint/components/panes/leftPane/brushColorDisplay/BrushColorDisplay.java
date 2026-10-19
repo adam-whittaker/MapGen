@@ -3,7 +3,6 @@ package com.mason.mapgen.paint.components.panes.leftPane.brushColorDisplay;
 import com.mason.mapgen.paint.components.misc.GridImageComponent;
 import com.mason.mapgen.paint.components.misc.PaintCentroidData;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBQuery;
-import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneSkeleton;
 import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
 
 public class BrushColorDisplay extends GridImageComponent{
@@ -19,8 +18,7 @@ public class BrushColorDisplay extends GridImageComponent{
     private final RGBQuery averageColor;
 
 
-
-    private BrushColorDisplay(BrushColorDisplaySkeleton skeleton){
+    BrushColorDisplay(BrushColorDisplaySkeleton skeleton){
         super(skeleton.getCoord(), skeleton.getGrid());
         primaryColorCentroid = skeleton.getPrimaryColorCentroid();
         secondaryColorCentroid = skeleton.getSecondaryColorCentroid();
@@ -31,10 +29,6 @@ public class BrushColorDisplay extends GridImageComponent{
         grid = skeleton.getGrid();
         skeleton.setBrushDisplayUpdate(this::updateAllColors);
         skeleton.setAverageBrushColorDisplayUpdate(this::updateAverageColor);
-    }
-
-    public static BrushColorDisplay build(LeftPaintPaneSkeleton leftPaintPaneSkeleton){
-        return new BrushColorDisplay(BrushColorDisplayBuilder.buildSkeleton(leftPaintPaneSkeleton));
     }
 
 
@@ -51,8 +45,6 @@ public class BrushColorDisplay extends GridImageComponent{
 
 
     private void updateAverageColor(){
-        displayColorOnCentroid(primaryColor, primaryColorCentroid);
-        displayColorOnCentroid(secondaryColor, secondaryColorCentroid);
         displayColorOnCentroid(averageColor, averageColorCentroid);
     }
 

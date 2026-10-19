@@ -3,7 +3,7 @@ package com.mason.mapgen.paint.components.panes.imagePane;
 import com.mason.libgui.components.ComponentIDRegister;
 import com.mason.libgui.components.Identifiable;
 import com.mason.libgui.components.panes.PanZoomPane;
-import com.mason.mapgen.paint.components.paintGUIState.PaintGUIStateSkeleton;
+import com.mason.libgui.components.panes.construction.PanZoomPaneSkeleton;
 
 import java.awt.*;
 
@@ -16,14 +16,10 @@ public class PaintedImagePane extends PanZoomPane implements Identifiable{
     private final int id;
 
 
-    private PaintedImagePane(PaintedImagePaneSkeleton skeleton){
-        super(skeleton.getPanZoomPaneSkeleton());
+    protected PaintedImagePane(PanZoomPaneSkeleton skeleton){
+        super(skeleton);
         name = "IMAGE_PAINT_PANE";
         id = ComponentIDRegister.registerComponent(this);
-    }
-
-    public static PaintedImagePane build(PaintGUIStateSkeleton paintGUIStateSkeleton){
-        return new PaintedImagePane(PaintedImagePaneBuilder.buildSkeleton(paintGUIStateSkeleton));
     }
 
 

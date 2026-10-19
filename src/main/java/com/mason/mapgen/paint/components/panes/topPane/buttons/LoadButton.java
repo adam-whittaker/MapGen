@@ -4,7 +4,6 @@ import com.mason.libgui.components.buttons.AbstractButton;
 import com.mason.libgui.components.deco.ButtonDeco;
 import com.mason.libgui.core.component.hitbox.HitboxRect;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
-import com.mason.mapgen.paint.components.panes.topPane.pane.TopPaintPaneSkeleton;
 import com.mason.mapgen.paint.components.panes.topPane.resources.PaintGridReceiver;
 import com.mason.mapgen.paint.components.panes.topPane.resources.SaveLocation;
 import com.mason.mapgen.paint.logic.fileIO.PaintGridPersistence;
@@ -17,21 +16,19 @@ public class LoadButton extends AbstractButton{
 
     private final SaveLocation saveLocation;
     private final SaveButton saveButton;
-    private final PaintGridReceiver gridReceiver;
+    private final PaintGridReceiver paintGridReceiver;
 
 
-    protected LoadButton(TopPaintPaneSkeleton skeleton, String name, HitboxRect boundary, ButtonDeco buttonDeco){
+    protected LoadButton(String name,
+                         HitboxRect boundary,
+                         ButtonDeco buttonDeco,
+                         SaveLocation saveLocation,
+                         SaveButton saveButton,
+                         PaintGridReceiver paintGridReceiver){
         super(name, boundary, buttonDeco);
-        saveLocation = skeleton.getSaveLocation();
-        saveButton = skeleton.getSaveButton();
-        gridReceiver = skeleton.getGridReceiver();
-    }
-
-    public static LoadButton build(TopPaintPaneSkeleton skeleton){
-        String name = "LOAD_BUTTON";
-        HitboxRect boundary = ButtonBuilder.getBoundary(skeleton, name);
-        ButtonDeco deco = ButtonBuilder.buildDeco(name);
-        return new LoadButton(skeleton, name, boundary, deco);
+        this.saveLocation = saveLocation;
+        this.saveButton = saveButton;
+        this.paintGridReceiver = paintGridReceiver;
     }
 
 
@@ -43,7 +40,7 @@ public class LoadButton extends AbstractButton{
         File file = PaintGridPersistence.chooseLoadFile();
         if(file != null){
             saveLocation.setFile(file);
-            gridReceiver.receiveGrid(PaintGridPersistence.tryReadFromFile(file));
+            paintGridReceiver.receiveGrid(PaintGridPersistence.tryReadFromFile(file));
         }
     }
 

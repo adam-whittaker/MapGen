@@ -4,12 +4,12 @@ import com.mason.libgui.components.sliders.sliderPositionState.BasicSliderPositi
 import com.mason.libgui.components.sliders.sliderPositionState.IntRange;
 import com.mason.libstruct.interfaces.Movable;
 import com.mason.libstruct.geo.Coord;
-import com.mason.mapgen.paint.skeletons.UpdaterSlot;
+import com.mason.mapgen.paint.skeletons.UpdateSetter;
 
 public class SliderPositionStateWithUpdater extends BasicSliderPositionState{
 
 
-    private final UpdaterSlot updaterSlot = new UpdaterSlot();
+    private final UpdateSetter.UpdateSlot updaterSlot = new UpdateSetter.UpdateSlot();
 
 
     SliderPositionStateWithUpdater(Movable positionCoord, IntRange range){

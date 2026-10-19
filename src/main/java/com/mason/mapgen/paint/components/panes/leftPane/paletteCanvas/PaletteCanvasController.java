@@ -1,28 +1,17 @@
 package com.mason.mapgen.paint.components.panes.leftPane.paletteCanvas;
 
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
-import com.mason.libstruct.states.intState.IntState;
-import com.mason.libstruct.states.position.PositionState;
-import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneSkeleton;
 import com.mason.mapgen.paint.logic.canvas.CanvasController;
+import com.mason.mapgen.paint.logic.canvas.PaintCanvas;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
 import com.mason.mapgen.paint.logic.tools.brush.BrushTool;
+import com.mason.mapgen.paint.skeletons.PaintToolQuery;
 
 public class PaletteCanvasController extends CanvasController{
 
 
-    private final IntState alpha;
-    private final PositionState certainty;
-
-
-    public PaletteCanvasController(PaletteCanvasControllerSkeleton skeleton){
-        super(skeleton.getCanvas(), skeleton.getCurrentToolQuery());
-        alpha = skeleton.getAlphaState();
-        certainty = skeleton.getCertaintyState();
-    }
-
-    public static PaletteCanvasController build(LeftPaintPaneSkeleton leftPaintPaneSkeleton){
-        return new PaletteCanvasController(PaletteCanvasControllerBuilder.buildSkeleton(leftPaintPaneSkeleton));
+    PaletteCanvasController(PaintCanvas canvas, PaintToolQuery toolQuery){
+        super(canvas, toolQuery);
     }
 
 
@@ -43,14 +32,15 @@ public class PaletteCanvasController extends CanvasController{
         }
     }
 
+    //@Unfinished refactor
     private void onMousePressedWithTemporaryBrushSettings(MouseInputEvent event){
-        double originalCertainty = certainty.getPosition();
-        int originalAlpha = alpha.getState();
-        certainty.setPosition(1);
-        alpha.setState(255);
+        //double originalCertainty = certainty.getPosition();
+        //int originalAlpha = alpha.getState();
+        //certainty.setPosition(1);
+        //alpha.setState(255);
         super.onMousePressed(event);
-        certainty.setPosition(originalCertainty);
-        alpha.setState(originalAlpha);
+        //certainty.setPosition(originalCertainty);
+        //alpha.setState(originalAlpha);
     }
 
 }
