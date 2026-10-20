@@ -10,8 +10,6 @@ import java.awt.*;
 public class PaintedImagePane extends PanZoomPane implements Identifiable{
 
 
-    private static final Color BACKGROUND_COLOR = new Color(40, 40, 40);
-
     private final String name;
     private final int id;
 
@@ -24,10 +22,7 @@ public class PaintedImagePane extends PanZoomPane implements Identifiable{
 
 
     @Override
-    protected void drawBackground(Graphics2D g){
-        g.setColor(BACKGROUND_COLOR);
-        g.fillRect(0, 0, getSize().width(), getSize().height());
-    }
+    protected void drawBackground(Graphics2D g){}
 
     @Override
     protected void drawForeground(Graphics2D g){}

@@ -4,7 +4,7 @@ import com.mason.libgui.construction.BuildComponentCollection;
 import com.mason.libgui.construction.SettableBuildResource;
 import com.mason.libstruct.geo.Size;
 import com.mason.libvoronoi.algorithms.FloodFillAnnexQuery;
-import com.mason.mapgen.paint.buildResources.MainChunkingGridBuildComponent;
+import com.mason.mapgen.paint.components.panes.imagePane.MainPaintGridBuildComponent;
 import com.mason.mapgen.paint.components.misc.PaintCentroidData;
 import com.mason.mapgen.paint.components.paintGUIState.layout.PaintGUIStateLayoutBuildComponent;
 import com.mason.mapgen.paint.components.panes.bottomPane.pane.BottomPaintPaneBuildComponent;
@@ -43,7 +43,7 @@ public class PaintGUIStateBuildCollection extends BuildComponentCollection{
         addComponent(PaintKeyProcessorBuildComponent.INSTANCE);
 
         addComponent(PaintedImagePaneBuildComponent.INSTANCE);
-        addComponent(MainChunkingGridBuildComponent.INSTANCE);
+        addComponent(MainPaintGridBuildComponent.INSTANCE);
         addComponent(VersionedCanvasControllerBuildComponent.INSTANCE);
 
         addComponent(LeftPaintPaneBuildComponent.INSTANCE);

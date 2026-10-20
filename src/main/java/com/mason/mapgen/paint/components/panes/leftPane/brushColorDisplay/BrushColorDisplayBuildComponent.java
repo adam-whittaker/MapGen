@@ -16,12 +16,14 @@ import com.mason.libvoronoi.algorithms.voronoi.VoronoiChunkerSkeleton;
 import com.mason.libvoronoi.misc.RandomCoords;
 import com.mason.mapgen.core.random.RandomSource;
 import com.mason.mapgen.paint.components.misc.PaintCentroidData;
+import com.mason.mapgen.paint.components.misc.PaintGrid;
 import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneBuildComponent;
 
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.mason.mapgen.paint.components.misc.PaintGrid.PAINT_GRID_INITIALIZER;
 import static com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.PaintControlSettingsBuildComponent.*;
 import static com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.colorState.ColorStatesBuildComponent.*;
 
@@ -73,15 +75,15 @@ public class BrushColorDisplayBuildComponent extends ComponentBuildResource<Brus
     }
 
     private static ChunkingGrid<PaintCentroidData> buildGrid(Size size, CoordSlot coordSlot){
-        VoronoiChunker<PaintCentroidData> chunker = buildChunker(size, coordSlot);
+        VoronoiChunker<PaintCentroidData, PaintGrid> chunker = buildChunker(size, coordSlot);
         chunker.createChunks();
         return chunker.getGrid();
     }
 
-    private static VoronoiChunker<PaintCentroidData> buildChunker(Size size, CoordSlot coordSlot){
+    private static VoronoiChunker<PaintCentroidData, PaintGrid> buildChunker(Size size, CoordSlot coordSlot){
         FloodFillAnnexQuery<PaintCentroidData> randomQuery = AnnexQueries.buildDefaultRandomQuery(RandomSource.asRandom());
-        VoronoiChunkerSkeleton<PaintCentroidData> voronoiChunkerSkeleton =
-                VoronoiChunkerBuilder.buildSkeleton(RandomSource.asRandom(), size, -1, 0, PaintCentroidData::new, randomQuery);
+        VoronoiChunkerSkeleton<PaintCentroidData, PaintGrid> voronoiChunkerSkeleton =
+                VoronoiChunkerBuilder.buildSkeleton(RandomSource.asRandom(), size, -1, 0, PAINT_GRID_INITIALIZER, randomQuery);
         voronoiChunkerSkeleton.preventCentroidGraph();
         voronoiChunkerSkeleton.setRandomCoordGenerator((boundingSize, numCoords) -> generateCoords(boundingSize, coordSlot));
         return VoronoiChunker.buildFromSkeleton(voronoiChunkerSkeleton);

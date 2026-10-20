@@ -6,7 +6,7 @@ import com.mason.libstruct.geo.Coord;
 import com.mason.libstruct.geo.Size;
 import com.mason.libvoronoi.algorithms.components.CentroidData;
 import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
-import com.mason.mapgen.paint.components.panes.topPane.resources.ImageQuery;
+import com.mason.mapgen.paint.skeletons.QuerySetter;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,10 +20,24 @@ public class GridImageComponent extends AbstractUIComponent{
     private int[] pixels;
 
 
-    public GridImageComponent(Coord topLeft, ChunkingGrid<PaintCentroidData> grid){
+    protected GridImageComponent(Coord topLeft, ChunkingGrid<PaintCentroidData> grid){
         super(new BasicHitboxRect(topLeft, grid.size()));
         loadInNewPaintGrid(grid);
     }
+
+    protected GridImageComponent(Coord topLeft, ChunkingGrid<PaintCentroidData> grid, QuerySetter<BufferedImage> imageQuerySetter){
+        this(topLeft, grid);
+        imageQuerySetter.setQuery(() -> image);
+    }
+
+    public static GridImageComponent build(Coord topLeft, ChunkingGrid<PaintCentroidData> grid){
+        return new GridImageComponent(topLeft, grid);
+    }
+
+    public static GridImageComponent buildWithExportQuerySetter(Coord topLeft, ChunkingGrid<PaintCentroidData> grid, QuerySetter<BufferedImage> imageQuerySetter){
+        return new GridImageComponent(topLeft, grid, imageQuerySetter);
+    }
+
 
     public void loadInNewPaintGrid(ChunkingGrid<PaintCentroidData> newGrid){
         Size size = newGrid.size();
@@ -58,10 +72,5 @@ public class GridImageComponent extends AbstractUIComponent{
 
     @Override
     public void tick(){}
-
-
-    public ImageQuery getImageQueryForExporting(){
-        return () -> image;
-    }
 
 }

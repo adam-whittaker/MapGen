@@ -1,9 +1,11 @@
 package com.mason.mapgen.paint.logic.fileIO;
 
-import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
-import com.mason.libvoronoi.io.CentroidDataReader;
+import com.mason.libstruct.geo.Size;
+import com.mason.libstruct.lowMemory.ShortGrid;
+import com.mason.libvoronoi.algorithms.components.CentroidIDMap;
 import com.mason.libvoronoi.io.ChunkingGridPersistence;
 import com.mason.mapgen.paint.components.misc.PaintCentroidData;
+import com.mason.mapgen.paint.components.misc.PaintGrid;
 import com.mason.mapgen.structures.enums.DialogOption;
 
 import javax.imageio.ImageIO;
@@ -14,11 +16,26 @@ import java.io.*;
 
 public class PaintGridPersistence{
 
-    public static void writeToFile(File file, ChunkingGrid<PaintCentroidData> grid) throws IOException{
+
+    private static final ChunkingGridPersistence.ChunkingGridFactory<PaintCentroidData, PaintGrid> PAINT_GRID_FACTORY = new ChunkingGridPersistence.ChunkingGridFactory<>(){
+
+        @Override
+        public PaintGrid constructGrid(Size size, ShortGrid centroidIDGrid, ShortGrid distToCentroidGrid, CentroidIDMap<PaintCentroidData> centroidDataMap){
+            return new PaintGrid(size, centroidIDGrid, distToCentroidGrid, centroidDataMap);
+        }
+
+        @Override
+        public PaintCentroidData readFromDataStream(DataInputStream in) throws IOException{
+            return PaintCentroidData.readFromDataStream(in);
+        }
+    };
+
+
+    public static void writeToFile(File file, PaintGrid grid) throws IOException{
         ChunkingGridPersistence.writeToFile(file, grid);
     }
 
-    public static void tryWriteToFile(File file, ChunkingGrid<PaintCentroidData> grid){
+    public static void tryWriteToFile(File file, PaintGrid grid){
         try{
             PaintGridPersistence.writeToFile(file, grid);
         }catch(IOException e){
@@ -26,12 +43,11 @@ public class PaintGridPersistence{
         }
     }
 
-    public static ChunkingGrid<PaintCentroidData> readFromFile(File file) throws IOException{
-        CentroidDataReader<PaintCentroidData> centroidReader = PaintCentroidData::readFromDataStream;
-        return ChunkingGridPersistence.readFromFile(file, centroidReader);
+    public static PaintGrid readFromFile(File file) throws IOException{
+        return ChunkingGridPersistence.readFromFile(file, PAINT_GRID_FACTORY);
     }
 
-    public static ChunkingGrid<PaintCentroidData> tryReadFromFile(File file){
+    public static PaintGrid tryReadFromFile(File file){
         try{
             return readFromFile(file);
         }catch(IOException e){

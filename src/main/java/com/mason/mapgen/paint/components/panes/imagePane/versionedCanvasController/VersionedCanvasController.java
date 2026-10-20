@@ -6,7 +6,6 @@ import com.mason.mapgen.paint.logic.canvas.PaintCanvas;
 import com.mason.mapgen.paint.logic.history.PaintAction;
 import com.mason.mapgen.paint.logic.history.PaintHistory;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
-import com.mason.mapgen.paint.skeletons.PaintToolQuery;
 
 import java.util.function.Supplier;
 
@@ -16,7 +15,7 @@ public class VersionedCanvasController extends CanvasController{
     private final PaintHistory history;
 
 
-    public VersionedCanvasController(PaintCanvas canvas, PaintToolQuery currentToolQuery, int maxHistoryLength){
+    public VersionedCanvasController(PaintCanvas canvas, Supplier<PaintTool> currentToolQuery, int maxHistoryLength){
         super(canvas, currentToolQuery);
         this.history = new PaintHistory(canvas, maxHistoryLength);
     }

@@ -28,7 +28,7 @@ public class TopPaintPaneButtonsBuildComponent extends ComponentBuildResource<Bu
     public Set<BuildResource<?>> requiredPreBuildResources(){
         return Set.of(
                 PAINT_IMAGE_QUERY,
-                PAINT_GRID_RECEIVER,
+                PAINT_GRID_LOADER,
                 UNDO_CALLABLE,
                 REDO_CALLABLE,
                 TopPaintPaneBuildComponent.LAYOUT
@@ -76,7 +76,7 @@ public class TopPaintPaneButtonsBuildComponent extends ComponentBuildResource<Bu
                 buildDeco(name),
                 saveLocation,
                 saveButton,
-                PAINT_GRID_RECEIVER.get());
+                PAINT_GRID_LOADER.get());
     }
 
     private ExportButton buildExportButton(){

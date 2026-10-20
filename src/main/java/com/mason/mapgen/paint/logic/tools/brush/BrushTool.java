@@ -6,7 +6,6 @@ import com.mason.mapgen.paint.logic.canvas.PaintCanvas;
 import com.mason.mapgen.paint.logic.history.PaintAction;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
 import com.mason.mapgen.paint.logic.tools.brush.settings.BrushSettingsModel;
-import com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.PaintControlSettingsSkeleton;
 import com.mason.mapgen.paint.logic.tools.brush.settings.ColorMixer;
 
 import java.awt.*;
@@ -19,11 +18,6 @@ public class BrushTool implements PaintTool{
 
     private final BrushSettingsModel settings;
 
-
-    public BrushTool(PaintControlSettingsSkeleton skeleton){
-        active = false;
-        this.settings = new BrushSettingsModel(skeleton);
-    }
 
     public BrushTool(IntQuery sizeQuery, ColorMixer colorMixer){
         active = false;

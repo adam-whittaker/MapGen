@@ -9,7 +9,7 @@ import com.mason.libstruct.states.onOff.OnOffState;
 import com.mason.libstruct.states.position.PositionQuery;
 import com.mason.mapgen.paint.logic.tools.brush.settings.ColorMixer;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBState;
-import com.mason.mapgen.paint.skeletons.PaintToolQuery;
+import com.mason.mapgen.paint.skeletons.QuerySetter;
 import com.mason.mapgen.paint.skeletons.UpdateSetter;
 
 import java.util.Set;
@@ -52,7 +52,7 @@ public class PaintToolKitBuildComponent extends ComponentBuildResource<PaintTool
 
     @Override
     protected PaintToolKit build(){
-        PaintToolQuery.PaintToolQuerySetter paintToolQuerySetter = PAINT_TOOL_QUERY_SETTER.get();
+        QuerySetter<PaintTool> paintToolQuerySetter = PAINT_TOOL_QUERY_SETTER.get();
         IntQuery sizeQuery = BRUSH_SIZE_QUERY.get();
         OnOffState colorPickerState = COLOR_PICKER_STATE.get();
         RGBState primaryColorState = PRIMARY_COLOR_STATE.get();

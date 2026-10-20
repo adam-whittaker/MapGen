@@ -6,10 +6,12 @@ import com.mason.libgui.construction.SettableBuildResource;
 import com.mason.libstruct.states.intState.BoundedIntState;
 import com.mason.libstruct.states.intState.IntState;
 import com.mason.libstruct.states.onOff.OnOffState;
-import com.mason.mapgen.paint.skeletons.PaintToolQuery;
+import com.mason.mapgen.paint.logic.tools.PaintTool;
+import com.mason.mapgen.paint.skeletons.QuerySetter;
 import com.mason.mapgen.paint.skeletons.UpdateSetter;
 
 import java.util.Set;
+import java.util.function.Supplier;
 
 public class PaintControlSettingsBuildComponent implements BuildComponent{
 
@@ -21,8 +23,8 @@ public class PaintControlSettingsBuildComponent implements BuildComponent{
     public static final SettableBuildResource<OnOffState> COLOR_PICKER_STATE = new SettableBuildResource<>("COLOR_PICKER_STATE");
     public static final SettableBuildResource<OnOffState> CHANNEL_INDEPENDENCE_STATE = new SettableBuildResource<>("CHANNEL_INDEPENDENCE_STATE");
 
-    public static final BuildResource<PaintToolQuery.PaintToolQuerySetter> PAINT_TOOL_QUERY_SETTER;
-    public static final BuildResource<PaintToolQuery> PAINT_TOOL_QUERY;
+    public static final BuildResource<QuerySetter<PaintTool>> PAINT_TOOL_QUERY_SETTER;
+    public static final BuildResource<Supplier<PaintTool>> PAINT_TOOL_QUERY;
     public static final BuildResource<UpdateSetter> COLOR_MIXER_UPDATE_SETTER;
     public static final BuildResource<Runnable> COLOR_MIXER_UPDATE;
     public static final BuildResource<UpdateSetter> BRUSH_COLOR_DISPLAY_UPDATE_SETTER;
@@ -32,7 +34,7 @@ public class PaintControlSettingsBuildComponent implements BuildComponent{
     public static final BuildResource<UpdateSetter> COLOR_SELECTOR_UPDATE_SETTER;
     public static final BuildResource<Runnable> COLOR_SELECTOR_UPDATE;
     static{
-        PaintToolQuery.PaintToolQuerySlot querySlot = new PaintToolQuery.PaintToolQuerySlot();
+        QuerySetter.QuerySlot<PaintTool> querySlot = new QuerySetter.QuerySlot<>();
         PAINT_TOOL_QUERY_SETTER = BuildResource.getPreBuiltResource(querySlot, "PAINT_TOOL_QUERY_SETTER");
         PAINT_TOOL_QUERY = BuildResource.getPreBuiltResource(querySlot, "PAINT_TOOL_QUERY");
 

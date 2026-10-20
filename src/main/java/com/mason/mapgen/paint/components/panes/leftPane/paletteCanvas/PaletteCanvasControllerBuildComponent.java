@@ -10,12 +10,14 @@ import com.mason.libvoronoi.algorithms.voronoi.VoronoiChunkerBuilder;
 import com.mason.libvoronoi.algorithms.voronoi.VoronoiChunkerSkeleton;
 import com.mason.mapgen.core.random.RandomSource;
 import com.mason.mapgen.paint.components.misc.PaintCentroidData;
+import com.mason.mapgen.paint.components.misc.PaintGrid;
 import com.mason.mapgen.paint.components.paintGUIState.PaintGUIStateBuildCollection;
 import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneBuildComponent;
 import com.mason.mapgen.paint.logic.canvas.PaintCanvas;
 
 import java.util.Set;
 
+import static com.mason.mapgen.paint.components.misc.PaintGrid.PAINT_GRID_INITIALIZER;
 import static com.mason.mapgen.paint.components.paintGUIState.PaintGUIStateBuildCollection.CHUNKING_GRID_PARAMS;
 import static com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.PaintControlSettingsBuildComponent.PAINT_TOOL_QUERY;
 
@@ -44,19 +46,19 @@ public class PaletteCanvasControllerBuildComponent extends ComponentBuildResourc
     private PaintCanvas constructCanvas(){
         PaneLayout paneLayout = LeftPaintPaneBuildComponent.LAYOUT.get();
         RectQuery boundary = paneLayout.getBounds("PALETTE");
-        VoronoiChunker<PaintCentroidData> paletteChunker = constructPaletteChunker(boundary.getSize());
+        VoronoiChunker<PaintCentroidData, PaintGrid> paletteChunker = constructPaletteChunker(boundary.getSize());
         paletteChunker.createChunks();
         return new PaintCanvas(boundary.getCoord(), paletteChunker.getGrid());
     }
 
-    private VoronoiChunker<PaintCentroidData> constructPaletteChunker(Size boundarySize){
+    private VoronoiChunker<PaintCentroidData, PaintGrid> constructPaletteChunker(Size boundarySize){
         PaintGUIStateBuildCollection.ChunkingGridParams params = CHUNKING_GRID_PARAMS.get();
-        VoronoiChunkerSkeleton<PaintCentroidData> paletteChunkerSkeleton = VoronoiChunkerBuilder.buildSkeleton(
+        VoronoiChunkerSkeleton<PaintCentroidData, PaintGrid> paletteChunkerSkeleton = VoronoiChunkerBuilder.buildSkeleton(
                 RandomSource.asRandom(),
                 boundarySize,
                 calcNumChunks(params, boundarySize),
                 params.lloydRelaxCount(),
-                PaintCentroidData::new,
+                PAINT_GRID_INITIALIZER,
                 params.query()
         );
         return VoronoiChunker.buildFromSkeleton(paletteChunkerSkeleton);

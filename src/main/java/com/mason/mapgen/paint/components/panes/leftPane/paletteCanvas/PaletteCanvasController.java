@@ -5,12 +5,13 @@ import com.mason.mapgen.paint.logic.canvas.CanvasController;
 import com.mason.mapgen.paint.logic.canvas.PaintCanvas;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
 import com.mason.mapgen.paint.logic.tools.brush.BrushTool;
-import com.mason.mapgen.paint.skeletons.PaintToolQuery;
+
+import java.util.function.Supplier;
 
 public class PaletteCanvasController extends CanvasController{
 
 
-    PaletteCanvasController(PaintCanvas canvas, PaintToolQuery toolQuery){
+    PaletteCanvasController(PaintCanvas canvas, Supplier<PaintTool> toolQuery){
         super(canvas, toolQuery);
     }
 

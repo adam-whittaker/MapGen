@@ -4,22 +4,37 @@ import com.mason.libstruct.geo.*;
 import com.mason.libstruct.interfaces.Boundable;
 import com.mason.mapgen.paint.components.misc.PaintCentroidData;
 import com.mason.mapgen.paint.components.misc.GridImageComponent;
-import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
-import com.mason.mapgen.paint.components.panes.topPane.resources.ImageQuery;
-import com.mason.mapgen.paint.components.panes.topPane.resources.PaintGridQuery;
+import com.mason.mapgen.paint.components.misc.PaintGrid;
+import com.mason.mapgen.paint.components.panes.imagePane.versionedCanvasController.CanvasViewSlot;
 
 import java.awt.*;
 
 public class PaintCanvas implements Boundable{
 
 
-    private ChunkingGrid<PaintCentroidData> grid;
+    private PaintGrid grid;
     private final GridImageComponent image;
 
 
-    public PaintCanvas(Coord topLeft, ChunkingGrid<PaintCentroidData> grid){
+    public PaintCanvas(Coord topLeft,
+                       PaintGrid grid,
+                       CanvasViewSlot canvasViewSlot){
         this.grid = grid;
-        this.image = new GridImageComponent(topLeft, grid);
+        this.image = GridImageComponent.buildWithExportQuerySetter(topLeft, grid, canvasViewSlot::setPaintImageQuery);
+        canvasViewSlot.setPaintGridLoader(this::loadInNewPaintGrid);
+        canvasViewSlot.setPaintGridQuery(() -> this.grid);
+    }
+
+    public PaintCanvas(Coord topLeft,
+                       PaintGrid grid){
+        this.grid = grid;
+        this.image = GridImageComponent.build(topLeft, grid);
+    }
+
+
+    private void loadInNewPaintGrid(PaintGrid newGrid){
+        this.grid = newGrid;
+        image.loadInNewPaintGrid(newGrid);
     }
 
 
@@ -62,19 +77,6 @@ public class PaintCanvas implements Boundable{
 
     protected GridImageComponent getImageComponent(){
         return image;
-    }
-
-    public void loadInNewPaintGrid(ChunkingGrid<PaintCentroidData> newGrid){
-        this.grid = newGrid;
-        image.loadInNewPaintGrid(newGrid);
-    }
-
-    public PaintGridQuery getGridQueryForSaving(){
-        return () -> grid;
-    }
-
-    public ImageQuery getImageQueryForExporting(){
-        return image.getImageQueryForExporting();
     }
 
 }
