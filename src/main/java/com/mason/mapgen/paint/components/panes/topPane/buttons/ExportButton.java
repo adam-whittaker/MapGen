@@ -1,7 +1,7 @@
 package com.mason.mapgen.paint.components.panes.topPane.buttons;
 
 import com.mason.libgui.components.buttons.AbstractButton;
-import com.mason.libgui.components.deco.ButtonDeco;
+import com.mason.libgui.components.deco.BasicButtonDeco;
 import com.mason.libgui.core.component.hitbox.HitboxRect;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
 import com.mason.mapgen.paint.logic.fileIO.PaintGridPersistence;
@@ -16,11 +16,9 @@ public class ExportButton extends AbstractButton{
     private final Supplier<BufferedImage> imageQuery;
 
 
-    protected ExportButton(String name,
-                           HitboxRect boundary,
-                           ButtonDeco buttonDeco,
-                           Supplier<BufferedImage>  imageQuery){
-        super(name, boundary, buttonDeco);
+    protected ExportButton(HitboxRect boundary,
+                           Supplier<BufferedImage> imageQuery){
+        super(boundary, BasicButtonDeco.build("assets/paintIcons/EXPORT_BUTTON.png"));
         this.imageQuery = imageQuery;
     }
 

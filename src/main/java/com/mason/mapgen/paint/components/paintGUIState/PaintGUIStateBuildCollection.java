@@ -19,6 +19,9 @@ import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneBuildC
 import com.mason.mapgen.paint.components.panes.leftPane.sliders.BrushSlidersBuildComponent;
 import com.mason.mapgen.paint.components.panes.leftPane.toggles.LeftPaintPaneTogglesBuildComponent;
 import com.mason.mapgen.paint.components.panes.rightPane.pane.RightPaintPaneBuildComponent;
+import com.mason.mapgen.paint.components.panes.rightPane.reference.ReferenceImageBuildComponent;
+import com.mason.mapgen.paint.components.panes.rightPane.reference.ReferenceImageAccessSlotsBuildComponent;
+import com.mason.mapgen.paint.components.panes.rightPane.referenceButtons.ReferenceTweakablesBuildComponent;
 import com.mason.mapgen.paint.components.panes.topPane.buttons.TopPaintPaneButtonsBuildComponent;
 import com.mason.mapgen.paint.components.panes.topPane.pane.TopPaintPaneBuildComponent;
 import com.mason.mapgen.paint.logic.keyProcessor.PaintKeyProcessorBuildComponent;
@@ -45,6 +48,8 @@ public class PaintGUIStateBuildCollection extends BuildComponentCollection{
         addComponent(PaintedImagePaneBuildComponent.INSTANCE);
         addComponent(MainPaintGridBuildComponent.INSTANCE);
         addComponent(VersionedCanvasControllerBuildComponent.INSTANCE);
+        addComponent(ReferenceImageBuildComponent.INSTANCE);
+        addComponent(ReferenceImageAccessSlotsBuildComponent.INSTANCE);
 
         addComponent(LeftPaintPaneBuildComponent.INSTANCE);
         addComponent(BrushColorDisplayBuildComponent.INSTANCE);
@@ -59,6 +64,8 @@ public class PaintGUIStateBuildCollection extends BuildComponentCollection{
         addComponent(TopPaintPaneButtonsBuildComponent.INSTANCE);
 
         addComponent(RightPaintPaneBuildComponent.INSTANCE);
+        addComponent(ReferenceTweakablesBuildComponent.INSTANCE);
+
         addComponent(BottomPaintPaneBuildComponent.INSTANCE);
     }
 
@@ -70,6 +77,6 @@ public class PaintGUIStateBuildCollection extends BuildComponentCollection{
 
     public record ChunkingGridParams(Size size, int numChunks, int lloydRelaxCount, FloodFillAnnexQuery<PaintCentroidData> query){}
 
-    public record GUIParams(Size screenSize, int sidePaneWidth){}
+    public record GUIParams(Size screenSize, int sidePaneWidth, Size toggleSize){}
 
 }

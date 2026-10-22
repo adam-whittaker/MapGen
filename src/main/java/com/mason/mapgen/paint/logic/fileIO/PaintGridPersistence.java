@@ -31,7 +31,7 @@ public class PaintGridPersistence{
     };
 
 
-    public static void writeToFile(File file, PaintGrid grid) throws IOException{
+    private static void writeToFile(File file, PaintGrid grid) throws IOException{
         ChunkingGridPersistence.writeToFile(file, grid);
     }
 
@@ -43,7 +43,7 @@ public class PaintGridPersistence{
         }
     }
 
-    public static PaintGrid readFromFile(File file) throws IOException{
+    private static PaintGrid readFromFile(File file) throws IOException{
         return ChunkingGridPersistence.readFromFile(file, PAINT_GRID_FACTORY);
     }
 

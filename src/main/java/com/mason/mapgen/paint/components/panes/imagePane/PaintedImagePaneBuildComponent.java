@@ -1,6 +1,7 @@
 package com.mason.mapgen.paint.components.panes.imagePane;
 
 import com.mason.libgui.components.behaviour.camera.Zoom;
+import com.mason.libgui.components.panes.Pane;
 import com.mason.libgui.components.panes.construction.PanZoomPaneBuilder;
 import com.mason.libgui.components.panes.construction.PanZoomPaneSkeleton;
 import com.mason.libgui.components.panes.layout.PaneLayout;
@@ -13,6 +14,8 @@ import com.mason.libstruct.geo.Size;
 import com.mason.libstruct.interfaces.RectQuery;
 import com.mason.mapgen.paint.components.paintGUIState.layout.PaintGUIStateLayoutBuildComponent;
 import com.mason.mapgen.paint.components.panes.imagePane.versionedCanvasController.VersionedCanvasControllerBuildComponent;
+import com.mason.mapgen.paint.components.panes.rightPane.reference.ReferenceImageBuildComponent;
+import com.mason.mapgen.paint.components.panes.rightPane.reference.ReferenceImageComponent;
 import com.mason.mapgen.paint.logic.canvas.CanvasController;
 
 import java.util.Set;
@@ -79,6 +82,14 @@ public class PaintedImagePaneBuildComponent extends ComponentBuildResource<Paint
         return max(widthFactor, heightFactor);
     }
 
+
+    @Override
+    public void postBuild(){
+        Pane pane = this.get();
+
+        ReferenceImageComponent referenceImageComponent = ReferenceImageBuildComponent.INSTANCE.get();
+        pane.addComponent(referenceImageComponent);
+    }
 
     @Override
     public String toString(){

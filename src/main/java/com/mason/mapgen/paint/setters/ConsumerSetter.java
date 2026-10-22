@@ -1,4 +1,4 @@
-package com.mason.mapgen.paint.skeletons;
+package com.mason.mapgen.paint.setters;
 
 import java.util.function.Consumer;
 
@@ -19,7 +19,7 @@ public interface ConsumerSetter<T>{
         @Override
         public void setConsumer(Consumer<T> consumer){
             if(consumerSet){
-                throw new IllegalStateException("consumer is already set");
+                throw new IllegalStateException("Consumer is already set");
             }
             this.consumer = consumer;
             consumerSet = true;

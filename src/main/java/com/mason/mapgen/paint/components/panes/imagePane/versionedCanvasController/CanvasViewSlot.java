@@ -2,8 +2,8 @@ package com.mason.mapgen.paint.components.panes.imagePane.versionedCanvasControl
 
 
 import com.mason.mapgen.paint.components.misc.PaintGrid;
-import com.mason.mapgen.paint.skeletons.ConsumerSetter;
-import com.mason.mapgen.paint.skeletons.QuerySetter;
+import com.mason.mapgen.paint.setters.ConsumerSetter;
+import com.mason.mapgen.paint.setters.QuerySetter;
 
 import java.awt.image.BufferedImage;
 import java.util.function.Consumer;

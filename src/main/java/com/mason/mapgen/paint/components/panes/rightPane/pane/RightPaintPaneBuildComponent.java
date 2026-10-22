@@ -5,8 +5,10 @@ import com.mason.libgui.components.panes.layout.PaneLayout;
 import com.mason.libgui.construction.BuildResource;
 import com.mason.libgui.construction.ComponentBuildResource;
 import com.mason.libgui.construction.SettableBuildResource;
+import com.mason.libgui.core.component.UIComponent;
 import com.mason.libstruct.interfaces.RectQuery;
 import com.mason.mapgen.paint.components.paintGUIState.layout.PaintGUIStateLayoutBuildComponent;
+import com.mason.mapgen.paint.components.panes.rightPane.referenceButtons.ReferenceTweakablesBuildComponent;
 
 import java.util.Set;
 
@@ -39,14 +41,17 @@ public class RightPaintPaneBuildComponent extends ComponentBuildResource<RightPa
     protected RightPaintPane build(){
         PaneLayout guiStateLayout = PaintGUIStateLayoutBuildComponent.INSTANCE.get();
         RectQuery boundary = guiStateLayout.getBounds("RIGHT_PAINT_PANE");
-        //@Unfinished
-        //LAYOUT.setResource(new RightPaintPaneLayout(boundary.getSize()));
+        LAYOUT.setResource(new RightPaintPaneLayout(boundary.getSize()));
         return RightPaintPane.buildEmptyPane(boundary);
     }
 
     @Override
     public void postBuild(){
         Pane pane = this.get();
+
+        for(UIComponent component : ReferenceTweakablesBuildComponent.REFERENCE_TWEAKABLES.get()){
+            pane.addComponent(component);
+        }
     }
 
 

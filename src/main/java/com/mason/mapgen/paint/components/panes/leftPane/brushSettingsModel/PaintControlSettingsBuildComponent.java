@@ -7,8 +7,8 @@ import com.mason.libstruct.states.intState.BoundedIntState;
 import com.mason.libstruct.states.intState.IntState;
 import com.mason.libstruct.states.onOff.OnOffState;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
-import com.mason.mapgen.paint.skeletons.QuerySetter;
-import com.mason.mapgen.paint.skeletons.UpdateSetter;
+import com.mason.mapgen.paint.setters.QuerySetter;
+import com.mason.mapgen.paint.setters.UpdateSetter;
 
 import java.util.Set;
 import java.util.function.Supplier;

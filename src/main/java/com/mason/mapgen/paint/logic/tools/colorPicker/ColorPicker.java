@@ -5,6 +5,7 @@ import com.mason.mapgen.paint.logic.canvas.PaintCanvas;
 import com.mason.mapgen.paint.logic.history.PaintAction;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBState;
+import com.mason.mapgen.paint.setters.ConsumerSetter;
 
 import java.awt.*;
 
@@ -16,10 +17,10 @@ public class ColorPicker implements PaintTool{
     private boolean active = false;
 
 
-
-    public ColorPicker(RGBState primaryColor, RGBState secondaryColor){
+    public ColorPicker(RGBState primaryColor, RGBState secondaryColor, ConsumerSetter<ColorSetterInput> colorSetterSlot){
         this.primaryColor = primaryColor;
         this.secondaryColor = secondaryColor;
+        colorSetterSlot.setConsumer(input -> setColor(input.color(), input.event()));
     }
 
 
@@ -27,12 +28,12 @@ public class ColorPicker implements PaintTool{
     public void apply(PaintCanvas canvas, MouseInputEvent event){
         if(!active){
             active = true;
-            chooseColor(canvas, event);
+            Color chunkColor = canvas.getChunkColor(event.getCoord());
+            setColor(chunkColor, event);
         }
     }
 
-    private void chooseColor(PaintCanvas canvas, MouseInputEvent event){
-        Color color = canvas.getChunkColor(event.getCoord());
+    private void setColor(Color color, MouseInputEvent event){
         if(secondaryColorMask(event)){
             secondaryColor.setColor(color);
             return;
@@ -41,7 +42,7 @@ public class ColorPicker implements PaintTool{
     }
 
     public static boolean secondaryColorMask(MouseInputEvent event){
-        return event.isMouseButtonTwoDown();
+        return event.isRightMouseButton();
     }
 
     @Override
@@ -63,5 +64,8 @@ public class ColorPicker implements PaintTool{
     public boolean shouldAcceptMouseInput(MouseInputEvent event){
         return true;
     }
+
+
+    public record ColorSetterInput(Color color, MouseInputEvent event){}
 
 }

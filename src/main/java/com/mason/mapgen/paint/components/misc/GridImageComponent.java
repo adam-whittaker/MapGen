@@ -6,7 +6,7 @@ import com.mason.libstruct.geo.Coord;
 import com.mason.libstruct.geo.Size;
 import com.mason.libvoronoi.algorithms.components.CentroidData;
 import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
-import com.mason.mapgen.paint.skeletons.QuerySetter;
+import com.mason.mapgen.paint.setters.QuerySetter;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

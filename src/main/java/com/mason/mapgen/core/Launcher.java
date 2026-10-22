@@ -15,7 +15,8 @@ public class Launcher{
     public static void launch(){
 
         Size screenSize = new Size(1760, 960);
-        PaintGUIStateBuildCollection.GUIParams guiParams = new PaintGUIStateBuildCollection.GUIParams(screenSize, 460);
+        Size toggleSize = new Size(36, 36);
+        PaintGUIStateBuildCollection.GUIParams guiParams = new PaintGUIStateBuildCollection.GUIParams(screenSize, 460, toggleSize);
         PaintGUIStateBuildCollection.ChunkingGridParams chunkingGridParams = new PaintGUIStateBuildCollection.ChunkingGridParams(
                 new Size(1200, 1200),
                 8600,

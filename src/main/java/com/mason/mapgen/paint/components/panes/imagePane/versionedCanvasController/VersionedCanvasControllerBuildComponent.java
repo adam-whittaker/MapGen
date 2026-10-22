@@ -8,7 +8,7 @@ import com.mason.mapgen.paint.components.misc.PaintGrid;
 import com.mason.mapgen.paint.components.panes.imagePane.MainPaintGridBuildComponent;
 import com.mason.mapgen.paint.logic.canvas.PaintCanvas;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
-import com.mason.mapgen.paint.skeletons.QuerySetter;
+import com.mason.mapgen.paint.setters.QuerySetter;
 
 import java.awt.image.BufferedImage;
 import java.util.Set;

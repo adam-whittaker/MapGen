@@ -1,4 +1,4 @@
-package com.mason.mapgen.paint.skeletons;
+package com.mason.mapgen.paint.setters;
 
 import java.util.function.Supplier;
 

@@ -6,6 +6,7 @@ import com.mason.libgui.components.toggles.Toggle;
 import com.mason.libgui.construction.BuildResource;
 import com.mason.libgui.construction.ComponentBuildResource;
 import com.mason.libgui.construction.SettableBuildResource;
+import com.mason.libgui.core.component.UIComponent;
 import com.mason.libgui.core.component.hitbox.HitboxRect;
 import com.mason.mapgen.paint.components.paintGUIState.layout.PaintGUIStateLayoutBuildComponent;
 import com.mason.mapgen.paint.components.panes.leftPane.brushColorDisplay.BrushColorDisplayBuildComponent;
@@ -66,11 +67,7 @@ public class LeftPaintPaneBuildComponent extends ComponentBuildResource<LeftPain
 
         pane.addComponent(BrushColorDisplayBuildComponent.INSTANCE.get());
 
-        pane.addComponent(BRUSH_ALPHA_SLIDER.get());
-        pane.addComponent(BRUSH_CERTAINTY_SLIDER.get());
-        pane.addComponent(BRUSH_CENTRE_SLIDER.get());
-        pane.addComponent(BRUSH_SIZE_SLIDER.get());
-        pane.addComponent(BRUSH_BRIGHTNESS_SLIDER.get());
+        for(UIComponent slider : BRUSH_SLIDERS.get()) pane.addComponent(slider);
 
         pane.addComponent(ColorSelectorBuildComponent.INSTANCE.get());
 

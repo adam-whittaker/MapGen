@@ -17,6 +17,7 @@ import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneBuildC
 import java.util.Set;
 import java.util.function.Function;
 
+import static com.mason.mapgen.paint.components.paintGUIState.PaintGUIStateBuildCollection.PAINT_GUI_PARAMS;
 import static com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.PaintControlSettingsBuildComponent.*;
 import static com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.colorState.ColorStatesBuildComponent.PRIMARY_COLOR_STATE;
 import static com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.colorState.ColorStatesBuildComponent.SECONDARY_COLOR_STATE;
@@ -41,6 +42,7 @@ public class LeftPaintPaneTogglesBuildComponent implements BuildComponent{
     @Override
     public Set<BuildResource<?>> requiredPreBuildResources(){
         return Set.of(
+                PAINT_GUI_PARAMS,
                 PRIMARY_COLOR_STATE,
                 SECONDARY_COLOR_STATE,
                 BRUSH_NUM_STATE,
@@ -72,7 +74,7 @@ public class LeftPaintPaneTogglesBuildComponent implements BuildComponent{
     }
 
     private static Function<String, HitboxRect> createToggleBoundaryBuilder(){
-        Size toggleSize = new Size(36, 36);
+        Size toggleSize = PAINT_GUI_PARAMS.get().toggleSize();
         PaneLayout layout = LeftPaintPaneBuildComponent.LAYOUT.get();
         return (brushName) -> {
             Coord coord = layout.centre(brushName, toggleSize);
@@ -92,7 +94,7 @@ public class LeftPaintPaneTogglesBuildComponent implements BuildComponent{
         String brushName = "BRUSH_" + brushNum + "_TOGGLE";
         HitboxRect boundary = toggleBoundaryBuilder.apply(brushName);
         ButtonDeco deco = createBrushToggleDeco(boundary, brushNum);
-        return toggleGroup.createToggle(brushName, boundary, deco, brushNum);
+        return toggleGroup.createToggle(boundary, deco, brushNum);
     }
 
     private BrushButtonDeco createBrushToggleDeco(RectQuery bounds, int brushNum){
@@ -104,9 +106,8 @@ public class LeftPaintPaneTogglesBuildComponent implements BuildComponent{
     private Toggle buildChannelIndependenceToggle(){
         String name = "BRUSH_CHANNEL_INDEPENDENCE_TOGGLE";
         return new SourcedToggle(
-                name,
                 toggleBoundaryBuilder.apply(name),
-                BasicButtonDeco.build("assets/paintIcons/channelIndependence.png"),
+                BasicButtonDeco.build("assets/paintIcons/BRUSH_CHANNEL_INDEPENDENCE_TOGGLE.png"),
                 CHANNEL_INDEPENDENCE_STATE.get()
         );
     }
@@ -115,9 +116,8 @@ public class LeftPaintPaneTogglesBuildComponent implements BuildComponent{
     private Toggle buildColorPickerToggle(){
         String name = "COLOR_PICKER_TOGGLE";
         return new SourcedToggle(
-                name,
                 toggleBoundaryBuilder.apply(name),
-                BasicButtonDeco.build("assets/paintIcons/colorPicker.png"),
+                BasicButtonDeco.build("assets/paintIcons/COLOR_PICKER_TOGGLE.png"),
                 COLOR_PICKER_STATE.get()
         );
     }

@@ -29,7 +29,7 @@ public class BrushSliderFactory extends SliderWithIconsBuilder{
                 colorMixerUpdate,
                 averageBrushDisplayUpdate,
                 colorSelectorUpdate, 
-                sliderHandleSize.width());
+                getSliderHandleSize().width());
     }
 
 
@@ -37,7 +37,6 @@ public class BrushSliderFactory extends SliderWithIconsBuilder{
         String name = "BRUSH_ALPHA_SLIDER";
         RectQuery boundary = layout.getBounds(name);
         SliderWithIconsSkeleton skeleton = buildSkeleton(
-                name,
                 boundary,
                 "assets/paintIcons/transparent.png",
                 "assets/paintIcons/opaque.png",
@@ -49,7 +48,6 @@ public class BrushSliderFactory extends SliderWithIconsBuilder{
         String name = "BRUSH_CENTRE_SLIDER";
         RectQuery boundary = layout.getBounds(name);
         SliderWithIconsSkeleton skeleton = buildSkeleton(
-                name,
                 boundary,
                 "assets/paintIcons/primarySelected.png",
                 "assets/paintIcons/secondarySelected.png",
@@ -61,7 +59,6 @@ public class BrushSliderFactory extends SliderWithIconsBuilder{
         String name = "BRUSH_CERTAINTY_SLIDER";
         RectQuery boundary = layout.getBounds(name);
         SliderWithIconsSkeleton skeleton = buildSkeleton(
-                name,
                 boundary,
                 "assets/paintIcons/uncertain.png",
                 "assets/paintIcons/certain.png",
@@ -73,7 +70,6 @@ public class BrushSliderFactory extends SliderWithIconsBuilder{
         String name = "BRUSH_SIZE_SLIDER";
         RectQuery boundary = layout.getBounds(name);
         SliderWithIconsSkeleton skeleton = buildSkeleton(
-                name,
                 boundary,
                 "assets/paintIcons/tinyBrush.png",
                 "assets/paintIcons/largeBrush.png",
@@ -85,7 +81,6 @@ public class BrushSliderFactory extends SliderWithIconsBuilder{
         String name = "BRUSH_BRIGHTNESS_SLIDER";
         RectQuery boundary = layout.getBounds(name);
         SliderWithIconsSkeleton skeleton = buildSkeleton(
-                name,
                 boundary,
                 "assets/paintIcons/dark.png",
                 "assets/paintIcons/bright.png",

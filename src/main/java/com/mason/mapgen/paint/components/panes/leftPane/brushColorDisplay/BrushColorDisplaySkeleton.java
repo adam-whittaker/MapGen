@@ -5,7 +5,7 @@ import com.mason.libstruct.interfaces.RectQuery;
 import com.mason.libstruct.geo.Size;
 import com.mason.mapgen.paint.components.misc.PaintCentroidData;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBQuery;
-import com.mason.mapgen.paint.skeletons.UpdateSetter;
+import com.mason.mapgen.paint.setters.UpdateSetter;
 import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
 
 public class BrushColorDisplaySkeleton{

@@ -1,12 +1,8 @@
 package com.mason.mapgen.paint.logic.tools;
 
-import com.mason.libstruct.states.intState.IntQuery;
 import com.mason.libstruct.states.onOff.OnOffState;
 import com.mason.mapgen.paint.logic.tools.brush.*;
-import com.mason.mapgen.paint.logic.tools.brush.settings.ColorMixer;
-import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBState;
 import com.mason.mapgen.paint.logic.tools.colorPicker.ColorPicker;
-import com.mason.mapgen.paint.skeletons.QuerySetter;
 
 public class PaintToolKit{
 
@@ -16,16 +12,15 @@ public class PaintToolKit{
     private final OnOffState colorPickerState;
 
 
-    public PaintToolKit(QuerySetter<PaintTool> paintToolQuerySetter,
-                        IntQuery sizeQuery,
-                        ColorMixer colorMixer,
-                        OnOffState colorPickerState,
-                        RGBState primaryColorState,
-                        RGBState secondaryColorState){
-        paintToolQuerySetter.setQuery(this::getCurrentTool);
-        this.brush = new BrushTool(sizeQuery, colorMixer);
-        this.colorPickerState = colorPickerState;
-        this.colorPicker = new ColorPicker(primaryColorState, secondaryColorState);
+    public PaintToolKit(PaintToolKitSkeleton skeleton){
+        skeleton.getPaintToolQuerySetter().setQuery(this::getCurrentTool);
+        this.brush = new BrushTool(skeleton.getBrushSizeQuery(), skeleton.getColorMixer());
+        this.colorPickerState = skeleton.getColorPickerState();
+        this.colorPicker = new ColorPicker(
+                skeleton.getPrimaryColorState(),
+                skeleton.getSecondaryColorState(),
+                skeleton.getColorSetterSlot()
+        );
     }
 
     private PaintTool getCurrentTool(){

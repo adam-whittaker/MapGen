@@ -1,7 +1,7 @@
 package com.mason.mapgen.paint.components.panes.topPane.buttons;
 
 import com.mason.libgui.components.buttons.AbstractButton;
-import com.mason.libgui.components.deco.ButtonDeco;
+import com.mason.libgui.components.deco.BasicButtonDeco;
 import com.mason.libgui.core.component.hitbox.HitboxRect;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
 import com.mason.mapgen.paint.components.misc.PaintGrid;
@@ -18,13 +18,11 @@ public class SaveButton extends AbstractButton{
     private final Supplier<PaintGrid> paintGridQuery;
 
 
-    protected SaveButton(String name,
-                         HitboxRect boundary,
-                         ButtonDeco buttonDeco,
+    protected SaveButton(HitboxRect boundary,
                          SaveLocation saveLocation,
                          SaveAsButton saveAsButton,
                          Supplier<PaintGrid> paintGridQuery){
-        super(name, boundary, buttonDeco);
+        super(boundary, BasicButtonDeco.build("assets/paintIcons/SAVE_BUTTON.png"));
         this.saveLocation = saveLocation;
         this.saveAsButton = saveAsButton;
         this.paintGridQuery = paintGridQuery;

@@ -1,7 +1,7 @@
 package com.mason.mapgen.paint.components.panes.topPane.buttons;
 
 import com.mason.libgui.components.buttons.AbstractButton;
-import com.mason.libgui.components.deco.ButtonDeco;
+import com.mason.libgui.components.deco.BasicButtonDeco;
 import com.mason.libgui.core.component.hitbox.HitboxRect;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
 import com.mason.mapgen.paint.components.misc.PaintGrid;
@@ -20,13 +20,11 @@ public class LoadButton extends AbstractButton{
     private final Consumer<PaintGrid> paintGridLoader;
 
 
-    protected LoadButton(String name,
-                         HitboxRect boundary,
-                         ButtonDeco buttonDeco,
+    protected LoadButton(HitboxRect boundary,
                          SaveLocation saveLocation,
                          SaveButton saveButton,
                          Consumer<PaintGrid> paintGridLoader){
-        super(name, boundary, buttonDeco);
+        super(boundary, BasicButtonDeco.build("assets/paintIcons/LOAD_BUTTON.png"));
         this.saveLocation = saveLocation;
         this.saveButton = saveButton;
         this.paintGridLoader = paintGridLoader;

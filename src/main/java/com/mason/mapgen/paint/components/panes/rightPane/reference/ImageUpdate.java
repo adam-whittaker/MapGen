@@ -5,9 +5,11 @@ import java.awt.image.BufferedImage;
 public interface ImageUpdate{
 
 
-    void unsetImage();
+    void clearImage();
 
     void setImage(BufferedImage image);
+
+    void recentreImage();
 
 
     interface ImageUpdateSetter{
@@ -23,7 +25,7 @@ public interface ImageUpdate{
         private ImageUpdate update = new ImageUpdate(){
 
             @Override
-            public void unsetImage(){
+            public void clearImage(){
                 throw new IllegalStateException("ImageUpdate unset!");
             }
 
@@ -33,18 +35,20 @@ public interface ImageUpdate{
             }
 
             @Override
-            public String toString(){
-                return "DEFAULT_ERROR_IMAGE_UPDATE";
+            public void recentreImage(){
+                throw new IllegalStateException("ImageUpdate unset!");
             }
+
         };
+        private boolean updateSet = false;
 
 
         public ImageUpdateSlot(){}
 
 
         @Override
-        public void unsetImage(){
-            update.unsetImage();
+        public void clearImage(){
+            update.clearImage();
         }
 
         @Override
@@ -53,11 +57,16 @@ public interface ImageUpdate{
         }
 
         @Override
+        public void recentreImage(){
+            update.recentreImage();
+        }
+
+        @Override
         public void setImageUpdate(ImageUpdate imageUpdate){
-            String updateName = this.update.toString();
-            if(!updateName.equals("DEFAULT_ERROR_IMAGE_UPDATE")){
+            if(updateSet){
                 throw new IllegalStateException("ImageUpdateSlot already filled!");
             }
+            updateSet = true;
             this.update = imageUpdate;
         }
 

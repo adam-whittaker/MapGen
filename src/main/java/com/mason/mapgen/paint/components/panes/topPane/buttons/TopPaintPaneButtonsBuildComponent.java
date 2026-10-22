@@ -1,8 +1,6 @@
 package com.mason.mapgen.paint.components.panes.topPane.buttons;
 
 import com.mason.libgui.components.buttons.Button;
-import com.mason.libgui.components.deco.BasicButtonDeco;
-import com.mason.libgui.components.deco.ButtonDeco;
 import com.mason.libgui.components.panes.layout.PaneLayout;
 import com.mason.libgui.construction.*;
 import com.mason.libgui.core.component.hitbox.BasicHitboxRect;
@@ -14,6 +12,7 @@ import com.mason.mapgen.paint.components.panes.topPane.resources.SaveLocation;
 
 import java.util.Set;
 
+import static com.mason.mapgen.paint.components.paintGUIState.PaintGUIStateBuildCollection.PAINT_GUI_PARAMS;
 import static com.mason.mapgen.paint.components.panes.imagePane.versionedCanvasController.VersionedCanvasControllerBuildComponent.*;
 
 public class TopPaintPaneButtonsBuildComponent extends ComponentBuildResource<Button[]>{
@@ -27,6 +26,7 @@ public class TopPaintPaneButtonsBuildComponent extends ComponentBuildResource<Bu
 
     public Set<BuildResource<?>> requiredPreBuildResources(){
         return Set.of(
+                PAINT_GUI_PARAMS,
                 PAINT_IMAGE_QUERY,
                 PAINT_GRID_LOADER,
                 UNDO_CALLABLE,
@@ -52,18 +52,16 @@ public class TopPaintPaneButtonsBuildComponent extends ComponentBuildResource<Bu
 
     private SaveAsButton buildSaveAsButton(SaveLocation saveLocation){
         String name = "SAVE_AS_BUTTON";
-        return new SaveAsButton(name,
+        return new SaveAsButton(
                 getBoundary(name),
-                buildDeco(name),
                 saveLocation,
                 PAINT_GRID_QUERY.get());
     }
 
     private SaveButton buildSaveButton(SaveLocation saveLocation, SaveAsButton saveAsButton){
         String name = "SAVE_BUTTON";
-        return new SaveButton(name,
+        return new SaveButton(
                 getBoundary(name),
-                buildDeco(name),
                 saveLocation,
                 saveAsButton,
                 PAINT_GRID_QUERY.get());
@@ -71,9 +69,8 @@ public class TopPaintPaneButtonsBuildComponent extends ComponentBuildResource<Bu
 
     private LoadButton buildLoadButton(SaveLocation saveLocation, SaveButton saveButton){
         String name = "LOAD_BUTTON";
-        return new LoadButton(name,
+        return new LoadButton(
                 getBoundary(name),
-                buildDeco(name),
                 saveLocation,
                 saveButton,
                 PAINT_GRID_LOADER.get());
@@ -81,37 +78,30 @@ public class TopPaintPaneButtonsBuildComponent extends ComponentBuildResource<Bu
 
     private ExportButton buildExportButton(){
         String name = "EXPORT_BUTTON";
-        return new ExportButton(name,
+        return new ExportButton(
                 getBoundary(name),
-                buildDeco(name),
                 PAINT_IMAGE_QUERY.get());
     }
 
     private UndoButton buildUndoButton(){
         String name = "UNDO_BUTTON";
-        return new UndoButton(name,
+        return new UndoButton(
                 getBoundary(name),
-                buildDeco(name),
                 UNDO_CALLABLE.get());
     }
 
     private RedoButton buildRedoButton(){
         String name = "REDO_BUTTON";
-        return new RedoButton(name,
+        return new RedoButton(
                 getBoundary(name),
-                buildDeco(name),
                 REDO_CALLABLE.get());
     }
 
     private HitboxRect getBoundary(String name){
         PaneLayout layout = TopPaintPaneBuildComponent.LAYOUT.get();
-        Size size = new Size(36, 36);
+        Size size = PAINT_GUI_PARAMS.get().toggleSize();
         Coord coord = layout.centre(name, size);
         return new BasicHitboxRect(coord, size);
-    }
-
-    private ButtonDeco buildDeco(String name){
-        return BasicButtonDeco.build("assets/paintIcons/" + name + ".png");
     }
 
 

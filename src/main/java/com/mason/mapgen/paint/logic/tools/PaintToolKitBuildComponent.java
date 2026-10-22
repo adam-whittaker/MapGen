@@ -3,14 +3,7 @@ package com.mason.mapgen.paint.logic.tools;
 import com.mason.libgui.construction.BuildResource;
 import com.mason.libgui.construction.ComponentBuildResource;
 import com.mason.libgui.construction.SettableBuildResource;
-import com.mason.libstruct.states.intState.IntQuery;
-import com.mason.libstruct.states.onOff.OnOffQuery;
-import com.mason.libstruct.states.onOff.OnOffState;
-import com.mason.libstruct.states.position.PositionQuery;
 import com.mason.mapgen.paint.logic.tools.brush.settings.ColorMixer;
-import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBState;
-import com.mason.mapgen.paint.skeletons.QuerySetter;
-import com.mason.mapgen.paint.skeletons.UpdateSetter;
 
 import java.util.Set;
 
@@ -18,6 +11,7 @@ import static com.mason.mapgen.paint.components.panes.leftPane.brushSettingsMode
 import static com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.colorState.ColorStatesBuildComponent.PRIMARY_COLOR_STATE;
 import static com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.colorState.ColorStatesBuildComponent.SECONDARY_COLOR_STATE;
 import static com.mason.mapgen.paint.components.panes.leftPane.sliders.BrushSlidersBuildComponent.*;
+import static com.mason.mapgen.paint.components.panes.rightPane.reference.ReferenceImageAccessSlotsBuildComponent.COLOR_SETTER_SLOT;
 
 public class PaintToolKitBuildComponent extends ComponentBuildResource<PaintToolKit>{
 
@@ -31,8 +25,10 @@ public class PaintToolKitBuildComponent extends ComponentBuildResource<PaintTool
 
     @Override
     public Set<BuildResource<?>> suppliedBuildResources(){
-        return Set.of(this,
-                COLOR_MIXER);
+        return Set.of(
+                INSTANCE,
+                COLOR_MIXER
+        );
     }
 
     public Set<BuildResource<?>> requiredPreBuildResources(){
@@ -46,39 +42,33 @@ public class PaintToolKitBuildComponent extends ComponentBuildResource<PaintTool
                 BRUSH_CERTAINTY_QUERY,
                 CHANNEL_INDEPENDENCE_STATE,
                 BRUSH_ALPHA_QUERY,
-                COLOR_MIXER_UPDATE_SETTER
+                COLOR_MIXER_UPDATE_SETTER,
+                COLOR_SETTER_SLOT
         );
     }
 
     @Override
     protected PaintToolKit build(){
-        QuerySetter<PaintTool> paintToolQuerySetter = PAINT_TOOL_QUERY_SETTER.get();
-        IntQuery sizeQuery = BRUSH_SIZE_QUERY.get();
-        OnOffState colorPickerState = COLOR_PICKER_STATE.get();
-        RGBState primaryColorState = PRIMARY_COLOR_STATE.get();
-        RGBState secondaryColorState = SECONDARY_COLOR_STATE.get();
-        PositionQuery centreQuery = BRUSH_CENTRE_QUERY.get();
-        PositionQuery certaintyQuery = BRUSH_CERTAINTY_QUERY.get();
-        OnOffQuery channelIndependenceQuery = CHANNEL_INDEPENDENCE_STATE.get();
-        IntQuery alphaQuery = BRUSH_ALPHA_QUERY.get();
-        UpdateSetter colorMixerUpdateSetter = COLOR_MIXER_UPDATE_SETTER.get();
+        PaintToolKitSkeleton skeleton = new PaintToolKitSkeleton();
 
-        ColorMixer colorMixer = new ColorMixer(primaryColorState,
-                secondaryColorState,
-                centreQuery,
-                certaintyQuery,
-                channelIndependenceQuery,
-                alphaQuery,
-                colorMixerUpdateSetter);
+        skeleton.setPaintToolQuerySetter(PAINT_TOOL_QUERY_SETTER.get());
+        skeleton.setBrushSizeQuery(BRUSH_SIZE_QUERY.get());
+        skeleton.setColorPickerState(COLOR_PICKER_STATE.get());
+        skeleton.setPrimaryColorState(PRIMARY_COLOR_STATE.get());
+        skeleton.setSecondaryColorState(SECONDARY_COLOR_STATE.get());
+        skeleton.setCentreQuery(BRUSH_CENTRE_QUERY.get());
+        skeleton.setCertaintyQuery(BRUSH_CERTAINTY_QUERY.get());
+        skeleton.setChannelIndependenceQuery(CHANNEL_INDEPENDENCE_STATE.get());
+        skeleton.setBrushAlphaQuery(BRUSH_ALPHA_QUERY.get());
+        skeleton.setColorMixerUpdateSetter(COLOR_MIXER_UPDATE_SETTER.get());
+        skeleton.setColorSetterSlot(COLOR_SETTER_SLOT.get());
+
+        ColorMixer colorMixer = new ColorMixer(skeleton);
+        skeleton.setColorMixer(colorMixer);
 
         COLOR_MIXER.setResource(colorMixer);
 
-        return new PaintToolKit(paintToolQuerySetter,
-                sizeQuery,
-                colorMixer,
-                colorPickerState,
-                primaryColorState,
-                secondaryColorState);
+        return new PaintToolKit(skeleton);
     }
 
 
