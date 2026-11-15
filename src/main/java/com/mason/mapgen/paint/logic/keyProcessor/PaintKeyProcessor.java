@@ -21,28 +21,40 @@ public class PaintKeyProcessor implements KeyListener{
     private final Map<Integer, Consumer<KeyEvent>> releasedMap = new HashMap<>();
 
 
-    public PaintKeyProcessor(OnOffState colorPickerState,
-                             OnOffState grabReferenceOnlyState,
-                             IntState brushNumState,
-                             int numBrushes){
-        this.colorPickerState = colorPickerState;
-        this.grabReferenceOnlyState = grabReferenceOnlyState;
-        this.brushNumState = brushNumState;
-        mapTypedKeys(numBrushes);
-        mapPressedKeys();
+    public PaintKeyProcessor(PaintKeyProcessorSkeleton skeleton){
+        this.colorPickerState = skeleton.getColorPickerState();
+        this.grabReferenceOnlyState = skeleton.getGrabReferenceOnlyState();
+        this.brushNumState = skeleton.getBrushNumState();
+        mapTypedKeys(skeleton);
+        mapPressedKeys(skeleton);
         mapReleasedKeys();
     }
 
-    private void mapTypedKeys(int numBrushes){
+    private void mapTypedKeys(PaintKeyProcessorSkeleton skeleton){
+        int numBrushes = skeleton.getNumBrushes();
         for(int n=1; n<=numBrushes; n++){
             int finalN = n;
             typedMap.put((char) ('0'+n), e -> brushNumState.setState(finalN -1));
         }
     }
 
-    private void mapPressedKeys(){
+    private void mapPressedKeys(PaintKeyProcessorSkeleton skeleton){
         pressedMap.put(KeyEvent.VK_CONTROL, e -> colorPickerState.turnOn());
         pressedMap.put(KeyEvent.VK_SHIFT, e -> grabReferenceOnlyState.turnOn());
+
+        Runnable redoCallable = skeleton.getRedoCallable();
+        Runnable undoCallable = skeleton.getUndoCallable();
+
+        pressedMap.put(KeyEvent.VK_R, e -> {
+            if(e.isControlDown()){
+                redoCallable.run();
+            }
+        });
+        pressedMap.put(KeyEvent.VK_Z, e -> {
+            if(e.isControlDown()){
+                undoCallable.run();
+            }
+        });
     }
 
     private void mapReleasedKeys(){

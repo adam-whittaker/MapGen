@@ -61,7 +61,7 @@ public class ReferenceImageBuildComponent extends ComponentBuildResource<Referen
     @Override
     public void postBuild(){
         try{
-            BufferedImage testImage = ImageIO.read(new File("references/danaReference.jpg"));
+            BufferedImage testImage = ImageIO.read(new File("references/lilyReference.jpg"));
             REFERENCE_IMAGE_UPDATE.get().setImage(testImage);
         }catch(IOException e){
             throw new RuntimeException(e);
