@@ -51,7 +51,7 @@ public class BrushColorDisplayBuildComponent extends ComponentBuildResource<Brus
     protected BrushColorDisplay build(){
         BrushColorDisplaySkeleton skeleton = buildSkeletonWithInitialFields();
         CoordSlot coordSlot = new CoordSlot();
-        ChunkingGrid<PaintCentroidData> grid = buildGrid(skeleton.getSize(), coordSlot);
+        PaintGrid grid = buildGrid(skeleton.getSize(), coordSlot);
         makeOuterCentroidsTransparent(grid, coordSlot);
         skeleton.setGrid(grid);
         addColorCentroidsToSkeleton(skeleton, grid, coordSlot);
@@ -74,7 +74,7 @@ public class BrushColorDisplayBuildComponent extends ComponentBuildResource<Brus
         return layout.getBounds("BRUSH_COLOR_DISPLAY");
     }
 
-    private static ChunkingGrid<PaintCentroidData> buildGrid(Size size, CoordSlot coordSlot){
+    private static PaintGrid buildGrid(Size size, CoordSlot coordSlot){
         VoronoiChunker<PaintCentroidData, PaintGrid> chunker = buildChunker(size, coordSlot);
         chunker.createChunks();
         return chunker.getGrid();
@@ -153,7 +153,7 @@ public class BrushColorDisplayBuildComponent extends ComponentBuildResource<Brus
         if(centroid == null){
             throw new IllegalStateException("Not enough centroids");
         }
-        centroid.setColor(new Color(0, 0, 0, 0));
+        centroid.setColor(0, new Color(0, 0, 0, 0));
     }
 
 

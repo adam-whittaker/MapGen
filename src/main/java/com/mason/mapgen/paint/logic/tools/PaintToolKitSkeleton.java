@@ -1,6 +1,5 @@
 package com.mason.mapgen.paint.logic.tools;
 
-import com.mason.libstruct.geo.Coord;
 import com.mason.libstruct.states.intState.IntQuery;
 import com.mason.libstruct.states.onOff.OnOffQuery;
 import com.mason.libstruct.states.onOff.OnOffState;
@@ -8,13 +7,9 @@ import com.mason.libstruct.states.position.PositionQuery;
 import com.mason.mapgen.paint.logic.tools.brush.settings.ColorMixer;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBState;
 import com.mason.mapgen.paint.logic.tools.colorPicker.ColorPicker;
-import com.mason.mapgen.paint.setters.ConsumerSetter;
-import com.mason.mapgen.paint.setters.QuerySetter;
-import com.mason.mapgen.paint.setters.UpdateSetter;
-
-import java.awt.*;
-import java.util.Optional;
-import java.util.function.Function;
+import com.mason.libstruct.setters.ConsumerSetter;
+import com.mason.libstruct.setters.QuerySetter;
+import com.mason.libstruct.setters.UpdateSetter;
 
 public class PaintToolKitSkeleton{
 

@@ -43,6 +43,7 @@ public class CanvasController implements BoundedMouseInputListener{
 
     @Override
     public void onMousePressed(MouseInputEvent event){
+        event = event.maskCoordRelativeTo(getCoord());
         PaintTool currentTool = currentToolQuery.get();
         if(toolAcceptsMouseOrReject(currentTool, event)){
             currentTool.apply(canvas, event);
@@ -59,6 +60,7 @@ public class CanvasController implements BoundedMouseInputListener{
 
     @Override
     public void onMouseReleased(MouseInputEvent event){
+        event = event.maskCoordRelativeTo(getCoord());
         PaintTool currentTool = getCurrentPaintTool();
         if(currentTool.isActive()){
             currentTool.releaseTool();

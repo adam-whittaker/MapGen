@@ -1,11 +1,5 @@
 package com.mason.mapgen.paint.logic.fileIO;
 
-import com.mason.libstruct.geo.Size;
-import com.mason.libstruct.lowMemory.ShortGrid;
-import com.mason.libvoronoi.algorithms.components.CentroidIDMap;
-import com.mason.libvoronoi.io.ChunkingGridPersistence;
-import com.mason.mapgen.paint.components.misc.PaintCentroidData;
-import com.mason.mapgen.paint.components.misc.PaintGrid;
 import com.mason.mapgen.structures.enums.DialogOption;
 
 import javax.imageio.ImageIO;
@@ -17,37 +11,29 @@ import java.io.*;
 public class PaintGridPersistence{
 
 
-    private static final ChunkingGridPersistence.ChunkingGridFactory<PaintCentroidData, PaintGrid> PAINT_GRID_FACTORY = new ChunkingGridPersistence.ChunkingGridFactory<>(){
-
-        @Override
-        public PaintGrid constructGrid(Size size, ShortGrid centroidIDGrid, ShortGrid distToCentroidGrid, CentroidIDMap<PaintCentroidData> centroidDataMap){
-            return new PaintGrid(size, centroidIDGrid, distToCentroidGrid, centroidDataMap);
+    private static void writeToFile(File file, PaintGridSaveData saveData) throws IOException{
+        try(DataOutputStream out = new DataOutputStream(
+                new BufferedOutputStream(new FileOutputStream(file)))){
+            saveData.writeToDataStream(out);
         }
-
-        @Override
-        public PaintCentroidData readFromDataStream(DataInputStream in) throws IOException{
-            return PaintCentroidData.readFromDataStream(in);
-        }
-    };
-
-
-    private static void writeToFile(File file, PaintGrid grid) throws IOException{
-        ChunkingGridPersistence.writeToFile(file, grid);
     }
 
-    public static void tryWriteToFile(File file, PaintGrid grid){
+    public static void tryWriteToFile(File file, PaintGridSaveData saveData){
         try{
-            PaintGridPersistence.writeToFile(file, grid);
+            PaintGridPersistence.writeToFile(file, saveData);
         }catch(IOException e){
             e.printStackTrace(System.err);
         }
     }
 
-    private static PaintGrid readFromFile(File file) throws IOException{
-        return ChunkingGridPersistence.readFromFile(file, PAINT_GRID_FACTORY);
+    private static PaintGridSaveData readFromFile(File file) throws IOException{
+        try(DataInputStream in = new DataInputStream(
+                new BufferedInputStream(new FileInputStream(file)))){
+            return PaintGridSaveData.readFromDataStream(in);
+        }
     }
 
-    public static PaintGrid tryReadFromFile(File file){
+    public static PaintGridSaveData tryReadFromFile(File file){
         try{
             return readFromFile(file);
         }catch(IOException e){

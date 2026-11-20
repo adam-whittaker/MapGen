@@ -28,7 +28,7 @@ public class TopPaintPaneButtonsBuildComponent extends ComponentBuildResource<Bu
         return Set.of(
                 PAINT_GUI_PARAMS,
                 PAINT_IMAGE_QUERY,
-                PAINT_GRID_LOADER,
+                SAVE_DATA_LOADER,
                 UNDO_CALLABLE,
                 REDO_CALLABLE,
                 TopPaintPaneBuildComponent.LAYOUT
@@ -55,7 +55,8 @@ public class TopPaintPaneButtonsBuildComponent extends ComponentBuildResource<Bu
         return new SaveAsButton(
                 getBoundary(name),
                 saveLocation,
-                PAINT_GRID_QUERY.get());
+                SAVE_DATA_QUERY.get()
+        );
     }
 
     private SaveButton buildSaveButton(SaveLocation saveLocation, SaveAsButton saveAsButton){
@@ -64,7 +65,8 @@ public class TopPaintPaneButtonsBuildComponent extends ComponentBuildResource<Bu
                 getBoundary(name),
                 saveLocation,
                 saveAsButton,
-                PAINT_GRID_QUERY.get());
+                SAVE_DATA_QUERY.get()
+        );
     }
 
     private LoadButton buildLoadButton(SaveLocation saveLocation, SaveButton saveButton){
@@ -73,28 +75,32 @@ public class TopPaintPaneButtonsBuildComponent extends ComponentBuildResource<Bu
                 getBoundary(name),
                 saveLocation,
                 saveButton,
-                PAINT_GRID_LOADER.get());
+                SAVE_DATA_LOADER.get()
+        );
     }
 
     private ExportButton buildExportButton(){
         String name = "EXPORT_BUTTON";
         return new ExportButton(
                 getBoundary(name),
-                PAINT_IMAGE_QUERY.get());
+                PAINT_IMAGE_QUERY.get()
+        );
     }
 
     private UndoButton buildUndoButton(){
         String name = "UNDO_BUTTON";
         return new UndoButton(
                 getBoundary(name),
-                UNDO_CALLABLE.get());
+                UNDO_CALLABLE.get()
+        );
     }
 
     private RedoButton buildRedoButton(){
         String name = "REDO_BUTTON";
         return new RedoButton(
                 getBoundary(name),
-                REDO_CALLABLE.get());
+                REDO_CALLABLE.get()
+        );
     }
 
     private HitboxRect getBoundary(String name){

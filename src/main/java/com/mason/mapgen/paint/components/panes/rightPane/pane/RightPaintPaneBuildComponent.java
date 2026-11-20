@@ -6,11 +6,18 @@ import com.mason.libgui.construction.BuildResource;
 import com.mason.libgui.construction.ComponentBuildResource;
 import com.mason.libgui.construction.SettableBuildResource;
 import com.mason.libgui.core.component.UIComponent;
+import com.mason.libgui.core.component.hitbox.HitboxRect;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.geo.Size;
 import com.mason.libstruct.interfaces.RectQuery;
 import com.mason.mapgen.paint.components.paintGUIState.layout.PaintGUIStateLayoutBuildComponent;
+import com.mason.mapgen.paint.components.panes.rightPane.layersPane.PaintLayersPaneBuildComponent;
+import com.mason.mapgen.paint.components.panes.rightPane.otherButtons.CreateLayerButton;
 import com.mason.mapgen.paint.components.panes.rightPane.referenceButtons.ReferenceTweakablesBuildComponent;
 
 import java.util.Set;
+
+import static com.mason.mapgen.paint.components.panes.imagePane.versionedCanvasController.VersionedCanvasControllerBuildComponent.CREATE_LAYER_UPDATE;
 
 public class RightPaintPaneBuildComponent extends ComponentBuildResource<RightPaintPane>{
 
@@ -25,7 +32,8 @@ public class RightPaintPaneBuildComponent extends ComponentBuildResource<RightPa
     @Override
     public Set<BuildResource<?>> requiredPreBuildResources(){
         return Set.of(
-                PaintGUIStateLayoutBuildComponent.INSTANCE
+                PaintGUIStateLayoutBuildComponent.INSTANCE,
+                CREATE_LAYER_UPDATE
         );
     }
 
@@ -42,8 +50,21 @@ public class RightPaintPaneBuildComponent extends ComponentBuildResource<RightPa
         PaneLayout guiStateLayout = PaintGUIStateLayoutBuildComponent.INSTANCE.get();
         RectQuery boundary = guiStateLayout.getBounds("RIGHT_PAINT_PANE");
         LAYOUT.setResource(new RightPaintPaneLayout(boundary.getSize()));
-        return RightPaintPane.buildEmptyPane(boundary);
+        RightPaintPane pane = RightPaintPane.buildEmptyPane(boundary);
+        pane.addComponent(buildCreateLayerButton());
+        return pane;
     }
+
+    private UIComponent buildCreateLayerButton(){
+        PaneLayout layout = LAYOUT.get();
+        Size buttonSize = new Size(36, 36);
+        Coord coord = layout.centre("CREATE_LAYER_BUTTON", buttonSize);
+        return new CreateLayerButton(
+                HitboxRect.build(coord, buttonSize),
+                CREATE_LAYER_UPDATE.get()
+        );
+    }
+
 
     @Override
     public void postBuild(){
@@ -52,6 +73,9 @@ public class RightPaintPaneBuildComponent extends ComponentBuildResource<RightPa
         for(UIComponent component : ReferenceTweakablesBuildComponent.REFERENCE_TWEAKABLES.get()){
             pane.addComponent(component);
         }
+
+        Pane paintLayersPane = PaintLayersPaneBuildComponent.INSTANCE.get();
+        pane.addComponent(paintLayersPane);
     }
 
 

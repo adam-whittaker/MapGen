@@ -1,4 +1,4 @@
-package com.mason.mapgen.paint.components.panes.rightPane.resources;
+package com.mason.mapgen.paint.components.panes.rightPane.reference;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;

@@ -18,6 +18,7 @@ import com.mason.mapgen.paint.components.panes.leftPane.paletteCanvas.PaletteCan
 import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneBuildComponent;
 import com.mason.mapgen.paint.components.panes.leftPane.sliders.BrushSlidersBuildComponent;
 import com.mason.mapgen.paint.components.panes.leftPane.toggles.LeftPaintPaneTogglesBuildComponent;
+import com.mason.mapgen.paint.components.panes.rightPane.layersPane.PaintLayersPaneBuildComponent;
 import com.mason.mapgen.paint.components.panes.rightPane.pane.RightPaintPaneBuildComponent;
 import com.mason.mapgen.paint.components.panes.rightPane.reference.ReferenceImageBuildComponent;
 import com.mason.mapgen.paint.components.panes.rightPane.reference.ReferenceImageAccessSlotsBuildComponent;
@@ -65,6 +66,7 @@ public class PaintGUIStateBuildCollection extends BuildComponentCollection{
 
         addComponent(RightPaintPaneBuildComponent.INSTANCE);
         addComponent(ReferenceTweakablesBuildComponent.INSTANCE);
+        addComponent(PaintLayersPaneBuildComponent.INSTANCE);
 
         addComponent(BottomPaintPaneBuildComponent.INSTANCE);
     }

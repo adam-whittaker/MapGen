@@ -5,7 +5,7 @@ import com.mason.mapgen.paint.logic.canvas.PaintCanvas;
 import com.mason.mapgen.paint.logic.history.PaintAction;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBState;
-import com.mason.mapgen.paint.setters.ConsumerSetter;
+import com.mason.libstruct.setters.ConsumerSetter;
 
 import java.awt.*;
 

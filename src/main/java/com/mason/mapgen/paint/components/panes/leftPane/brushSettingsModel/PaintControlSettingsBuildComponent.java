@@ -3,12 +3,12 @@ package com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel;
 import com.mason.libgui.construction.BuildComponent;
 import com.mason.libgui.construction.BuildResource;
 import com.mason.libgui.construction.SettableBuildResource;
+import com.mason.libstruct.setters.QuerySetter;
+import com.mason.libstruct.setters.UpdateSetter;
 import com.mason.libstruct.states.intState.BoundedIntState;
 import com.mason.libstruct.states.intState.IntState;
 import com.mason.libstruct.states.onOff.OnOffState;
 import com.mason.mapgen.paint.logic.tools.PaintTool;
-import com.mason.mapgen.paint.setters.QuerySetter;
-import com.mason.mapgen.paint.setters.UpdateSetter;
 
 import java.util.Set;
 import java.util.function.Supplier;

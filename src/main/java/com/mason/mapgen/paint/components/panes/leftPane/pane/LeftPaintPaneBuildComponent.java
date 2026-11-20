@@ -11,8 +11,8 @@ import com.mason.libgui.core.component.hitbox.HitboxRect;
 import com.mason.mapgen.paint.components.paintGUIState.layout.PaintGUIStateLayoutBuildComponent;
 import com.mason.mapgen.paint.components.panes.leftPane.brushColorDisplay.BrushColorDisplayBuildComponent;
 import com.mason.mapgen.paint.components.panes.leftPane.colorSelector.ColorSelectorBuildComponent;
-import com.mason.mapgen.paint.components.panes.leftPane.paletteCanvas.PaletteCanvasController;
 import com.mason.mapgen.paint.components.panes.leftPane.paletteCanvas.PaletteCanvasControllerBuildComponent;
+import com.mason.mapgen.paint.logic.canvas.CanvasController;
 
 import java.util.Set;
 
@@ -71,7 +71,7 @@ public class LeftPaintPaneBuildComponent extends ComponentBuildResource<LeftPain
 
         pane.addComponent(ColorSelectorBuildComponent.INSTANCE.get());
 
-        PaletteCanvasController paletteCanvasController = PaletteCanvasControllerBuildComponent.INSTANCE.get();
+        CanvasController paletteCanvasController = PaletteCanvasControllerBuildComponent.INSTANCE.get();
         paletteCanvasController.addToContainer(pane);
     }
 

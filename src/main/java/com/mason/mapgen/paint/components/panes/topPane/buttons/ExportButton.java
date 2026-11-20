@@ -16,8 +16,8 @@ public class ExportButton extends AbstractButton{
     private final Supplier<BufferedImage> imageQuery;
 
 
-    protected ExportButton(HitboxRect boundary,
-                           Supplier<BufferedImage> imageQuery){
+    public ExportButton(HitboxRect boundary,
+                        Supplier<BufferedImage> imageQuery){
         super(boundary, BasicButtonDeco.build("assets/paintIcons/EXPORT_BUTTON.png"));
         this.imageQuery = imageQuery;
     }

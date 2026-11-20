@@ -13,7 +13,9 @@ import com.mason.mapgen.paint.components.misc.PaintCentroidData;
 import com.mason.mapgen.paint.components.misc.PaintGrid;
 import com.mason.mapgen.paint.components.paintGUIState.PaintGUIStateBuildCollection;
 import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneBuildComponent;
+import com.mason.mapgen.paint.logic.canvas.CanvasController;
 import com.mason.mapgen.paint.logic.canvas.PaintCanvas;
+import com.mason.mapgen.paint.logic.canvas.SingleLayerPaintCanvas;
 
 import java.util.Set;
 
@@ -21,7 +23,7 @@ import static com.mason.mapgen.paint.components.misc.PaintGrid.PAINT_GRID_INITIA
 import static com.mason.mapgen.paint.components.paintGUIState.PaintGUIStateBuildCollection.CHUNKING_GRID_PARAMS;
 import static com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.PaintControlSettingsBuildComponent.PAINT_TOOL_QUERY;
 
-public class PaletteCanvasControllerBuildComponent extends ComponentBuildResource<PaletteCanvasController>{
+public class PaletteCanvasControllerBuildComponent extends ComponentBuildResource<CanvasController>{
 
 
     public static final PaletteCanvasControllerBuildComponent INSTANCE = new PaletteCanvasControllerBuildComponent();
@@ -39,8 +41,8 @@ public class PaletteCanvasControllerBuildComponent extends ComponentBuildResourc
     }
 
     @Override
-    protected PaletteCanvasController build(){
-        return new PaletteCanvasController(constructCanvas(), PAINT_TOOL_QUERY.get());
+    protected CanvasController build(){
+        return new CanvasController(constructCanvas(), PAINT_TOOL_QUERY.get());
     }
 
     private PaintCanvas constructCanvas(){
@@ -48,7 +50,7 @@ public class PaletteCanvasControllerBuildComponent extends ComponentBuildResourc
         RectQuery boundary = paneLayout.getBounds("PALETTE");
         VoronoiChunker<PaintCentroidData, PaintGrid> paletteChunker = constructPaletteChunker(boundary.getSize());
         paletteChunker.createChunks();
-        return new PaintCanvas(boundary.getCoord(), paletteChunker.getGrid());
+        return new SingleLayerPaintCanvas(boundary.getCoord(), paletteChunker.getGrid());
     }
 
     private VoronoiChunker<PaintCentroidData, PaintGrid> constructPaletteChunker(Size boundarySize){

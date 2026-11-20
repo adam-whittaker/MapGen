@@ -10,20 +10,18 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Set;
 
-import static java.lang.Math.round;
-
 public class PaintCentroidData extends CentroidData{
 
 
-    private Color color;
+    private final LayeredColor color;
 
 
     public PaintCentroidData(Coord coord){
         super(coord);
-        color = randomUnsetColor();
+        color = new LayeredColor(randomUnsetColor());
     }
 
-    protected PaintCentroidData(Coord coord, Set<Short> neighbours, Color color){
+    protected PaintCentroidData(Coord coord, Set<Short> neighbours, LayeredColor color){
         super(coord, neighbours);
         this.color = color;
     }
@@ -34,31 +32,26 @@ public class PaintCentroidData extends CentroidData{
     }
 
 
-    public Color getColor(){
-        return color;
+    public Color getColor(int idx){
+        return color.getColor(idx);
     }
 
-    public void setColor(Color newColor){
-        this.color = newColor;
+    public void setColor(int idx, Color newColor){
+        color.setColor(idx, newColor);
     }
 
-    public void paintColor(Color newColor){
-        float alpha = newColor.getAlpha()/255F;
-        int red = round(this.color.getRed()*(1-alpha) + newColor.getRed()*alpha);
-        int green = round(this.color.getGreen()*(1-alpha) + newColor.getGreen()*alpha);
-        int blue = round(this.color.getBlue()*(1-alpha) + newColor.getBlue()*alpha);
-        this.color = new Color(red, green, blue);
+    public void paintColor(int idx, Color foreground){
+        color.paintColor(idx, foreground);
     }
 
 
     public void writeToDataStream(DataOutputStream out) throws IOException{
-        out.writeInt(color.getRGB());
+        color.writeToDataStream(out);
         super.writeToDataStream(out);
     }
 
     public static PaintCentroidData readFromDataStream(DataInputStream in) throws IOException{
-        int rgb = in.readInt();
-        Color color = new Color(rgb);
+        LayeredColor color = LayeredColor.readFromDataStream(in);
         CentroidData rawData = CentroidData.readFromDataStream(in);
         return new PaintCentroidData(rawData.getCoord(), (Set<Short>)rawData.neighbours(), color);
     }

@@ -4,10 +4,10 @@ import com.mason.libgui.components.panes.layout.PaneLayout;
 import com.mason.libgui.construction.BuildResource;
 import com.mason.libgui.construction.ComponentBuildResource;
 import com.mason.libstruct.interfaces.RectQuery;
+import com.mason.libstruct.setters.UpdateSetter;
 import com.mason.libstruct.states.position.PositionQuery;
 import com.mason.mapgen.paint.components.panes.leftPane.pane.LeftPaintPaneBuildComponent;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBState;
-import com.mason.mapgen.paint.setters.UpdateSetter;
 
 import java.util.Set;
 

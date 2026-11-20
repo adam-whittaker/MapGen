@@ -2,8 +2,7 @@ package com.mason.mapgen.paint.components.panes.imagePane;
 
 import com.mason.libgui.components.behaviour.camera.Zoom;
 import com.mason.libgui.components.panes.Pane;
-import com.mason.libgui.components.panes.construction.PanZoomPaneBuilder;
-import com.mason.libgui.components.panes.construction.PanZoomPaneSkeleton;
+import com.mason.libgui.components.panes.construction.PanZoomPaneFactory;
 import com.mason.libgui.components.panes.layout.PaneLayout;
 import com.mason.libgui.construction.BuildResource;
 import com.mason.libgui.construction.ComponentBuildResource;
@@ -46,9 +45,11 @@ public class PaintedImagePaneBuildComponent extends ComponentBuildResource<Paint
         RectQuery initialView = constructCentredInitialView(boundary.getSize(), canvasController.getSize());
         RectQuery clampingRect = Rect.buildRect(new Coord(0, 0), canvasController.getSize());
         Zoom zoom = constructZoom(boundary.getSize(), canvasController.getSize());
-        PanZoomPaneSkeleton panZoomPaneSkeleton = PanZoomPaneBuilder.buildSkeleton(boundary, initialView, clampingRect, zoom);
-        canvasController.addToContainer(panZoomPaneSkeleton);
-        return new PaintedImagePane(panZoomPaneSkeleton);
+
+        PanZoomPaneFactory<PaintedImagePane> paneFactory = new PanZoomPaneFactory<>(PaintedImagePane::new);
+        PaintedImagePane pane = paneFactory.build(boundary, clampingRect, initialView, zoom);
+        canvasController.addToContainer(pane);
+        return pane;
     }
 
     private static HitboxRect buildPaneBoundary(){

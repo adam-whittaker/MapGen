@@ -4,7 +4,7 @@ import com.mason.libgui.components.buttons.AbstractButton;
 import com.mason.libgui.components.deco.BasicButtonDeco;
 import com.mason.libgui.core.component.hitbox.HitboxRect;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
-import com.mason.mapgen.paint.components.panes.rightPane.resources.ReferenceImagePersistence;
+import com.mason.mapgen.paint.components.panes.rightPane.reference.ReferenceImagePersistence;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

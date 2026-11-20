@@ -1,82 +1,29 @@
 package com.mason.mapgen.paint.logic.canvas;
 
+import com.mason.libgui.core.component.UIComponent;
 import com.mason.libstruct.geo.*;
 import com.mason.libstruct.interfaces.Boundable;
-import com.mason.mapgen.paint.components.misc.PaintCentroidData;
-import com.mason.mapgen.paint.components.misc.GridImageComponent;
-import com.mason.mapgen.paint.components.misc.PaintGrid;
-import com.mason.mapgen.paint.components.panes.imagePane.versionedCanvasController.CanvasViewSlot;
 
 import java.awt.*;
 
-public class PaintCanvas implements Boundable{
+public interface PaintCanvas extends Boundable{
 
 
-    private PaintGrid grid;
-    private final GridImageComponent image;
+    public Short getCentroidIDFromCoord(Coord coord);
+
+    public Color getChunkColor(Coord coord);
+
+    public Color getChunkColorFromCentroidID(Short centroidID);
+
+    public void changeChunkColor(Color newColor, Short centroidID);
+
+    public Iterable<Short> centroidNeighbourhood(Short centroidID, int searchDepth);
 
 
-    public PaintCanvas(Coord topLeft,
-                       PaintGrid grid,
-                       CanvasViewSlot canvasViewSlot){
-        this.grid = grid;
-        this.image = GridImageComponent.buildWithExportQuerySetter(topLeft, grid, canvasViewSlot::setPaintImageQuery);
-        canvasViewSlot.setPaintGridLoader(this::loadInNewPaintGrid);
-        canvasViewSlot.setPaintGridQuery(() -> this.grid);
-    }
+    public Coord getCoord();
 
-    public PaintCanvas(Coord topLeft,
-                       PaintGrid grid){
-        this.grid = grid;
-        this.image = GridImageComponent.build(topLeft, grid);
-    }
+    public Size getSize();
 
-
-    private void loadInNewPaintGrid(PaintGrid newGrid){
-        this.grid = newGrid;
-        image.loadInNewPaintGrid(newGrid);
-    }
-
-
-    public Short getCentroidIDFromCoord(Coord coord){
-        return grid.centroidID(grid.asIndex(coord));
-    }
-
-    public Color getChunkColor(Coord coord){
-        PaintCentroidData data = grid.getCentroidDataByIndex(grid.asIndex(coord));
-        return data.getColor();
-    }
-
-    public Color getChunkColorFromCentroidID(Short centroidID){
-        PaintCentroidData data = grid.getCentroidDataByID(centroidID);
-        return data.getColor();
-    }
-
-    public void changeChunkColor(Color newColor, Short centroidID){
-        PaintCentroidData centroidData = grid.getCentroidDataByID(centroidID);
-        centroidData.paintColor(newColor);
-        image.updateImageInChunk(grid, centroidID);
-    }
-
-    public Iterable<Short> centroidNeighbourhood(Short centroidID, int searchDepth){
-        return grid.centroidNeighbourhood(centroidID, searchDepth);
-    }
-
-    @Override
-    public boolean withinBounds(Coord c){
-        return image.withinBounds(c);
-    }
-
-    public Coord getCoord(){
-        return image.getCoord();
-    }
-
-    public Size getSize(){
-        return image.getSize();
-    }
-
-    protected GridImageComponent getImageComponent(){
-        return image;
-    }
+    public UIComponent getImageComponent();
 
 }

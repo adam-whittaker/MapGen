@@ -40,12 +40,7 @@ public class StubComponent extends AbstractUIComponent implements BoundedMouseIn
 
     @Override
     public void render(Graphics2D g){
-        g.drawImage(image, getCoord().x(), getCoord().y(), null);
-    }
-
-    @Override
-    public void tick(){
-
+        g.drawImage(image, x(), y(), null);
     }
 
     @Override

@@ -9,7 +9,7 @@ import com.mason.libstruct.interfaces.RectQuery;
 import com.mason.libstruct.states.position.PositionQuery;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBState;
 import com.mason.mapgen.paint.logic.tools.colorPicker.ColorPicker;
-import com.mason.mapgen.paint.setters.UpdateSetter;
+import com.mason.libstruct.setters.UpdateSetter;
 
 import java.awt.*;
 
@@ -48,9 +48,6 @@ public class ColorSelector extends AbstractUIComponent implements BoundedMouseIn
     public void render(Graphics2D g){
         colorSelectorImage.render(g, getCoord());
     }
-
-    @Override
-    public void tick(){}
 
 
     @Override

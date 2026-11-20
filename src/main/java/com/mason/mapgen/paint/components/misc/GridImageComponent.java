@@ -5,8 +5,6 @@ import com.mason.libgui.core.component.hitbox.BasicHitboxRect;
 import com.mason.libstruct.geo.Coord;
 import com.mason.libstruct.geo.Size;
 import com.mason.libvoronoi.algorithms.components.CentroidData;
-import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
-import com.mason.mapgen.paint.setters.QuerySetter;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -16,61 +14,60 @@ import static com.mason.mapgen.core.Utils.getPixelMask;
 public class GridImageComponent extends AbstractUIComponent{
 
 
+    private final int layerID;
     private BufferedImage image;
     private int[] pixels;
 
 
-    protected GridImageComponent(Coord topLeft, ChunkingGrid<PaintCentroidData> grid){
+    protected GridImageComponent(Coord topLeft, PaintGrid grid, int layerID){
         super(new BasicHitboxRect(topLeft, grid.size()));
+        this.layerID = layerID;
         loadInNewPaintGrid(grid);
     }
 
-    protected GridImageComponent(Coord topLeft, ChunkingGrid<PaintCentroidData> grid, QuerySetter<BufferedImage> imageQuerySetter){
-        this(topLeft, grid);
-        imageQuerySetter.setQuery(() -> image);
-    }
-
-    public static GridImageComponent build(Coord topLeft, ChunkingGrid<PaintCentroidData> grid){
-        return new GridImageComponent(topLeft, grid);
-    }
-
-    public static GridImageComponent buildWithExportQuerySetter(Coord topLeft, ChunkingGrid<PaintCentroidData> grid, QuerySetter<BufferedImage> imageQuerySetter){
-        return new GridImageComponent(topLeft, grid, imageQuerySetter);
+    public static GridImageComponent buildForSingleLayeredCanvas(Coord topLeft, PaintGrid grid){
+        return new GridImageComponent(topLeft, grid, 0);
     }
 
 
-    public void loadInNewPaintGrid(ChunkingGrid<PaintCentroidData> newGrid){
+    public void loadInNewPaintGrid(PaintGrid newGrid){
+        //Unfinished: Make UIComponent size change based on new grid. Ripple to pane.
         Size size = newGrid.size();
         image = new BufferedImage(size.width(), size.height(), BufferedImage.TYPE_INT_ARGB);
         pixels = getPixelMask(image);
         updateWholeImage(newGrid);
     }
 
+    protected BufferedImage getImage(){
+        return image;
+    }
 
-    public final void updateWholeImage(ChunkingGrid<PaintCentroidData> grid){
+    protected int getLayerID(){
+        return layerID;
+    }
+
+
+    public final void updateWholeImage(PaintGrid grid){
         updateImageOverIndices(grid, grid.pointIndices());
     }
 
-    public final void updateImageInChunk(ChunkingGrid<PaintCentroidData> grid, short centroidID){
+    public final void updateImageInChunk(PaintGrid grid, short centroidID){
         CentroidData data = grid.getCentroidDataByID(centroidID);
         updateImageOverIndices(grid, data.pointIndices());
     }
 
-    protected final void updateImageOverIndices(ChunkingGrid<PaintCentroidData> grid, Iterable<Integer> indices){
+    protected final void updateImageOverIndices(PaintGrid grid, Iterable<Integer> indices){
         PaintCentroidData data;
         for(Integer i : indices){
             data = grid.getCentroidDataByIndex(i);
-            pixels[i] = data.getColor().getRGB();
+            pixels[i] = data.getColor(layerID).getRGB();
         }
     }
 
 
     @Override
     public void render(Graphics2D g){
-        g.drawImage(image, getCoord().x(), getCoord().y(), null);
+        g.drawImage(image, x(), y(), null);
     }
-
-    @Override
-    public void tick(){}
 
 }

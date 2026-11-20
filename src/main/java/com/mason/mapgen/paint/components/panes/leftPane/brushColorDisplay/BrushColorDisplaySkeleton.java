@@ -4,14 +4,14 @@ import com.mason.libstruct.geo.Coord;
 import com.mason.libstruct.interfaces.RectQuery;
 import com.mason.libstruct.geo.Size;
 import com.mason.mapgen.paint.components.misc.PaintCentroidData;
+import com.mason.mapgen.paint.components.misc.PaintGrid;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBQuery;
-import com.mason.mapgen.paint.setters.UpdateSetter;
-import com.mason.libvoronoi.algorithms.components.ChunkingGrid;
+import com.mason.libstruct.setters.UpdateSetter;
 
 public class BrushColorDisplaySkeleton{
 
 
-    private ChunkingGrid<PaintCentroidData> grid;
+    private PaintGrid grid;
     private RectQuery boundary;
 
     private PaintCentroidData primaryColorCentroid;
@@ -29,14 +29,14 @@ public class BrushColorDisplaySkeleton{
     public BrushColorDisplaySkeleton(){}
 
 
-    public ChunkingGrid<PaintCentroidData> getGrid(){
+    public PaintGrid getGrid(){
         if(grid == null){
             throw new IllegalStateException("grid is not set");
         }
         return grid;
     }
 
-    public void setGrid(ChunkingGrid<PaintCentroidData> grid){
+    public void setGrid(PaintGrid grid){
         if(this.grid != null){
             throw new IllegalStateException("grid is already set");
         }

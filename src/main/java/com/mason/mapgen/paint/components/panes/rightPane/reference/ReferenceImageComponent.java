@@ -98,8 +98,8 @@ public class ReferenceImageComponent implements UIComponent, RectQuery, InputDel
         );
 
         g.drawImage(image,
-                getCoord().x(),
-                getCoord().y(),
+                x(),
+                y(),
                 (int) (image.getWidth()*zoom),
                 (int) (image.getHeight()*zoom),
                 null

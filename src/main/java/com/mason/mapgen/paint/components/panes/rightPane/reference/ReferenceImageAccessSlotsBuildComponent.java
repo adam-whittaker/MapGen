@@ -3,7 +3,7 @@ package com.mason.mapgen.paint.components.panes.rightPane.reference;
 import com.mason.libgui.construction.BuildComponent;
 import com.mason.libgui.construction.BuildResource;
 import com.mason.mapgen.paint.logic.tools.colorPicker.ColorPicker;
-import com.mason.mapgen.paint.setters.ConsumerSetter;
+import com.mason.libstruct.setters.ConsumerSetter;
 import java.util.Set;
 import java.util.function.Consumer;
 
