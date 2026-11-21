@@ -5,6 +5,8 @@ import com.mason.libgui.core.component.hitbox.HitboxRect;
 import com.mason.libstruct.geo.Coord;
 import com.mason.libstruct.geo.Size;
 
+import java.util.Arrays;
+
 public class TopPaintPaneLayout extends PaneLayout{
 
 
@@ -14,17 +16,24 @@ public class TopPaintPaneLayout extends PaneLayout{
     }
 
     private void construct(){
+        double[] dissectionRatios = createEqualDissectionRatios(7);
         reduceBoxSizeWithMargin("Root", 0.02, 0.05);
-        horizontalDissect("Root", new double[]{0.3});
-        horizontalDissect("[0,0]", new double[]{0.166, 0.166, 0.166, 0.166, 0.166});
+        horizontalDissect("Root", 0.35);
+        horizontalDissect("[0,0]", dissectionRatios);
 
-        nameAddress("[0,0]-[0,0]", "SAVE_BUTTON");
-        nameAddress("[0,0]-[0,1]", "SAVE_AS_BUTTON");
-        nameAddress("[0,0]-[0,2]", "LOAD_BUTTON");
-        nameAddress("[0,0]-[0,3]", "EXPORT_BUTTON");
-        nameAddress("[0,0]-[0,4]", "UNDO_BUTTON");
-        nameAddress("[0,0]-[0,5]", "REDO_BUTTON");
+        nameAddress("[0,0]-[0,0]", "NEW_PROJECT_BUTTON");
+        nameAddress("[0,0]-[0,1]", "SAVE_BUTTON");
+        nameAddress("[0,0]-[0,2]", "SAVE_AS_BUTTON");
+        nameAddress("[0,0]-[0,3]", "LOAD_BUTTON");
+        nameAddress("[0,0]-[0,4]", "EXPORT_BUTTON");
+        nameAddress("[0,0]-[0,5]", "UNDO_BUTTON");
+        nameAddress("[0,0]-[0,6]", "REDO_BUTTON");
+    }
 
+    private double[] createEqualDissectionRatios(int buttonNum){
+        double[] ratios = new double[buttonNum-1];
+        Arrays.fill(ratios, 1D / buttonNum);
+        return ratios;
     }
 
 

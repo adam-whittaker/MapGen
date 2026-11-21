@@ -38,7 +38,7 @@ public class TopPaintPaneButtonsBuildComponent extends ComponentBuildResource<Bu
     @Override
     protected Button[] build(){
         SaveLocation saveLocation = new SaveLocation();
-        Button[] buttons = new Button[6];
+        Button[] buttons = new Button[7];
 
         buttons[0] = buildSaveAsButton(saveLocation);
         buttons[1] = buildSaveButton(saveLocation, (SaveAsButton) buttons[0]);
@@ -46,6 +46,7 @@ public class TopPaintPaneButtonsBuildComponent extends ComponentBuildResource<Bu
         buttons[3] = buildExportButton();
         buttons[4] = buildUndoButton();
         buttons[5] = buildRedoButton();
+        buttons[6] = buildNewProjectButton((SaveButton) buttons[1]);
 
         return buttons;
     }
@@ -100,6 +101,15 @@ public class TopPaintPaneButtonsBuildComponent extends ComponentBuildResource<Bu
         return new RedoButton(
                 getBoundary(name),
                 REDO_CALLABLE.get()
+        );
+    }
+
+    private NewProjectButton buildNewProjectButton( SaveButton saveButton){
+        String name = "NEW_PROJECT_BUTTON";
+        return new NewProjectButton(
+                getBoundary(name),
+                saveButton,
+                () -> {}
         );
     }
 

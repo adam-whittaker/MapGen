@@ -77,6 +77,7 @@ public class VersionedCanvasControllerBuildComponent extends ComponentBuildResou
         VersionedCanvasController canvasController = new VersionedCanvasController(canvas, toolQuerySlot, 100);
         UNDO_CALLABLE.setResource(canvasController::undo);
         REDO_CALLABLE.setResource(canvasController::redo);
+        CANVAS_VIEW_SLOT.setClearHistoryUpdate(canvasController::clearHistory);
         return canvasController;
     }
 

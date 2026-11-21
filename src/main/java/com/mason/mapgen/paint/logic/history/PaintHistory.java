@@ -60,4 +60,9 @@ public class PaintHistory{
         }
     }
 
+    public void clear(){
+        previousActionIndex = -1;
+        history.clear();
+    }
+
 }

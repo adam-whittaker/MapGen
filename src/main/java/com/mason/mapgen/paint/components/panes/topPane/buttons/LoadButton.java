@@ -12,11 +12,10 @@ import com.mason.mapgen.structures.enums.DialogOption;
 import java.io.File;
 import java.util.function.Consumer;
 
-public class LoadButton extends AbstractButton{
+public class LoadButton extends TrySaveFirstButton{
 
 
     private final SaveLocation saveLocation;
-    private final SaveButton saveButton;
     private final Consumer<PaintGridSaveData> saveDataLoader;
 
 
@@ -24,16 +23,15 @@ public class LoadButton extends AbstractButton{
                          SaveLocation saveLocation,
                          SaveButton saveButton,
                          Consumer<PaintGridSaveData> saveDataLoader){
-        super(boundary, BasicButtonDeco.build("assets/paintIcons/LOAD_BUTTON.png"));
+        super(boundary, BasicButtonDeco.build("assets/paintIcons/LOAD_BUTTON.png"), saveButton);
         this.saveLocation = saveLocation;
-        this.saveButton = saveButton;
         this.saveDataLoader = saveDataLoader;
     }
 
 
     @Override
     public void click(MouseInputEvent e){
-        if(!checkSaveFirst(e)){
+        if(!trySaveFirst(e)){
             return;
         }
         File file = PaintGridPersistence.chooseLoadFile();
@@ -41,14 +39,6 @@ public class LoadButton extends AbstractButton{
             saveLocation.setFile(file);
             saveDataLoader.accept(PaintGridPersistence.tryReadFromFile(file));
         }
-    }
-
-    private boolean checkSaveFirst(MouseInputEvent e){
-        DialogOption option = PaintGridPersistence.shouldSaveFirst();
-        if(option.equals(DialogOption.YES)){
-            saveButton.click(e);
-            return true;
-        }else return option.equals(DialogOption.NO);
     }
 
 }

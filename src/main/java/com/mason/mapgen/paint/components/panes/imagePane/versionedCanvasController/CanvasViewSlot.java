@@ -22,6 +22,7 @@ public class CanvasViewSlot{
     private final QuerySetter.QuerySlot<LayerManager> layerManagerQuerySlot = new QuerySetter.QuerySlot<>();
     private final UpdateSetter.UpdateSlot currentLayerResetterSlot = new UpdateSetter.UpdateSlot();
     private final UpdateSetter.UpdateSlot createLayerUpdateSlot = new UpdateSetter.UpdateSlot();
+    private final UpdateSetter.UpdateSlot clearHistorySlot = new UpdateSetter.UpdateSlot();
 
 
     CanvasViewSlot(){}
@@ -59,6 +60,10 @@ public class CanvasViewSlot{
         createLayerUpdateSlot.setUpdate(update);
     }
 
+    public void setClearHistoryUpdate(Runnable update){
+        clearHistorySlot.setUpdate(update);
+    }
+
 
     public PaintGridSaveData getSaveData(){
         return paintGridQuerySlot.get();
@@ -90,6 +95,10 @@ public class CanvasViewSlot{
 
     public void createLayer(){
         createLayerUpdateSlot.run();
+    }
+
+    public void clearHistory(){
+        clearHistorySlot.run();
     }
 
 }

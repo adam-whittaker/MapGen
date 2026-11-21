@@ -40,4 +40,8 @@ public class VersionedCanvasController extends CanvasController{
         history.redo();
     }
 
+    void clearHistory(){
+        history.clear();
+    }
+
 }
