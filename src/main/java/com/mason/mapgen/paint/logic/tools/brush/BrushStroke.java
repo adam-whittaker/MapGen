@@ -14,9 +14,11 @@ public class BrushStroke implements PaintAction{
     }
 
     private final Map<Short, ColorChange> colorChangeMap;
+    private final int layerID;
 
 
-    BrushStroke(){
+    BrushStroke(int layerID){
+        this.layerID = layerID;
         colorChangeMap = new HashMap<>();
     }
 
@@ -33,15 +35,21 @@ public class BrushStroke implements PaintAction{
     @Override
     public void apply(PaintCanvas canvas){
         colorChangeMap.forEach((centroidID, colorChange) -> {
-            canvas.changeChunkColor(colorChange.nextColor(), centroidID);
+            canvas.setChunkColorOnLayer(colorChange.nextColor(), centroidID, layerID);
         });
     }
 
     @Override
     public void undo(PaintCanvas canvas){
         colorChangeMap.forEach((centroidID, colorChange) -> {
-            canvas.changeChunkColor(colorChange.currentColor(), centroidID);
+            canvas.setChunkColorOnLayer(colorChange.currentColor(), centroidID, layerID);
         });
+    }
+
+
+    @Override
+    public String toString(){
+        return "BRUSH_STROKE: layerID: " + layerID + ", hash: " + hashCode();
     }
 
 }

@@ -38,8 +38,8 @@ public class PersistentLayeredPaintCanvas extends AbstractPaintCanvas{
 
 
     @Override
-    protected void updateImageInChunk(PaintGrid grid, Short centroidID){
-        layers.updateImageInChunk(grid, centroidID);
+    protected void updateImageInChunkOnLayer(PaintGrid grid, Short centroidID, int layerID){
+        layers.updateImageInChunkOnLayer(grid, centroidID, layerID);
     }
 
     @Override

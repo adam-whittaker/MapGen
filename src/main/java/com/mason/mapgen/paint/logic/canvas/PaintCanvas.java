@@ -9,21 +9,40 @@ import java.awt.*;
 public interface PaintCanvas extends Boundable{
 
 
-    public Short getCentroidIDFromCoord(Coord coord);
-
-    public Color getChunkColor(Coord coord);
-
-    public Color getChunkColorFromCentroidID(Short centroidID);
-
-    public void changeChunkColor(Color newColor, Short centroidID);
-
-    public Iterable<Short> centroidNeighbourhood(Short centroidID, int searchDepth);
+    Short getCentroidIDFromCoord(Coord coord);
 
 
-    public Coord getCoord();
+    default Color getChunkColor(Coord coord){
+        return getChunkColorFromLayer(coord, 0);
+    }
 
-    public Size getSize();
+    Color getChunkColorFromLayer(Coord coord, int layerID);
 
-    public UIComponent getImageComponent();
+
+    default Color getChunkColorFromCentroidID(Short centroidID){
+        return getChunkColorFromCentroidAndLayerID(centroidID, 0);
+    }
+
+    Color getChunkColorFromCentroidAndLayerID(Short centroidID, int layerID);
+
+
+    void paintChunkColor(Color paintColor, Short centroidID);
+
+    default void setChunkColor(Color newColor, Short centroidID){
+        setChunkColorOnLayer(newColor, centroidID, 0);
+    }
+
+    void setChunkColorOnLayer(Color newColor, Short centroidID, int layerID);
+
+
+
+    Iterable<Short> centroidNeighbourhood(Short centroidID, int searchDepth);
+
+
+    Coord getCoord();
+
+    Size getSize();
+
+    UIComponent getImageComponent();
 
 }

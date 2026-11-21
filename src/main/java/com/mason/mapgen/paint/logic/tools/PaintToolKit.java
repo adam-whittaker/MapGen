@@ -14,7 +14,7 @@ public class PaintToolKit{
 
     public PaintToolKit(PaintToolKitSkeleton skeleton){
         skeleton.getPaintToolQuerySetter().setQuery(this::getCurrentTool);
-        this.brush = new BrushTool(skeleton.getBrushSizeQuery(), skeleton.getColorMixer());
+        this.brush = new BrushTool(skeleton.getBrushSizeQuery(), skeleton.getCurrentLayerQuery(), skeleton.getColorMixer());
         this.colorPickerState = skeleton.getColorPickerState();
         this.colorPicker = new ColorPicker(
                 skeleton.getPrimaryColorState(),

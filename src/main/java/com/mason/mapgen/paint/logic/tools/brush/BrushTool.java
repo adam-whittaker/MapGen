@@ -17,11 +17,13 @@ public class BrushTool implements PaintTool{
     private boolean active;
 
     private final BrushSettingsModel settings;
+    private final IntQuery currentLayerQuery;
 
 
-    public BrushTool(IntQuery sizeQuery, ColorMixer colorMixer){
+    public BrushTool(IntQuery sizeQuery, IntQuery currentLayerQuery, ColorMixer colorMixer){
         active = false;
         this.settings = new BrushSettingsModel(sizeQuery, colorMixer);
+        this.currentLayerQuery = currentLayerQuery;
     }
 
 
@@ -33,16 +35,16 @@ public class BrushTool implements PaintTool{
     @Override
     public void apply(PaintCanvas canvas, MouseInputEvent event){
         if(!active){
-            startBrush();
+            startBrush(currentLayerQuery.getState());
         }
         Short centroidID = canvas.getCentroidIDFromCoord(event.getCoord());
         Iterable<Short> recoloredCentroids = canvas.centroidNeighbourhood(centroidID, settings.getBrushSize());
         changeColor(canvas, recoloredCentroids);
     }
 
-    private void startBrush(){
+    private void startBrush(int layerID){
         active = true;
-        stroke = new BrushStroke();
+        stroke = new BrushStroke(layerID);
     }
 
     private void changeColor(PaintCanvas canvas, Iterable<Short> recoloredCentroids){
@@ -51,9 +53,10 @@ public class BrushTool implements PaintTool{
                 continue;
             }
             Color currentColor = canvas.getChunkColorFromCentroidID(centroidID);
-            Color nextColor = settings.nextRandomColor();
+            Color paintColor = settings.nextRandomColor();
+            canvas.paintChunkColor(paintColor, centroidID);
+            Color nextColor = canvas.getChunkColorFromCentroidID(centroidID);
             stroke.addToStroke(centroidID, currentColor, nextColor);
-            canvas.changeChunkColor(nextColor, centroidID);
         }
     }
 

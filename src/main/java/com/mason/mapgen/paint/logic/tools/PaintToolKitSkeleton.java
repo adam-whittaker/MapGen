@@ -28,6 +28,8 @@ public class PaintToolKitSkeleton{
     private IntQuery brushAlphaQuery;
     private UpdateSetter colorMixerUpdateSetter;
 
+    private IntQuery currentLayerQuery;
+
 
     public PaintToolKitSkeleton(){}
 
@@ -198,6 +200,20 @@ public class PaintToolKitSkeleton{
             throw new IllegalStateException("colorSetterSlot is already set");
         }
         this.colorSetterSlot = colorSetterSlot;
+    }
+
+    public IntQuery getCurrentLayerQuery(){
+        if(currentLayerQuery == null){
+            throw new IllegalStateException("currentLayerQuery is not set");
+        }
+        return currentLayerQuery;
+    }
+
+    public void setCurrentLayerQuery(IntQuery currentLayerQuery){
+        if(this.currentLayerQuery != null){
+            throw new IllegalStateException("currentLayerQuery is already set");
+        }
+        this.currentLayerQuery = currentLayerQuery;
     }
 
 }

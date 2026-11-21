@@ -7,6 +7,7 @@ import com.mason.mapgen.paint.logic.tools.brush.settings.ColorMixer;
 
 import java.util.Set;
 
+import static com.mason.mapgen.paint.components.panes.imagePane.versionedCanvasController.VersionedCanvasControllerBuildComponent.CURRENT_LAYER_QUERY;
 import static com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.PaintControlSettingsBuildComponent.*;
 import static com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.colorState.ColorStatesBuildComponent.PRIMARY_COLOR_STATE;
 import static com.mason.mapgen.paint.components.panes.leftPane.brushSettingsModel.colorState.ColorStatesBuildComponent.SECONDARY_COLOR_STATE;
@@ -43,7 +44,8 @@ public class PaintToolKitBuildComponent extends ComponentBuildResource<PaintTool
                 CHANNEL_INDEPENDENCE_STATE,
                 BRUSH_ALPHA_QUERY,
                 COLOR_MIXER_UPDATE_SETTER,
-                COLOR_SETTER_SLOT
+                COLOR_SETTER_SLOT,
+                CURRENT_LAYER_QUERY
         );
     }
 
@@ -62,6 +64,7 @@ public class PaintToolKitBuildComponent extends ComponentBuildResource<PaintTool
         skeleton.setBrushAlphaQuery(BRUSH_ALPHA_QUERY.get());
         skeleton.setColorMixerUpdateSetter(COLOR_MIXER_UPDATE_SETTER.get());
         skeleton.setColorSetterSlot(COLOR_SETTER_SLOT.get());
+        skeleton.setCurrentLayerQuery(CURRENT_LAYER_QUERY.get());
 
         ColorMixer colorMixer = new ColorMixer(skeleton);
         skeleton.setColorMixer(colorMixer);

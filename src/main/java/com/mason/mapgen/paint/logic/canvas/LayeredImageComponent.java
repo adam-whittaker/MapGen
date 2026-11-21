@@ -3,7 +3,6 @@ package com.mason.mapgen.paint.logic.canvas;
 import com.mason.libgui.core.component.AbstractUIComponent;
 import com.mason.libgui.core.component.hitbox.BasicHitboxRect;
 import com.mason.libstruct.geo.Coord;
-import com.mason.libstruct.states.intState.IntQuery;
 import com.mason.mapgen.paint.components.misc.PaintGrid;
 import com.mason.mapgen.paint.components.panes.imagePane.versionedCanvasController.CanvasViewSlot;
 import com.mason.mapgen.paint.components.panes.rightPane.layersPane.layer.Layer;
@@ -18,7 +17,6 @@ public class LayeredImageComponent extends AbstractUIComponent{
 
 
     private LayerManager layers;
-    private final IntQuery currentLayerQuery;
 
 
     public LayeredImageComponent(
@@ -27,7 +25,6 @@ public class LayeredImageComponent extends AbstractUIComponent{
     ){
         super(new BasicHitboxRect(new Coord(0, 0), grid.size()));
         layers = new LayerManager(grid);
-        this.currentLayerQuery = canvasViewSlot::getCurrentLayer;
         canvasViewSlot.setLayerCountQuery(layers::numLayers);
         canvasViewSlot.setLayerManagerQuery(() -> layers);
         canvasViewSlot.setPaintImageQuery(this::createCompositeImage);
@@ -53,8 +50,8 @@ public class LayeredImageComponent extends AbstractUIComponent{
         }
     }
 
-    public void updateImageInChunk(PaintGrid grid, Short centroidID){
-        Layer layer = layers.getLayer(currentLayerQuery.getState());
+    public void updateImageInChunkOnLayer(PaintGrid grid, Short centroidID, int layerID){
+        Layer layer = layers.getLayer(layerID);
         layer.updateImageInChunk(grid, centroidID);
     }
 

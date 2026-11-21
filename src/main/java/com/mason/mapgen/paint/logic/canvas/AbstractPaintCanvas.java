@@ -30,30 +30,51 @@ public abstract class AbstractPaintCanvas implements PaintCanvas{
 
 
     @Override
-    public Short getCentroidIDFromCoord(Coord coord){
-        return grid.centroidID(grid.asIndex(coord));
+    public Color getChunkColor(Coord coord){
+        return getChunkColorFromLayer(coord, layerQuery.getState());
     }
 
     @Override
-    public Color getChunkColor(Coord coord){
+    public Color getChunkColorFromLayer(Coord coord, int layerID){
         PaintCentroidData data = grid.getCentroidDataByIndex(grid.asIndex(coord));
-        return data.getColor(layerQuery.getState());
+        return data.getColor(layerID);
     }
 
     @Override
     public Color getChunkColorFromCentroidID(Short centroidID){
+        return getChunkColorFromCentroidAndLayerID(centroidID, layerQuery.getState());
+    }
+
+    public Color getChunkColorFromCentroidAndLayerID(Short centroidID, int layerID){
         PaintCentroidData data = grid.getCentroidDataByID(centroidID);
-        return data.getColor(layerQuery.getState());
+        return data.getColor(layerID);
+    }
+
+
+    public void paintChunkColor(Color paintColor, Short centroidID){
+        PaintCentroidData centroidData = grid.getCentroidDataByID(centroidID);
+        centroidData.paintColor(layerQuery.getState(), paintColor);
+        updateImageInChunkOnLayer(grid, centroidID, layerQuery.getState());
     }
 
     @Override
-    public void changeChunkColor(Color newColor, Short centroidID){
-        PaintCentroidData centroidData = grid.getCentroidDataByID(centroidID);
-        centroidData.paintColor(layerQuery.getState(), newColor);
-        updateImageInChunk(grid, centroidID);
+    public void setChunkColor(Color newColor, Short centroidID){
+        setChunkColorOnLayer(newColor, centroidID, layerQuery.getState());
     }
 
-    protected abstract void updateImageInChunk(PaintGrid grid, Short centroidID);
+    @Override
+    public void setChunkColorOnLayer(Color newColor, Short centroidID, int layerID){
+        PaintCentroidData centroidData = grid.getCentroidDataByID(centroidID);
+        centroidData.setColor(layerID, newColor);
+        updateImageInChunkOnLayer(grid, centroidID, layerID);
+    }
+
+    @Override
+    public Short getCentroidIDFromCoord(Coord coord){
+        return grid.centroidID(grid.asIndex(coord));
+    }
+
+    protected abstract void updateImageInChunkOnLayer(PaintGrid grid, Short centroidID, int layerID);
 
     @Override
     public Iterable<Short> centroidNeighbourhood(Short centroidID, int searchDepth){

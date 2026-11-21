@@ -19,7 +19,7 @@ public class SingleLayerPaintCanvas extends AbstractPaintCanvas{
 
 
     @Override
-    protected void updateImageInChunk(PaintGrid grid, Short centroidID){
+    protected void updateImageInChunkOnLayer(PaintGrid grid, Short centroidID, int layerID){
         image.updateImageInChunk(grid, centroidID);
     }
 
