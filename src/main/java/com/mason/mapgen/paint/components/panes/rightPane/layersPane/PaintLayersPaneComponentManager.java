@@ -92,8 +92,10 @@ public class PaintLayersPaneComponentManager extends UIComponentManager{
     }
 
     private IntQuery buildLayerPositionQuery(Layer layer){
-        LayerManager manager = layerManagerQuery.get();
-        return () -> manager.getLayerPosition(layer);
+        return () -> {
+            LayerManager manager = layerManagerQuery.get();
+            return manager.getLayerPosition(layer);
+        };
     }
 
 

@@ -25,10 +25,15 @@ public class LayeredImageComponent extends AbstractUIComponent{
     ){
         super(new BasicHitboxRect(new Coord(0, 0), grid.size()));
         layers = new LayerManager(grid);
-        canvasViewSlot.setLayerCountQuery(layers::numLayers);
-        canvasViewSlot.setLayerManagerQuery(() -> layers);
+        canvasViewSlot.setLayerCountQuery(() -> getLayerManager().numLayers());
+        canvasViewSlot.setLayerManagerQuery(this::getLayerManager);
         canvasViewSlot.setPaintImageQuery(this::createCompositeImage);
-        canvasViewSlot.setCreateLayerUpdate(layers::createLayer);
+        canvasViewSlot.setCreateLayerUpdate(() -> getLayerManager().createLayer());
+    }
+
+    //So we don't reference the mutable object directly.
+    private LayerManager getLayerManager(){
+        return layers;
     }
 
     private BufferedImage createCompositeImage(){
