@@ -2,7 +2,6 @@ package com.mason.mapgen.paint.logic.tools;
 
 import com.mason.libstruct.states.intState.IntQuery;
 import com.mason.libstruct.states.onOff.OnOffQuery;
-import com.mason.libstruct.states.onOff.OnOffState;
 import com.mason.libstruct.states.position.PositionQuery;
 import com.mason.mapgen.paint.logic.tools.brush.settings.ColorMixer;
 import com.mason.mapgen.paint.logic.tools.brush.settings.colorState.RGBState;
@@ -16,8 +15,10 @@ public class PaintToolKitSkeleton{
 
     private QuerySetter<PaintTool> paintToolQuerySetter;
     private IntQuery brushSizeQuery;
+    private OnOffQuery setColorQuery;
     private ColorMixer colorMixer;
-    private OnOffState colorPickerState;
+    private OnOffQuery colorPickerQuery;
+    private OnOffQuery eraserQuery;
     private RGBState primaryColorState;
     private RGBState secondaryColorState;
     private ConsumerSetter<ColorPicker.ColorSetterInput> colorSetterSlot;
@@ -62,6 +63,20 @@ public class PaintToolKitSkeleton{
         this.brushSizeQuery = sizeQuery;
     }
 
+    public OnOffQuery getSetColorQuery(){
+        if(setColorQuery == null){
+            throw new IllegalStateException("setColorQuery is not set");
+        }
+        return setColorQuery;
+    }
+
+    public void setSetColorQuery(OnOffQuery setColorQuery){
+        if(this.setColorQuery != null){
+            throw new IllegalStateException("setColorQuery is already set");
+        }
+        this.setColorQuery = setColorQuery;
+    }
+
     public ColorMixer getColorMixer(){
         if(colorMixer == null){
             throw new IllegalStateException("colorMixer is not set");
@@ -76,18 +91,32 @@ public class PaintToolKitSkeleton{
         this.colorMixer = colorMixer;
     }
 
-    public OnOffState getColorPickerState(){
-        if(colorPickerState == null){
-            throw new IllegalStateException("colorPickerState is not set");
+    public OnOffQuery getColorPickerQuery(){
+        if(colorPickerQuery == null){
+            throw new IllegalStateException("colorPickerQuery is not set");
         }
-        return colorPickerState;
+        return colorPickerQuery;
     }
 
-    public void setColorPickerState(OnOffState colorPickerState){
-        if(this.colorPickerState != null){
-            throw new IllegalStateException("colorPickerState is already set");
+    public void setColorPickerQuery(OnOffQuery colorPickerQuery){
+        if(this.colorPickerQuery != null){
+            throw new IllegalStateException("colorPickerQuery is already set");
         }
-        this.colorPickerState = colorPickerState;
+        this.colorPickerQuery = colorPickerQuery;
+    }
+
+    public OnOffQuery getEraserQuery(){
+        if(eraserQuery == null){
+            throw new IllegalStateException("eraserQuery is not set");
+        }
+        return eraserQuery;
+    }
+
+    public void setEraserQuery(OnOffQuery eraserQuery){
+        if(this.eraserQuery != null){
+            throw new IllegalStateException("eraserQuery is already set");
+        }
+        this.eraserQuery = eraserQuery;
     }
 
     public RGBState getPrimaryColorState(){

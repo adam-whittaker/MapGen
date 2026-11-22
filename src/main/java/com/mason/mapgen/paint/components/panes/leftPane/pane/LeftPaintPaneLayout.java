@@ -20,7 +20,7 @@ public class LeftPaintPaneLayout extends PaneLayout{
         nameAddress("[2,0]", "PALETTE");
         reduceBoxSizeWithMargin("PALETTE", 0.08, 0.1);
 
-        verticalDissect("[1,0]", new double[]{0.8});
+        verticalDissect("[1,0]", 0.8);
         nameAddress("[1,0]-[0,0]", "COLOR_SELECTOR");
         nameAddress("[1,0]-[1,0]", "BRUSH_BRIGHTNESS_SLIDER");
         reduceBoxSizeWithMargin("COLOR_SELECTOR", 0.08, 0.05);
@@ -28,19 +28,22 @@ public class LeftPaintPaneLayout extends PaneLayout{
         reduceBoxSizeWithMargin("BRUSH_BRIGHTNESS_SLIDER", 0.1, 0);
 
         divide("[0,0]", 2, 2);
-        verticalDissect("[0,0]-[0,0]", new double[]{0.2});
+        verticalDissect("[0,0]-[0,0]", 0.2);
         nameAddress("[0,0]-[0,0]-[1,0]", "TOGGLE_BOX");
         nameAddress("[0,0]-[0,1]", "BRUSH_COLOR_DISPLAY");
-        reduceBoxSizeWithMargin("TOGGLE_BOX", 0.0, 0.15);
+        reduceBoxSizeWithMargin("TOGGLE_BOX", 0.25, 0.07);
         reduceBoxSizeWithMargin("BRUSH_COLOR_DISPLAY", 0.1, 0.1);
 
-        divide("TOGGLE_BOX", 2, 6);
-        nameAddress("TOGGLE_BOX-[0,1]", "BRUSH_0_TOGGLE");
-        nameAddress("TOGGLE_BOX-[0,2]", "COLOR_PICKER_TOGGLE");
-        nameAddress("TOGGLE_BOX-[0,3]", "BRUSH_CHANNEL_INDEPENDENCE_TOGGLE");
+        divide("TOGGLE_BOX", 3, 3);
+        nameAddress("TOGGLE_BOX-[0,0]", "COLOR_PICKER_TOGGLE");
+        nameAddress("TOGGLE_BOX-[0,1]", "BRUSH_CHANNEL_INDEPENDENCE_TOGGLE");
+        nameAddress("TOGGLE_BOX-[0,2]", "SET_COLOR_TOGGLE");
+        nameAddress("TOGGLE_BOX-[1,0]", "ERASER_TOGGLE");
         nameAddress("TOGGLE_BOX-[1,1]", "BRUSH_1_TOGGLE");
         nameAddress("TOGGLE_BOX-[1,2]", "BRUSH_2_TOGGLE");
-        nameAddress("TOGGLE_BOX-[1,3]", "BRUSH_3_TOGGLE");
+        nameAddress("TOGGLE_BOX-[2,0]", "BRUSH_3_TOGGLE");
+        nameAddress("TOGGLE_BOX-[2,1]", "BRUSH_4_TOGGLE");
+        nameAddress("TOGGLE_BOX-[2,2]", "BRUSH_5_TOGGLE");
 
         divide("[0,0]-[1,0]", 2, 1);
         divide("[0,0]-[1,1]", 2, 1);

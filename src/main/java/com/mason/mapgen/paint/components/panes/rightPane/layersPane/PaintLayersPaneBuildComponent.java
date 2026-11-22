@@ -15,11 +15,13 @@ import com.mason.libstruct.interfaces.RectQuery;
 import com.mason.libstruct.setters.ConsumerSetter;
 import com.mason.libstruct.states.intState.IntQuery;
 import com.mason.libstruct.states.intState.IntState;
+import com.mason.mapgen.paint.components.panes.rightPane.layersPane.singleLayerPane.SingleLayerPane;
 import com.mason.mapgen.paint.components.panes.rightPane.pane.RightPaintPaneBuildComponent;
 
 import java.awt.*;
 import java.util.Set;
 
+import static com.mason.mapgen.paint.components.paintGUIState.PaintGUIStateBuildCollection.PAINT_GUI_PARAMS;
 import static com.mason.mapgen.paint.components.panes.imagePane.versionedCanvasController.VersionedCanvasControllerBuildComponent.LAYER_COUNT_QUERY;
 import static com.mason.mapgen.paint.components.panes.imagePane.versionedCanvasController.VersionedCanvasControllerBuildComponent.LAYER_MANAGER_QUERY;
 
@@ -57,10 +59,10 @@ public class PaintLayersPaneBuildComponent extends ComponentBuildResource<PaintL
         int minLayerNum = 4;
         IntQuery layerCountQuery = LAYER_COUNT_QUERY.get();
         HitboxRect boundary = buildPaneBoundary();
-        Size singleLayerPaneSize = buildSingleLayerPaneSize(boundary, minLayerNum);
+        SingleLayerPane.SizeParams singleLayerPaneSizeParams = buildSingleLayerPaneSizeParams(boundary, minLayerNum);
         RectQuery clampingRect = new PaintLayersPaneClampRect(boundary, layerCountQuery, minLayerNum);
 
-        ScrollPanPaneSkeleton skeleton = buildPaneSkeleton(boundary, clampingRect, singleLayerPaneSize);
+        ScrollPanPaneSkeleton skeleton = buildPaneSkeleton(boundary, clampingRect, singleLayerPaneSizeParams);
 
         return new PaintLayersPane(skeleton);
     }
@@ -70,11 +72,14 @@ public class PaintLayersPaneBuildComponent extends ComponentBuildResource<PaintL
         return HitboxRect.fromRect(layout.getBounds("PAINT_LAYERS_PANE"));
     }
 
-    private Size buildSingleLayerPaneSize(RectQuery boundary, int minLayerNum){
-        return new Size(boundary.width(), boundary.height()/minLayerNum);
+    private SingleLayerPane.SizeParams buildSingleLayerPaneSizeParams(RectQuery boundary, int minLayerNum){
+        return new SingleLayerPane.SizeParams(
+                new Size(boundary.width(), boundary.height()/minLayerNum),
+                PAINT_GUI_PARAMS.get().toggleSize()
+        );
     }
 
-    private ScrollPanPaneSkeleton buildPaneSkeleton(HitboxRect boundary, RectQuery clampingRect, Size singleLayerPaneSize){
+    private ScrollPanPaneSkeleton buildPaneSkeleton(HitboxRect boundary, RectQuery clampingRect, SingleLayerPane.SizeParams singleLayerPaneSizeParams){
         ScrollPanPaneSkeleton skeleton = new ScrollPanPaneSkeleton();
         skeleton.setBoundary(boundary);
 
@@ -88,16 +93,16 @@ public class PaintLayersPaneBuildComponent extends ComponentBuildResource<PaintL
         );
         skeleton.setBehaviour(behaviour);
 
-        UIComponentManager componentManager = buildComponentManager(singleLayerPaneSize, behaviour);
+        UIComponentManager componentManager = buildComponentManager(singleLayerPaneSizeParams, behaviour);
         skeleton.setComponentManager(componentManager);
 
         return skeleton;
     }
 
-    private UIComponentManager buildComponentManager(Size singleLayerPaneSize, ViewportBehaviour behaviour){
+    private UIComponentManager buildComponentManager(SingleLayerPane.SizeParams singleLayerPaneSizeParams, ViewportBehaviour behaviour){
         return PaintLayersPaneComponentManager.build(
                 LAYER_MANAGER_QUERY.get(),
-                singleLayerPaneSize,
+                singleLayerPaneSizeParams,
                 CURRENT_LAYER_STATE.get(),
                 behaviour
         );

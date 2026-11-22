@@ -9,7 +9,6 @@ import com.mason.libgui.core.componentManagement.sourced.SourcedInteractiveConta
 import com.mason.libgui.core.input.componentLayer.GUIInputDistributor;
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
 import com.mason.libstruct.geo.Coord;
-import com.mason.libstruct.geo.Size;
 import com.mason.libstruct.setters.FunctionSetter;
 import com.mason.libstruct.states.intState.IntQuery;
 import com.mason.libstruct.states.intState.IntState;
@@ -38,13 +37,13 @@ public class PaintLayersPaneComponentManager extends UIComponentManager{
     };
 
     private final Supplier<LayerManager> layerManagerQuery;
-    private final Size singleLayerPaneSize;
+    private final SingleLayerPane.SizeParams singleLayerPaneSizeParams;
     private final IntState currentLayerState;
 
 
     private PaintLayersPaneComponentManager(
             Supplier<LayerManager> layerManagerQuery,
-            Size singleLayerPaneSize,
+            SingleLayerPane.SizeParams singleLayerPaneSizeParams,
             IntState currentLayerState,
             GUIInputDistributor<BoundedMouseInputListener> inputDistributor,
             FunctionSetter<Layer, SingleLayerPane> paneFunctionSetter,
@@ -52,14 +51,14 @@ public class PaintLayersPaneComponentManager extends UIComponentManager{
     ){
         super(components, inputDistributor);
         this.layerManagerQuery = layerManagerQuery;
-        this.singleLayerPaneSize = singleLayerPaneSize;
+        this.singleLayerPaneSizeParams = singleLayerPaneSizeParams;
         this.currentLayerState = currentLayerState;
         paneFunctionSetter.setFunction(this::buildSingleLayerPane);
     }
 
     public static PaintLayersPaneComponentManager build(
             Supplier<LayerManager> layerManagerQuery,
-            Size singleLayerPaneSize,
+            SingleLayerPane.SizeParams singleLayerPaneSizeParams,
             IntState currentLayerState,
             ViewportBehaviour viewportBehaviour
     ){
@@ -72,7 +71,7 @@ public class PaintLayersPaneComponentManager extends UIComponentManager{
         sourcedDistributor.setInputSource(wrapperDistributor);
         return new PaintLayersPaneComponentManager(
                 layerManagerQuery,
-                singleLayerPaneSize,
+                singleLayerPaneSizeParams,
                 currentLayerState,
                 wrapperDistributor,
                 paneFactorySetter,
@@ -82,7 +81,7 @@ public class PaintLayersPaneComponentManager extends UIComponentManager{
 
     private SingleLayerPane buildSingleLayerPane(Layer layer){
         SingleLayerPane pane = SingleLayerPane.buildSingleLayerPane(
-                singleLayerPaneSize,
+                singleLayerPaneSizeParams,
                 layer,
                 buildLayerPositionQuery(layer),
                 currentLayerState

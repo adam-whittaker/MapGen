@@ -64,6 +64,7 @@ public class LeftPaintPaneBuildComponent extends ComponentBuildResource<LeftPain
         for(Toggle brushToggle : BRUSH_TOGGLES.get()) pane.addComponent(brushToggle);
         pane.addComponent(BRUSH_CHANNEL_INDEPENDENCE_TOGGLE.get());
         pane.addComponent(COLOR_PICKER_TOGGLE.get());
+        pane.addComponent(SET_COLOR_TOGGLE.get());
 
         pane.addComponent(BrushColorDisplayBuildComponent.INSTANCE.get());
 

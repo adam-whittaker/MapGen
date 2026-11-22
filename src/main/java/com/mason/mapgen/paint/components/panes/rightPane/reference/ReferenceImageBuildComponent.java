@@ -10,11 +10,6 @@ import com.mason.libstruct.states.position.PositionQuery;
 import com.mason.mapgen.paint.components.panes.imagePane.PaintedImagePaneBuildComponent;
 import com.mason.mapgen.paint.components.panes.imagePane.versionedCanvasController.VersionedCanvasControllerBuildComponent;
 import com.mason.mapgen.paint.logic.canvas.CanvasController;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Set;
 
 import static com.mason.mapgen.paint.components.panes.rightPane.reference.ReferenceImageAccessSlotsBuildComponent.*;
@@ -60,12 +55,7 @@ public class ReferenceImageBuildComponent extends ComponentBuildResource<Referen
 
     @Override
     public void postBuild(){
-        try{
-            BufferedImage testImage = ImageIO.read(new File("references/lilyReference.jpg"));
-            REFERENCE_IMAGE_UPDATE.get().setImage(testImage);
-        }catch(IOException e){
-            throw new RuntimeException(e);
-        }
+
     }
 
     @Override

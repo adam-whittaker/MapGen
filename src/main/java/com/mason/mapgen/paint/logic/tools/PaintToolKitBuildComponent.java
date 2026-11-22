@@ -3,6 +3,7 @@ package com.mason.mapgen.paint.logic.tools;
 import com.mason.libgui.construction.BuildResource;
 import com.mason.libgui.construction.ComponentBuildResource;
 import com.mason.libgui.construction.SettableBuildResource;
+import com.mason.libstruct.states.intState.IntQuery;
 import com.mason.mapgen.paint.logic.tools.brush.settings.ColorMixer;
 
 import java.util.Set;
@@ -45,7 +46,9 @@ public class PaintToolKitBuildComponent extends ComponentBuildResource<PaintTool
                 BRUSH_ALPHA_QUERY,
                 COLOR_MIXER_UPDATE_SETTER,
                 COLOR_SETTER_SLOT,
-                CURRENT_LAYER_QUERY
+                CURRENT_LAYER_QUERY,
+                SET_COLOR_STATE,
+                BRUSH_NUM_STATE
         );
     }
 
@@ -55,7 +58,7 @@ public class PaintToolKitBuildComponent extends ComponentBuildResource<PaintTool
 
         skeleton.setPaintToolQuerySetter(PAINT_TOOL_QUERY_SETTER.get());
         skeleton.setBrushSizeQuery(BRUSH_SIZE_QUERY.get());
-        skeleton.setColorPickerState(COLOR_PICKER_STATE.get());
+        skeleton.setColorPickerQuery(COLOR_PICKER_STATE.get());
         skeleton.setPrimaryColorState(PRIMARY_COLOR_STATE.get());
         skeleton.setSecondaryColorState(SECONDARY_COLOR_STATE.get());
         skeleton.setCentreQuery(BRUSH_CENTRE_QUERY.get());
@@ -65,6 +68,10 @@ public class PaintToolKitBuildComponent extends ComponentBuildResource<PaintTool
         skeleton.setColorMixerUpdateSetter(COLOR_MIXER_UPDATE_SETTER.get());
         skeleton.setColorSetterSlot(COLOR_SETTER_SLOT.get());
         skeleton.setCurrentLayerQuery(CURRENT_LAYER_QUERY.get());
+        skeleton.setSetColorQuery(SET_COLOR_STATE.get());
+
+        IntQuery brushNum = BRUSH_NUM_STATE.get();
+        skeleton.setEraserQuery(() -> brushNum.getState() == 0);
 
         ColorMixer colorMixer = new ColorMixer(skeleton);
         skeleton.setColorMixer(colorMixer);

@@ -31,15 +31,15 @@ public class SingleLayerPane extends Pane{
     }
 
     public static SingleLayerPane buildSingleLayerPane(
-            Size size,
+            SizeParams sizeParams,
             Layer layer,
             IntQuery orderQuery,
             IntState currentLayerState
     ){
-        HitboxRect boundary = buildBoundary(size, orderQuery);
+        HitboxRect boundary = buildBoundary(sizeParams.paneSize, orderQuery);
         PaneSkeleton skeleton = new PaneSkeleton();
         skeleton.setBoundary(boundary);
-        for(UIComponent component : buildComponents(size, layer, currentLayerState)){
+        for(UIComponent component : buildComponents(sizeParams, layer, currentLayerState)){
             skeleton.addComponent(component);
         }
         return new SingleLayerPane(
@@ -68,12 +68,12 @@ public class SingleLayerPane extends Pane{
         };
     }
 
-    private static UIComponent[] buildComponents(Size size, Layer layer, IntState currentLayerState){
-        PaneLayout layout = new SingleLayerPaneLayout(size);
+    private static UIComponent[] buildComponents(SizeParams sizeParams, Layer layer, IntState currentLayerState){
+        PaneLayout layout = new SingleLayerPaneLayout(sizeParams.paneSize);
         UIComponent[] components = new UIComponent[3];
         components[0] = buildThumbnail(layer, layout, currentLayerState);
         components[1] = buildAlphaSlider(layer, layout);
-        components[2] = buildExportButton(layer, layout);
+        components[2] = buildExportButton(layer, layout, sizeParams.buttonSize);
         return components;
     }
 
@@ -93,8 +93,7 @@ public class SingleLayerPane extends Pane{
         return factory.apply(sliderBox);
     }
 
-    private static UIComponent buildExportButton(Layer layer, PaneLayout layout){
-        Size buttonSize = new Size(36, 36);
+    private static UIComponent buildExportButton(Layer layer, PaneLayout layout, Size buttonSize){
         RectQuery buttonBox = Rect.buildRect(
                 layout.centre("LAYER_EXPORT_BUTTON", buttonSize),
                 buttonSize
@@ -118,5 +117,8 @@ public class SingleLayerPane extends Pane{
             g.fillRect(0, 0, width(), height());
         }
     }
+
+
+    public record SizeParams(Size paneSize, Size buttonSize){}
 
 }

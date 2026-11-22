@@ -17,6 +17,7 @@ import com.mason.mapgen.paint.components.panes.rightPane.referenceButtons.Refere
 
 import java.util.Set;
 
+import static com.mason.mapgen.paint.components.paintGUIState.PaintGUIStateBuildCollection.PAINT_GUI_PARAMS;
 import static com.mason.mapgen.paint.components.panes.imagePane.versionedCanvasController.VersionedCanvasControllerBuildComponent.CREATE_LAYER_UPDATE;
 
 public class RightPaintPaneBuildComponent extends ComponentBuildResource<RightPaintPane>{
@@ -33,6 +34,7 @@ public class RightPaintPaneBuildComponent extends ComponentBuildResource<RightPa
     public Set<BuildResource<?>> requiredPreBuildResources(){
         return Set.of(
                 PaintGUIStateLayoutBuildComponent.INSTANCE,
+                PAINT_GUI_PARAMS,
                 CREATE_LAYER_UPDATE
         );
     }
@@ -57,7 +59,7 @@ public class RightPaintPaneBuildComponent extends ComponentBuildResource<RightPa
 
     private UIComponent buildCreateLayerButton(){
         PaneLayout layout = LAYOUT.get();
-        Size buttonSize = new Size(36, 36);
+        Size buttonSize = PAINT_GUI_PARAMS.get().toggleSize();
         Coord coord = layout.centre("CREATE_LAYER_BUTTON", buttonSize);
         return new CreateLayerButton(
                 HitboxRect.build(coord, buttonSize),

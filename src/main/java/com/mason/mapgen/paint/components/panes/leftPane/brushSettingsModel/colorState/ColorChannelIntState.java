@@ -13,9 +13,7 @@ public class ColorChannelIntState implements IntState{
     public ColorChannelIntState(IntQuery brushNum, int numBrushes, int[] initialValues){
         channel = new int[numBrushes];
         this.brushNum = brushNum;
-        for(int n=0; n<channel.length; n++){
-            channel[n] = initialValues[n];
-        }
+        System.arraycopy(initialValues, 0, channel, 0, channel.length);
     }
 
 

@@ -22,6 +22,7 @@ public class PaintControlSettingsBuildComponent implements BuildComponent{
     public static final SettableBuildResource<IntState> BRUSH_NUM_STATE = new SettableBuildResource<>("BRUSH_NUM_STATE");
     public static final SettableBuildResource<OnOffState> COLOR_PICKER_STATE = new SettableBuildResource<>("COLOR_PICKER_STATE");
     public static final SettableBuildResource<OnOffState> CHANNEL_INDEPENDENCE_STATE = new SettableBuildResource<>("CHANNEL_INDEPENDENCE_STATE");
+    public static final SettableBuildResource<OnOffState> SET_COLOR_STATE = new SettableBuildResource<>("SET_COLOR_STATE");
 
     public static final BuildResource<QuerySetter<PaintTool>> PAINT_TOOL_QUERY_SETTER;
     public static final BuildResource<Supplier<PaintTool>> PAINT_TOOL_QUERY;
@@ -68,6 +69,7 @@ public class PaintControlSettingsBuildComponent implements BuildComponent{
                 BRUSH_NUM_STATE,
                 COLOR_PICKER_STATE,
                 CHANNEL_INDEPENDENCE_STATE,
+                SET_COLOR_STATE,
                 PAINT_TOOL_QUERY,
                 PAINT_TOOL_QUERY_SETTER,
                 COLOR_MIXER_UPDATE,
@@ -83,9 +85,10 @@ public class PaintControlSettingsBuildComponent implements BuildComponent{
 
     @Override
     public void ensureBuilt(){
-        NUM_BRUSHES.setResource(4);
+        NUM_BRUSHES.setResource(6);
         BRUSH_NUM_STATE.setResource(new BoundedIntState(0, NUM_BRUSHES.get()));
         COLOR_PICKER_STATE.setResource(OnOffState.newDefault());
+        SET_COLOR_STATE.setResource(OnOffState.newDefault());
         CHANNEL_INDEPENDENCE_STATE.setResource(createBrushNumStateBackedOnOffState());
     }
 

@@ -29,11 +29,13 @@ public class LeftPaintPaneTogglesBuildComponent implements BuildComponent{
     public static final SettableBuildResource<Toggle[]> BRUSH_TOGGLES = new SettableBuildResource<>("BRUSH_TOGGLES");
     public static final SettableBuildResource<Toggle> BRUSH_CHANNEL_INDEPENDENCE_TOGGLE = new SettableBuildResource<>("BRUSH_CHANNEL_INDEPENDENCE_TOGGLE");
     public static final SettableBuildResource<Toggle> COLOR_PICKER_TOGGLE = new SettableBuildResource<>("COLOR_PICKER_TOGGLE");
+    public static final SettableBuildResource<Toggle> SET_COLOR_TOGGLE = new SettableBuildResource<>("SET_COLOR_TOGGLE");
 
 
     private ColorIconBuilder iconBuilder;
     private IntegerToggleGroup toggleGroup;
     private Function<String, HitboxRect> toggleBoundaryBuilder;
+    private Function<String, ButtonDeco> buttonDecoBuilder;
 
 
     private LeftPaintPaneTogglesBuildComponent(){}
@@ -50,7 +52,8 @@ public class LeftPaintPaneTogglesBuildComponent implements BuildComponent{
                 LeftPaintPaneBuildComponent.LAYOUT,
                 NUM_BRUSHES,
                 CHANNEL_INDEPENDENCE_STATE,
-                COLOR_PICKER_STATE
+                COLOR_PICKER_STATE,
+                SET_COLOR_STATE
         );
     }
 
@@ -59,7 +62,8 @@ public class LeftPaintPaneTogglesBuildComponent implements BuildComponent{
         return Set.of(
                 BRUSH_TOGGLES,
                 BRUSH_CHANNEL_INDEPENDENCE_TOGGLE,
-                COLOR_PICKER_TOGGLE
+                COLOR_PICKER_TOGGLE,
+                SET_COLOR_TOGGLE
         );
     }
 
@@ -68,9 +72,11 @@ public class LeftPaintPaneTogglesBuildComponent implements BuildComponent{
         iconBuilder = new ColorIconBuilder(PRIMARY_COLOR_STATE.get(), SECONDARY_COLOR_STATE.get());
         toggleGroup = new IntegerToggleGroup(BRUSH_NUM_STATE.get(), BRUSH_COLOR_DISPLAY_UPDATE.get());
         toggleBoundaryBuilder = createToggleBoundaryBuilder();
+        buttonDecoBuilder = createButtonDecoBuilder();
         BRUSH_TOGGLES.setResource(buildBrushToggles());
         BRUSH_CHANNEL_INDEPENDENCE_TOGGLE.setResource(buildChannelIndependenceToggle());
         COLOR_PICKER_TOGGLE.setResource(buildColorPickerToggle());
+        SET_COLOR_TOGGLE.setResource(buildSetColorToggle());
     }
 
     private static Function<String, HitboxRect> createToggleBoundaryBuilder(){
@@ -82,11 +88,16 @@ public class LeftPaintPaneTogglesBuildComponent implements BuildComponent{
         };
     }
 
+    private static Function<String, ButtonDeco> createButtonDecoBuilder(){
+        return (brushName) -> BasicButtonDeco.build("assets/paintIcons/" + brushName + ".png");
+    }
+
     private Toggle[] buildBrushToggles(){
         Toggle[] toggles = new Toggle[NUM_BRUSHES.get()];
-        for(int brushNum=0; brushNum<toggles.length; brushNum++){
+        for(int brushNum=1; brushNum<toggles.length; brushNum++){
             toggles[brushNum] = constructBrushToggle(brushNum);
         }
+        toggles[0] = constructEraserToggle();
         return toggles;
     }
 
@@ -102,12 +113,19 @@ public class LeftPaintPaneTogglesBuildComponent implements BuildComponent{
         return BrushButtonDeco.buildBrushButtonDeco("assets/paintIcons/brush.png", icons);
     }
 
+    private Toggle constructEraserToggle(){
+        String name = "ERASER_TOGGLE";
+        HitboxRect boundary = toggleBoundaryBuilder.apply(name);
+        ButtonDeco deco = buttonDecoBuilder.apply(name);
+        return toggleGroup.createToggle(boundary, deco, 0);
+    }
+
 
     private Toggle buildChannelIndependenceToggle(){
         String name = "BRUSH_CHANNEL_INDEPENDENCE_TOGGLE";
         return new SourcedToggle(
                 toggleBoundaryBuilder.apply(name),
-                BasicButtonDeco.build("assets/paintIcons/BRUSH_CHANNEL_INDEPENDENCE_TOGGLE.png"),
+                buttonDecoBuilder.apply(name),
                 CHANNEL_INDEPENDENCE_STATE.get()
         );
     }
@@ -117,8 +135,17 @@ public class LeftPaintPaneTogglesBuildComponent implements BuildComponent{
         String name = "COLOR_PICKER_TOGGLE";
         return new SourcedToggle(
                 toggleBoundaryBuilder.apply(name),
-                BasicButtonDeco.build("assets/paintIcons/COLOR_PICKER_TOGGLE.png"),
+                buttonDecoBuilder.apply(name),
                 COLOR_PICKER_STATE.get()
+        );
+    }
+
+    private Toggle buildSetColorToggle(){
+        String name = "SET_COLOR_TOGGLE";
+        return new SourcedToggle(
+                toggleBoundaryBuilder.apply(name),
+                buttonDecoBuilder.apply(name),
+                SET_COLOR_STATE.get()
         );
     }
 
