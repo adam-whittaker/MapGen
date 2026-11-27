@@ -1,6 +1,7 @@
 package com.mason.mapgen.paint.components.panes.imagePane.versionedCanvasController;
 
 
+import com.mason.libstruct.geo.Size;
 import com.mason.libstruct.setters.ConsumerSetter;
 import com.mason.libstruct.setters.QuerySetter;
 import com.mason.libstruct.setters.UpdateSetter;
@@ -23,6 +24,7 @@ public class CanvasViewSlot{
     private final UpdateSetter.UpdateSlot currentLayerResetterSlot = new UpdateSetter.UpdateSlot();
     private final UpdateSetter.UpdateSlot createLayerUpdateSlot = new UpdateSetter.UpdateSlot();
     private final UpdateSetter.UpdateSlot clearHistorySlot = new UpdateSetter.UpdateSlot();
+    private final QuerySetter.QuerySlot<Size> gridSizeQuery = new QuerySetter.QuerySlot<>();
 
 
     CanvasViewSlot(){}
@@ -64,6 +66,10 @@ public class CanvasViewSlot{
         clearHistorySlot.setUpdate(update);
     }
 
+    public void setGridSizeQuery(Supplier<Size> query){
+        gridSizeQuery.setQuery(query);
+    }
+
 
     public PaintGridSaveData getSaveData(){
         return paintGridQuerySlot.get();
@@ -99,6 +105,10 @@ public class CanvasViewSlot{
 
     public void clearHistory(){
         clearHistorySlot.run();
+    }
+
+    public Size getGridSize(){
+        return gridSizeQuery.get();
     }
 
 }

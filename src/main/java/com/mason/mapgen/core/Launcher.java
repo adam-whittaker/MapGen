@@ -16,12 +16,18 @@ public class Launcher{
 
         Size screenSize = new Size(1760, 960);
         Size toggleSize = new Size(36, 36);
-        PaintGUIStateBuildCollection.GUIParams guiParams = new PaintGUIStateBuildCollection.GUIParams(screenSize, 460, toggleSize);
+        PaintGUIStateBuildCollection.GUIParams guiParams = new PaintGUIStateBuildCollection.GUIParams(
+                screenSize,
+                460,
+                toggleSize,
+                24,
+                24
+        );
         PaintGUIStateBuildCollection.ChunkingGridParams chunkingGridParams = new PaintGUIStateBuildCollection.ChunkingGridParams(
                 new Size(1200, 1200),
-                8600,
-                0,
-                AnnexQueries.buildDefaultRandomQuery(RandomSource.asRandom())
+                /*8600*/6000,
+                /*0*/1,
+                /*AnnexQueries.buildDefaultRandomQuery(RandomSource.asRandom())*/ AnnexQueries::euclideanQuery
         );
 
         PaintGUIStateBuildCollection buildCollection = new PaintGUIStateBuildCollection(guiParams, chunkingGridParams);

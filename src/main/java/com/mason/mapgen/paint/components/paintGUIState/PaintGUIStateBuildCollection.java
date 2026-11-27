@@ -79,6 +79,12 @@ public class PaintGUIStateBuildCollection extends BuildComponentCollection{
 
     public record ChunkingGridParams(Size size, int numChunks, int lloydRelaxCount, FloodFillAnnexQuery<PaintCentroidData> query){}
 
-    public record GUIParams(Size screenSize, int sidePaneWidth, Size toggleSize){}
+    public record GUIParams(
+            Size screenSize,
+            int sidePaneWidth,
+            Size toggleSize,
+            int zoomLevels,
+            int zoomRange
+    ){}
 
 }

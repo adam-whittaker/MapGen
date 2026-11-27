@@ -1,7 +1,7 @@
 package com.mason.mapgen.paint.logic.canvas;
 
 import com.mason.libgui.core.component.AbstractUIComponent;
-import com.mason.libgui.core.component.hitbox.BasicHitboxRect;
+import com.mason.libgui.core.component.hitbox.DynamicHitboxRect;
 import com.mason.libstruct.geo.Coord;
 import com.mason.mapgen.paint.components.misc.PaintGrid;
 import com.mason.mapgen.paint.components.panes.imagePane.versionedCanvasController.CanvasViewSlot;
@@ -23,7 +23,10 @@ public class LayeredImageComponent extends AbstractUIComponent{
             PaintGrid grid,
             CanvasViewSlot canvasViewSlot
     ){
-        super(new BasicHitboxRect(new Coord(0, 0), grid.size()));
+        super(DynamicHitboxRect.buildWithStaticCoord(
+                new Coord(0, 0),
+                canvasViewSlot::getGridSize
+        ));
         layers = new LayerManager(grid);
         canvasViewSlot.setLayerCountQuery(() -> getLayerManager().numLayers());
         canvasViewSlot.setLayerManagerQuery(this::getLayerManager);

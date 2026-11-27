@@ -23,6 +23,7 @@ public class PersistentLayeredPaintCanvas extends AbstractPaintCanvas{
         Consumer<PaintGridSaveData> saveDataLoader = buildSaveDataLoader(canvasViewSlot);
         canvasViewSlot.setSaveDataLoader(saveDataLoader);
         canvasViewSlot.setSaveDataQuery(() -> new PaintGridSaveData(getGrid(), canvasViewSlot.getLayerManager()));
+        canvasViewSlot.setGridSizeQuery(() -> getGrid().size());
     }
 
     private Consumer<PaintGridSaveData> buildSaveDataLoader(CanvasViewSlot canvasViewSlot){
